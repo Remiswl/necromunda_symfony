@@ -22,7 +22,7 @@ All texts and illustrations are the property of Games Workshop. The use of this 
 * ~~Resources (/resources)~~
 * Recruit a gang (/recruitment)
 	* 1st page: ask for user name, gang name, gang type,
-	* 2nd page: select the gangers, add weapons & equipment; total credits change when select a ganger (stat at 1,000 credits)
+	* 2nd page: select the gangers, add weapons & equipment; total credits change when select a ganger (start with 1,000 credits)
 	-> modify database : Gangs
 * Create database (see details below)
 	* Once all tables created, migrate to phpMyAdmin

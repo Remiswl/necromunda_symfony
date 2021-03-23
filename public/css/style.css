@@ -1,0 +1,41 @@
+body {
+	background-image:url('../img/background.jpg');
+	background-size:cover;
+	background-position:center;
+	background-repeat:no-repeat;
+	background-attachment:fixed;
+	font-family: 'Black Ops One', cursive;
+}
+
+.fa-user-cog {
+	right:20px;
+	top:20px;
+}
+
+footer {
+    position: fixed;
+    height: auto;
+    bottom: 0;
+    width: 100%;
+    font-size:0.7em;
+}
+/************************ INDEX *********************************/
+#index li {
+	width:300px;
+}
+
+#banner {
+	width:30%;
+}
+
+/************************ RECRUITMENT *********************************/
+
+/************************ MANAGE *********************************/
+
+/************************ BATTLE *********************************/
+
+/************************ RESSOURCES *********************************/
+#ressources .card img {
+	height:437px;
+}
+

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<section id="resources">
+			<div class="d-xl-flex">
+				<div class="container">
+					<div class="row pb-4 border-bottom border-dark">
+						<div class="m-3">
+							<h2 class="my-3 text-center font-weight-bold text-white">Rulebooks</h2>
+
+							<div class="row d-flex flex-wrap">
+								<div class="col-12 col-md-6 col-lg-4 my-2">
+									<div class="card bg-transparent h-100">
+										<img class="card-img-top p-3 h-80" src="{{ asset('img/comprehensive_rulebook.png')}}" alt="comprehensive_rulebook"/>
+										<div class="card-body text-center h-20">
+											<h3><a href="{{ asset('resources/necromunda_comprehensive_rulebook.pdf')}}" target="_blank" class="btn stretched-link text-white">Comprehensive Rulebook (En)</a></h3>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-12 col-md-6 col-lg-4 my-2">
+									<div class="card bg-transparent h-100">
+										<img class="card-img-top p-3 h-80" src="{{ asset('img/community_edition.jpg')}}" alt="community_edition"/>
+										<div class="card-body text-center h-20">
+											<h3><a href="{{ asset('resources/necromunda_community_edition.pdf')}}" target="_blank" class="btn stretched-link text-white">Community Edition (En)</a></h3>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-12 col-md-6 col-lg-4 my-2">
+									<div class="card bg-transparent h-100">
+										<img class="card-img-top p-3 h-80" src="{{ asset('img/underhive.jpg')}}" alt="underhive"/>
+										<div class="card-body text-center h-20">
+											<h3><a href="{{ asset('resources/necromunda_underhive.pdf')}}" target="_blank" class="btn stretched-link text-white">Underhive (Fr)</a></h3>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+{% endblock %}

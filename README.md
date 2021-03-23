@@ -25,7 +25,6 @@ All texts and illustrations are the property of Games Workshop. The use of this 
 	* 2nd page: select the gangers, add weapons & equipment; total credits change when select a ganger (start with 1,000 credits)
 	-> modify database : Gangs
 * Create database (see details below)
-	* Once all tables created, migrate to phpMyAdmin
 * Admin page (/admin):
 	* Allow players and gangs removal
 	* Manage gangers' statistics
@@ -35,8 +34,7 @@ All texts and illustrations are the property of Games Workshop. The use of this 
 * Start a battle (/battle):
 	* add buttons to roll dices to choose the ground, roll dices for attacks, etc.
 	* a single page with information about the ground, the gangs, etc.?
-	* last page (/result) to upgrade each ganger after the end of the battlefatal: ni ceci ni aucun de ses répertoires parents n'est un dépôt git : .git
-
+	* last page (/result) to upgrade each ganger after the end of the battlefatal
 * Settings (/settings):
 	* modifiy gangers' statistics
 	* add and modify weapons
@@ -47,10 +45,13 @@ All texts and illustrations are the property of Games Workshop. The use of this 
 
 ## Database
 
-* Users -> created
-	* login
-	* password
-* Gangs -> created
+* ~~Users~~
+	* pseudo
+	* gangName
+	* gangTypeId
+* ~~GangType~~
+	* name: Cawdor, Delaque, Van Saar, Goliath, Orlock, Escher
+* ~~Gangs~~
 	* userId
 	* gangTypeId
 	* credits
@@ -58,8 +59,7 @@ All texts and illustrations are the property of Games Workshop. The use of this 
 	* reputation
 	* wealth
 	* alliance
-* GangsTypes -> created
-	* name: Cawdor, Delaque, Van Saar, Goliath, Orlock, Escher
+
 * GangersTypes
 	* name (string/not nullable): leader/balaise/ganger/kid
 * Gangers (= list of gangers' caracterics depending on the gang)

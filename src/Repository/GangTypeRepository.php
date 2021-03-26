@@ -19,6 +19,19 @@ class GangTypeRepository extends ServiceEntityRepository
         parent::__construct($registry, GangType::class);
     }
 
+    /**
+     * @return Gangs[] Returns an array of Gangs objects
+     */
+
+    public function findAllGangsNames()
+    {
+        return $this->createQueryBuilder('g')
+            ->orderBy('g.name', 'ASC')
+            ->getQuery() #ligne obligatoire
+            ->getResult() #ligne obligatoire
+        ;
+    }
+
     // /**
     //  * @return GangType[] Returns an array of GangType objects
     //  */

@@ -19,6 +19,19 @@ class GangsRepository extends ServiceEntityRepository
         parent::__construct($registry, Gangs::class);
     }
 
+    /**
+    * @return Gangs[] Returns an array of Gangs objects
+    */
+    public function displayGangData($id): ?Gangs
+    {
+        return $this->createQueryBuilder('g')
+            ->andWhere('g.userId = :val')  // userId -> prendre le nom dans src/Entity/Gangs.php et non celui dans la BDD
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     // /**
     //  * @return Gangs[] Returns an array of Gangs objects
     //  */

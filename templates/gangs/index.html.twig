@@ -5,13 +5,27 @@
 {% block body %}
 
 <div class="text-center text-white">
-	<p>List of gangs</p>
+	<p>My Gang</p>
+	<p>Name: ??</p>
 
-	<ul>
-		{% for gang in gangs %}
-			<li>{{ gang.name }}</li>
-		{% endfor %}
-	</ul>
+	<table>
+		<tr>
+			<td>Credits: {{ gangData.credits }}</td>
+		</tr>
+		<tr>
+			<td>Rating: {{ gangData.gangRating }}</td> <!-- Prendre le nom dans src/Entity/Gangs.php -->
+		</tr>
+		<tr>
+			<td>Reputation: {{ gangData.reputation }}</td>
+		</tr>
+		<tr>
+			<td>Wealth: {{ gangData.wealth }}</td>
+		</tr>
+		<tr>
+			<td>Alliance: {{ gangData.alliance }}</td>
+		</tr>
+	</table>
+
 </div>
 
 {% endblock %}

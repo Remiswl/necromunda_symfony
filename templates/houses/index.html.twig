@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Houses{% endblock %}
+
+{% block body %}
+
+<div class="text-center text-white">
+	<p>List of houses</p>
+
+	<ul>
+		{% for house in houses %}
+			<li>{{ house.name }}</li>
+		{% endfor %}
+	</ul>
+</div>
+
+{% endblock %}

@@ -4,23 +4,26 @@
 
 {% block body %}
 
-<div class="w-100 text-center">
-	<h2 class="text-white">List of gangs</h2>
+	<section id="users">
+		<div class="w-100 text-center">
 
-	{% for user in users %}
-		<!-- manque le House pour définir l'image de fond; user.gangType-->
-		<div class="col-12 col-md-6 col-lg-2 m-auto">
-			<div class="card">
-				<img class="card-img-top" src="{{ asset('img/cawdor.jpg')}}" alt="house">
-				<div class="card-body">
-					<h5 class="card-title">{{ user.pseudo ~ '-' ~ user.gangTypeId }}</h5>
-					<p class="card-text">{{ user.gangName }}</p>
-					<a href="{{ path('gangs', {id : user.id}) }}" class="btn btn-primary">View gang</a>
+			{% for user in users %}
+
+				<!-- manque le House pour définir l'image de fond; user.gangType-->
+				<div class="col-12 col-md-6 col-lg-2 m-auto">
+					<div class="card">
+						<img class="card-img-top" src="{{ asset('img/cawdor.jpg')}}" alt="house">
+						<div class="card-body">
+							<h5 class="card-title">{{ user.pseudo ~ '-' ~ user.gangTypeId }}</h5>
+							<p class="card-text">{{ user.gangName }}</p>
+							<a href="{{ path('gangs', {id : user.id}) }}" class="btn btn-primary">View gang</a>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-	{% endfor %}
 
-</div>
+			{% endfor %}
+
+		</div>
+	</section>
 
 {% endblock %}

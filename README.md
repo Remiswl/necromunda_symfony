@@ -59,10 +59,9 @@ All texts and illustrations are the property of Games Workshop. The use of this 
 	* reputation
 	* wealth
 	* alliance
-
-* GangersTypes
+* ~GangersTypes~
 	* name (string/not nullable): leader/balaise/ganger/kid
-* Gangers (= list of gangers' caracterics depending on the gang)
+* ~Gangers (= list of gangers' caracterics depending on the gang)~
 	* gangerTypeId (integer/not nullable)
  	* houseId (integer/not nullable)
  	* credits (integer/not nullable)
@@ -81,12 +80,12 @@ All texts and illustrations are the property of Games Workshop. The use of this 
  	* cost (integer/not nullable)
  	* adv (integer/nullable)
  	* xp (integer/nullable)
-* MyGangers (= create a new lign for each ganger as soon as a new gang is formed)
+
+* ~MyGangers (= create a new lign for each ganger as soon as a new gang is formed)~
 	* name (string/not nullable)
 	* typeId (integer/not nullable)
  	* gangId (integer/not nullable)
  	* credits (integer/not nullable)
-
  	* move (integer/not nullable)
  	* weaponSkill (integer/not nullable)
  	* ballisticSkill (integer/not nullable)
@@ -99,7 +98,6 @@ All texts and illustrations are the property of Games Workshop. The use of this 
  	* cool (integer/not nullable)
  	* willpower (integer/not nullable)
  	* intelligence (integer/not nullable)
-
  	* cost (integer/not nullable)
  	* adv (integer/nullable)
  	* xp (integer/nullable)

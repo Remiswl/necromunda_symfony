@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+
+	<section id="admin">
+		<div class="text-center text-white">
+			<p>List of houses</p>
+
+			<ul>
+				{% for house in houses %}
+					<li>{{ house.name }}</li>
+				{% endfor %}
+			</ul>
+
+			<!-- Ajouter un champ pour ajouter une house -->
+		</div>
+	</section>
+
+{% endblock %}

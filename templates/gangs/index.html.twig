@@ -4,133 +4,120 @@
 
 {% block body %}
 
-<div class="text-center">
-	<h2 class="text-white">My gang</h2>
-
-	<!-- <div class="col-2 m-auto"> -->
-	<div class="col-10 mx-auto">
-		<table class="table table-bordered bg-white">
-			<tr>
-				<td>House</td>
-				<td>Orclock</td>
-				<td>Gang name</td>
-				<td>Mon gang</td>
-				<td>Gang rating</td>
-				<td>{{ gangData.gangRating }}</td>
-			</tr>
-
-			<tr>
-				<td>Name</td>
-				<td>Characteristics</td>
-				<td colspan=2>Equipment, skills & injuries</td>
-				<td>Cost</td>
-				<td>Exp.</td>
-			</tr>
-
-			<tr>
-				<td>Grimm Ironhead</td>
-				<td rowspan=2>
-					<table class="mx-auto">
+	<section id="gangs">
+		<div class="text-center">
+			<div class="col-10 mx-auto">
+				<table class="table table-bordered bg-white">
+					<thead class="bg-secondary text-white">
 						<tr>
-							<td>M</td>
-							<td>WS</td>
-							<td>BS</td>
-							<td>S</td>
-							<td>T</td>
-							<td>W</td>
-							<td>I</td>
-							<td>A</td>
-							<td>Ld</td>
+							<td colspan=2>House: Orlock</td>
+							<td>Gang name: Mon gang</td>
+							<td>Stash: {{ gangData.credits }} credit</td>
+							<td colspan=2>Gang rating: {{ gangData.gangRating }}</td>
 						</tr>
 						<tr>
-							<td>4</td>
-							<td>4</td>
-							<td>4</td>
-							<td>3</td>
-							<td>3</td>
-							<td>1</td>
-							<td>4</td>
-							<td>1</td>
-							<td>8</td>
+							<td>Image</td>
+							<td>Name</td>
+							<td>Characteristics</td>
+							<td>Equipment, skills & injuries</td>
+							<td>Cost</td>
+							<td>Exp.</td>
 						</tr>
-					</table>
-				</td>
-				<td rowspan=2 colspan=2>Shotgun</td>
-				<td rowspan=2>185</td>
-				<td rowspan=2>64</td>
-			</tr>
-			<tr>
-				<td>Gang leader</td>
-			</tr>
+					</thead>
 
-			<tr>
-				<td colspan=4>TOTALS:</td>
-				<td>995</td>
-				<td>352</td>
-			</tr>
-		</table>
-	</div>
+					<tbody>
+						<tr>
+							<td><img src="{{ asset('img/cawdor_figurine.png') }}" alt="Grimm Ironhead"></td>
+							<td class="align-middle">Grimm Ironhead <br> Gang leader</td>
+							<td class="d-flex flex-row">
+								<table class="mx-auto">
+									<tr>
+										<td>M</td>
+										<td>WS</td>
+										<td>BS</td>
+										<td>S</td>
+										<td>T</td>
+										<td>W</td>
+										<td>I</td>
+										<td>A</td>
+										<td>Ld</td>
+									</tr>
+									<tr>
+										<td>4</td>
+										<td>4</td>
+										<td>4</td>
+										<td>3</td>
+										<td>3</td>
+										<td>1</td>
+										<td>4</td>
+										<td>1</td>
+										<td>8</td>
+									</tr>
+								</table>
+								<i class="fas fa-info-circle"></i>
+							</td>
+							<td class="text-left">Shotgun <i class="fas fa-info-circle"></i></td>
+							<td class="align-middle">185</td>
+							<td class="align-middle">64</td>
+						</tr>
+						<tr>
+							<td colspan=4 class="text-right">TOTALS:</td>
+							<td>995</td>
+							<td>352</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-	<div class="col-10 mx-auto">
-		<table class="table table-bordered bg-white">
-			<tr>
-				<td colspan=2>Territory</td>
-				<td>Credits</td>
-				<td colspan=2>Territory</td>
-				<td>Credits</td>
-			</tr>
-			<tr>
-				<td>1.</td>
-				<td>Slag</td>
-				<td>15</td>
-				<td>6.</td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>2.</td>
-				<td>Drinking hole</td>
-				<td>D6x10</td>
-				<td>7.</td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>3.</td>
-				<td>Mineral </td>
-				<td>D6x10</td>
-				<td>8.</td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>4.</td>
-				<td>Vents</td>
-				<td>10</td>
-				<td>9.</td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>5.</td>
-				<td>Friendly doc</td>
-				<td>D6x10</td>
-				<td>10.</td>
-				<td></td>
-				<td></td>
-			</tr>
+			<div class="col-10 mx-auto">
+				<table class="table table-bordered bg-white">
+					<thead class="bg-secondary text-white">
+						<tr>
+							<td>Territory</td>
+							<td>Credits</td>
+							<td>Territory</td>
+							<td>Credits</td>
+						</tr>
+					</thead>
 
-			<tr>
-				<td colspan=6>Stash</td>
-			</tr>
-			<tr>
-				<td colspan=6>{{ gangData.credits }} credit</td>
-			</tr>
-		</table>
-	</div>
+					<tbody>
+						<tr>
+							<td class="text-left">1. Slag <i class="fas fa-info-circle"></i></td>
+							<td>15</td>
+							<td class="text-left">6.  <i class="fas fa-info-circle"></i></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="text-left">2. Drinking hole <i class="fas fa-info-circle"></i></td>
+							<td>D6x10</td>
+							<td class="text-left">7.  <i class="fas fa-info-circle"></i></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="text-left">3. Mineral <i class="fas fa-info-circle"></i></td>
+							<td>D6x10</td>
+							<td class="text-left">8.  <i class="fas fa-info-circle"></i></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="text-left">4. Vents <i class="fas fa-info-circle"></i></td>
+							<td>10</td>
+							<td class="text-left">9.  <i class="fas fa-info-circle"></i></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="text-left">5. Friendly doc <i class="fas fa-info-circle"></i></td>
+							<td>D6x10</td>
+							<td class="text-left">10.  <i class="fas fa-info-circle"></i></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-	<a href="#" class="btn btn-secondary">Edit</a>
-	<a href="#" class="btn btn-danger">Delete</a>
-</div>
+			<a href="#" class="btn btn-secondary">Edit</a>
+			<a href="#" class="btn btn-danger">Delete</a>
+		</div>
+	</section>
 
 {% endblock %}

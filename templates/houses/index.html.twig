@@ -4,14 +4,24 @@
 
 {% block body %}
 
-<div class="text-center text-white">
-	<p>List of houses</p>
+	<section id="houses">
+		<div class="text-center text-white">
 
-	<ul>
-		{% for house in houses %}
-			<li>{{ house.name }}</li>
-		{% endfor %}
-	</ul>
-</div>
+			{% for house in houses %}
+
+				<div class="col-6 mx-auto my-4 d-flex flex-row">
+					<div class="bg-white col-2 rounded d-flex align-items-center">
+						<img src="{{ house.image }}" alt="{{ house.name }}" class="">
+					</div>
+					<div class="ml-4 w-100 col-10">
+						<h5>{{ house.name }}</h5>
+						<p class="text-left">{{ house.description }}</p>
+					</div>
+				</div>
+
+			{% endfor %}
+
+		</div>
+	</section>
 
 {% endblock %}

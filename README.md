@@ -30,7 +30,7 @@ All texts and illustrations are the property of Games Workshop. The use of this 
 	* Manage gangers' statistics
 	* Add resources
 	* others?
-* Manage your gang (/manage) - Ask the user's login and password or create a profil
+* Manage your gang (/users - /gangs) - allow modify gang data
 * Start a battle (/battle):
 	* add buttons to roll dices to choose the ground, roll dices for attacks, etc.
 	* a single page with information about the ground, the gangs, etc.?
@@ -63,10 +63,9 @@ All texts and illustrations are the property of Games Workshop. The use of this 
 * GangersTypes
 	* name (string/not nullable): leader/balaise/ganger/kid
 * Gangers (= list of gangers' caracterics depending on the gang)
-	* typeId (integer/not nullable)
- 	* gangId (integer/not nullable)
+	* gangerTypeId (integer/not nullable)
+ 	* houseId (integer/not nullable)
  	* credits (integer/not nullable)
-
  	* move (integer/not nullable)
  	* weaponSkill (integer/not nullable)
  	* ballisticSkill (integer/not nullable)
@@ -79,7 +78,6 @@ All texts and illustrations are the property of Games Workshop. The use of this 
  	* cool (integer/not nullable)
  	* willpower (integer/not nullable)
  	* intelligence (integer/not nullable)
-
  	* cost (integer/not nullable)
  	* adv (integer/nullable)
  	* xp (integer/nullable)

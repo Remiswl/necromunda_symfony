@@ -13,7 +13,7 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{id}", name="gangs")
      */
-    public function index(GangsRepository $repository, $id): Response
+    public function show(GangsRepository $repository, $id): Response
     {
         $gangData = $repository->displayGangData($id);
 
@@ -22,4 +22,8 @@ class GangsController extends AbstractController
             'gangData' => $gangData
         ]);
     }
+
+    // public function edit()
+    //
+    // public function delete()
 }

@@ -4,28 +4,133 @@
 
 {% block body %}
 
-<div class="text-center text-white">
-	<p>My Gang</p>
-	<p>Name: ??</p>
+<div class="text-center">
+	<h2 class="text-white">My gang</h2>
 
-	<table>
-		<tr>
-			<td>Credits: {{ gangData.credits }}</td>
-		</tr>
-		<tr>
-			<td>Rating: {{ gangData.gangRating }}</td> <!-- Prendre le nom dans src/Entity/Gangs.php -->
-		</tr>
-		<tr>
-			<td>Reputation: {{ gangData.reputation }}</td>
-		</tr>
-		<tr>
-			<td>Wealth: {{ gangData.wealth }}</td>
-		</tr>
-		<tr>
-			<td>Alliance: {{ gangData.alliance }}</td>
-		</tr>
-	</table>
+	<!-- <div class="col-2 m-auto"> -->
+	<div class="col-10 mx-auto">
+		<table class="table table-bordered bg-white">
+			<tr>
+				<td>House</td>
+				<td>Orclock</td>
+				<td>Gang name</td>
+				<td>Mon gang</td>
+				<td>Gang rating</td>
+				<td>{{ gangData.gangRating }}</td>
+			</tr>
 
+			<tr>
+				<td>Name</td>
+				<td>Characteristics</td>
+				<td colspan=2>Equipment, skills & injuries</td>
+				<td>Cost</td>
+				<td>Exp.</td>
+			</tr>
+
+			<tr>
+				<td>Grimm Ironhead</td>
+				<td rowspan=2>
+					<table class="mx-auto">
+						<tr>
+							<td>M</td>
+							<td>WS</td>
+							<td>BS</td>
+							<td>S</td>
+							<td>T</td>
+							<td>W</td>
+							<td>I</td>
+							<td>A</td>
+							<td>Ld</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>4</td>
+							<td>4</td>
+							<td>3</td>
+							<td>3</td>
+							<td>1</td>
+							<td>4</td>
+							<td>1</td>
+							<td>8</td>
+						</tr>
+					</table>
+				</td>
+				<td rowspan=2 colspan=2>Shotgun</td>
+				<td rowspan=2>185</td>
+				<td rowspan=2>64</td>
+			</tr>
+			<tr>
+				<td>Gang leader</td>
+			</tr>
+
+			<tr>
+				<td colspan=4>TOTALS:</td>
+				<td>995</td>
+				<td>352</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="col-10 mx-auto">
+		<table class="table table-bordered bg-white">
+			<tr>
+				<td colspan=2>Territory</td>
+				<td>Credits</td>
+				<td colspan=2>Territory</td>
+				<td>Credits</td>
+			</tr>
+			<tr>
+				<td>1.</td>
+				<td>Slag</td>
+				<td>15</td>
+				<td>6.</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>2.</td>
+				<td>Drinking hole</td>
+				<td>D6x10</td>
+				<td>7.</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>3.</td>
+				<td>Mineral </td>
+				<td>D6x10</td>
+				<td>8.</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>4.</td>
+				<td>Vents</td>
+				<td>10</td>
+				<td>9.</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>5.</td>
+				<td>Friendly doc</td>
+				<td>D6x10</td>
+				<td>10.</td>
+				<td></td>
+				<td></td>
+			</tr>
+
+			<tr>
+				<td colspan=6>Stash</td>
+			</tr>
+			<tr>
+				<td colspan=6>{{ gangData.credits }} credit</td>
+			</tr>
+		</table>
+	</div>
+
+	<a href="#" class="btn btn-secondary">Edit</a>
+	<a href="#" class="btn btn-danger">Delete</a>
 </div>
 
 {% endblock %}

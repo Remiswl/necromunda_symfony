@@ -6,6 +6,8 @@ use App\Entity\Gangs;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+//use App\Entity\GangType;
+
 /**
  * @method Gangs|null find($id, $lockMode = null, $lockVersion = null)
  * @method Gangs|null findOneBy(array $criteria, array $orderBy = null)
@@ -22,13 +24,24 @@ class GangsRepository extends ServiceEntityRepository
     /**
     * @return Gangs[] Returns an array of Gangs objects
     */
-    public function displayGangData($id): ?Gangs
+    public function displayGangData($id)
     {
         return $this->createQueryBuilder('g')
-            ->andWhere('g.userId = :val')  // userId -> prendre le nom dans src/Entity/Gangs.php et non celui dans la BDD
+            ->andWhere('g.userId = :val')
             ->setParameter('val', $id)
+
+            // Faire les jointures ici ? ou dans le Controller ?
+            // on obtient deux requêtes séparées --> rassembler toutes les infos dans une seule réponse
+            ->innerJoin('App\Entity\GangType', 'gt')
+            ->addSelect('gt')
+            ->andWhere('g.gangTypeId = gt.id')
+
+            ->innerJoin('App\Entity\Users', 'u')
+            ->addSelect('u')
+            ->andWhere('g.userId = u.id')
+
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
         ;
     }
 

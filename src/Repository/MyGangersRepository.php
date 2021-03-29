@@ -22,6 +22,20 @@ class MyGangersRepository extends ServiceEntityRepository
     // /**
     //  * @return MyGangers[] Returns an array of MyGangers objects
     //  */
+    public function displayGangersData($id)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.gangId = :val')
+            ->setParameter('val', $id)
+            ->orderBy('m.type_id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    // /**
+    //  * @return MyGangers[] Returns an array of MyGangers objects
+    //  */
     /*
     public function findByExampleField($value)
     {

@@ -10,10 +10,10 @@
 				<table class="table table-bordered bg-white">
 					<thead class="bg-secondary text-white">
 						<tr>
-							<td colspan=2>House: Orlock</td>
-							<td>Gang name: Mon gang</td>
-							<td>Stash: {{ gangData.credits }} credit</td>
-							<td colspan=2>Gang rating: {{ gangData.gangRating }}</td>
+							<td colspan=2>House: {{ gangData.1.name | upper }}</td>
+							<td>Gang name: {{ gangData.2.gangName | upper }}</td>
+							<td>Stash: {{ gangData.0.credits }} credit</td>
+							<td colspan=2>Gang rating: {{ gangData.0.gangRating }}</td>
 						</tr>
 						<tr>
 							<td>Image</td>
@@ -26,40 +26,43 @@
 					</thead>
 
 					<tbody>
-						<tr>
-							<td><img src="{{ asset('img/cawdor_figurine.png') }}" alt="Grimm Ironhead"></td>
-							<td class="align-middle">Grimm Ironhead <br> Gang leader</td>
-							<td class="d-flex flex-row">
-								<table class="mx-auto">
-									<tr>
-										<td>M</td>
-										<td>WS</td>
-										<td>BS</td>
-										<td>S</td>
-										<td>T</td>
-										<td>W</td>
-										<td>I</td>
-										<td>A</td>
-										<td>Ld</td>
-									</tr>
-									<tr>
-										<td>4</td>
-										<td>4</td>
-										<td>4</td>
-										<td>3</td>
-										<td>3</td>
-										<td>1</td>
-										<td>4</td>
-										<td>1</td>
-										<td>8</td>
-									</tr>
-								</table>
-								<i class="fas fa-info-circle"></i>
-							</td>
-							<td class="text-left">Shotgun <i class="fas fa-info-circle"></i></td>
-							<td class="align-middle">185</td>
-							<td class="align-middle">64</td>
-						</tr>
+						{% for gangerData in gangersData %}
+							<tr>
+								<td><img src="{ gangerData.image }}" alt="{{ gangerData.name }}"></td>
+								<td class="align-middle">{{ gangerData.name | upper }}<br> {{ gangerData.typeId }}</td>
+								<td class="d-flex flex-row">
+									<table class="mx-auto">
+										<tr>
+											<td>M</td>
+											<td>WS</td>
+											<td>BS</td>
+											<td>S</td>
+											<td>T</td>
+											<td>W</td>
+											<td>I</td>
+											<td>A</td>
+											<td>Ld</td>
+										</tr>
+										<tr>
+											<td>{{ gangerData.move }}</td>
+											<td>{{ gangerData.weaponSkill }}</td>
+											<td>{{ gangerData.ballisticSkill }}</td>
+											<td>{{ gangerData.strength }}</td>
+											<td>{{ gangerData.toughness }}</td>
+											<td>{{ gangerData.wounds }}</td>
+											<td>{{ gangerData.initiative }}</td>
+											<td>{{ gangerData.attacks }}</td>
+											<td>{{ gangerData.leadership }}</td>
+										</tr>
+									</table>
+									<i class="fas fa-info-circle"></i>
+								</td>
+								<td class="text-left">Shotgun <i class="fas fa-info-circle"></i></td>
+								<td class="align-middle">{{ gangerData.cost }}</td>
+								<td class="align-middle">{{ gangerData.xp }}</td>
+							</tr>
+						{% endfor %}
+
 						<tr>
 							<td colspan=4 class="text-right">TOTALS:</td>
 							<td>995</td>

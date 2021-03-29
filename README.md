@@ -46,61 +46,11 @@ All texts and illustrations are the property of Games Workshop. The use of this 
 ## Database
 
 * ~~Users~~
-	* pseudo
-	* gangName
-	* gangTypeId
 * ~~GangType~~
-	* name: Cawdor, Delaque, Van Saar, Goliath, Orlock, Escher
 * ~~Gangs~~
-	* userId
-	* gangTypeId
-	* credits
-	* gangRating
-	* reputation
-	* wealth
-	* alliance
 * ~GangersTypes~
-	* name (string/not nullable): leader/balaise/ganger/kid
 * ~Gangers (= list of gangers' caracterics depending on the gang)~
-	* gangerTypeId (integer/not nullable)
- 	* houseId (integer/not nullable)
- 	* credits (integer/not nullable)
- 	* move (integer/not nullable)
- 	* weaponSkill (integer/not nullable)
- 	* ballisticSkill (integer/not nullable)
- 	* strength (integer/not nullable)
- 	* toughness (integer/not nullable)
- 	* wounds (integer/not nullable)
- 	* initiative (integer/not nullable)
- 	* attacks (integer/not nullable)
- 	* leadership (integer/not nullable)
- 	* cool (integer/not nullable)
- 	* willpower (integer/not nullable)
- 	* intelligence (integer/not nullable)
- 	* cost (integer/not nullable)
- 	* adv (integer/nullable)
- 	* xp (integer/nullable)
-
 * ~MyGangers (= create a new lign for each ganger as soon as a new gang is formed)~
-	* name (string/not nullable)
-	* typeId (integer/not nullable)
- 	* gangId (integer/not nullable)
- 	* credits (integer/not nullable)
- 	* move (integer/not nullable)
- 	* weaponSkill (integer/not nullable)
- 	* ballisticSkill (integer/not nullable)
- 	* strength (integer/not nullable)
- 	* toughness (integer/not nullable)
- 	* wounds (integer/not nullable)
- 	* initiative (integer/not nullable)
- 	* attacks (integer/not nullable)
- 	* leadership (integer/not nullable)
- 	* cool (integer/not nullable)
- 	* willpower (integer/not nullable)
- 	* intelligence (integer/not nullable)
- 	* cost (integer/not nullable)
- 	* adv (integer/nullable)
- 	* xp (integer/nullable)
 
 * Weapons (= the table lists the weapons' caracteristics)
 	* category (basic weapon, close combat weapon, pistol, special weapon, heavy weapon)
@@ -119,7 +69,6 @@ All texts and illustrations are the property of Games Workshop. The use of this 
 * WeaponsTraits (structure to be confirmed)
 	* weaponId
 	* which traits?
-
 * Wargears (structure to be confirmed)
 	* category (grenades, armour, personal equipment)
 	* cost
@@ -127,8 +76,7 @@ All texts and illustrations are the property of Games Workshop. The use of this 
 * GangersWargears
 	* wargearId
 	* gangerId
-
-Skills (structure to be confirmed)
+* Skills (structure to be confirmed)
 	* listOfSkillsId
 	* gangerId
 * ListOfSkills (structure to be confirmed)

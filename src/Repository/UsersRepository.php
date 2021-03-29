@@ -25,6 +25,11 @@ class UsersRepository extends ServiceEntityRepository
     public function displayUsers()
     {
         return $this->createQueryBuilder('u')
+
+            // ->innerJoin('App\Entity\GangType', 'gt') // Faire les jointures ici ? ou dans le Controller ?
+            // ->addSelect('gt')
+            // ->andWhere('u.gangTypeId = gt.id')
+
             ->orderBy('u.id', 'ASC')
             ->getQuery()
             ->getResult()

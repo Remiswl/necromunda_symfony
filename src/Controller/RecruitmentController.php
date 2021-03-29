@@ -14,8 +14,7 @@ class RecruitmentController extends AbstractController
      /**
      * @Route("/recruitment", name="recruitment")
      */
-
-    public function index(): Response
+    public function newUser(): Response
     {
     	$form = $this -> createFormBuilder()
 					-> add('pseudo') # ajouter texte dans la case
@@ -31,22 +30,6 @@ class RecruitmentController extends AbstractController
             'form' => $form -> createView()
         ]);
     }
-
-    /* Pour ajouter des valeurs dans une table -> fonctionne */
-    /*
-    public function index(): Response
-    {
-        $gangsNames = new GangType(); #Pour instancier la classe correspondant à la table Gangs (cf src/Entity/nom_de_la_classe_en_question)
-        $gangsNames->setName('Delaque'); #un seul setName à la fois --> possibilité d'ajouter plusieurs noms ?
-        $gangsName = $this->getDoctrine()->getManager();
-        $gangsName->persist($gangsNames);
-        $gangsName->flush();
-
-        return $this->render('recruitment/index.html.twig', [
-            'controller_name' => 'RecruitmentController',
-        ]);
-    }
-    */
 }
 
 

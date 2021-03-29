@@ -5,12 +5,12 @@
 {% block body %}
 
 	<section id="users">
-		<div class="w-100 text-center">
+		<div class="w-100 text-center d-flex flex-row">
 
 			{% for user in users %}
 
 				<!-- manque le House pour définir l'image de fond; user.gangType-->
-				<div class="col-12 col-md-6 col-lg-2 m-auto">
+				<div class="col-6 col-lg-2 m-auto">
 					<div class="card">
 						<img class="card-img-top" src="{{ asset('img/cawdor.jpg')}}" alt="house">
 						<div class="card-body">

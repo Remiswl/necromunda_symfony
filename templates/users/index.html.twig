@@ -5,21 +5,20 @@
 {% block body %}
 
 	<section id="users">
-		<div class="w-100 text-center d-flex flex-row">
+		<div class="w-100 mx-4 text-center row d-flex flex-wrap">
 
 			{% for user in users %}
-
 				<!-- manque le House pour définir l'image de fond; user.gangType-->
-				<div class="col-6 col-lg-2 m-auto">
-					<div class="card">
-						<img class="card-img-top" src="{{ asset('img/cawdor.jpg')}}" alt="house">
-						<div class="card-body">
-							<h5 class="card-title">{{ user.pseudo ~ '-' ~ user.gangTypeId }}</h5>
-							<p class="card-text">{{ user.gangName }}</p>
-							<a href="{{ path('gangs', {id : user.id}) }}" class="btn btn-primary">View gang</a>
+					<div class="col-2 my-2">
+						<div class="card">
+							<img class="card-img-top" src="{{ asset('img/cawdor.jpg')}}" alt="house">
+							<div class="card-body">
+								<h5 class="card-title">{{ user.pseudo ~ '-' ~ user.gangTypeId }}</h5>
+								<p class="card-text">{{ user.gangName }}</p>
+								<a href="{{ path('gangs', {id : user.id}) }}" class="btn btn-primary">View gang</a>
+							</div>
 						</div>
 					</div>
-				</div>
 
 			{% endfor %}
 

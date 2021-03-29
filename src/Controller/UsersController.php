@@ -8,6 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
+//use App\Entity\Gangs;
+//use App\Entity\MyGangers;
 
 class UsersController extends AbstractController
 {
@@ -34,20 +36,19 @@ class UsersController extends AbstractController
     public function newGang(EntityManagerInterface $entityManager): Response
     {
         $newGang = new Gangs();
-        $newGang->setCredits(50)
+        $newGang->setUserId(2)
+            ->setGangTypeId(2)
+            ->setCredits(50)
             ->setGangRating(10)
             ->setReputation(10)
             ->setWealth(10)
-            ->setAlliance()
-            ->setCreatedAt(new \DateTime('d/m/Y'));
+            ->setAlliance('none')
+            ->setCreatedAt(new \DateTime('NOW'));
 
         $entityManager->persist($newGang); #Se préparer à envoyer la variable à Doctrine
         $entityManager->flush(); #Envoyer la variable à doctrine
 
-        return $this->render('gangs/index.html.twig', [
-            'controller_name' => 'GangsController',
-            'gangData' => $gangData
-        ]);
+        return $this->redirectToRoute('home');
     }
     */
 
@@ -74,9 +75,9 @@ class UsersController extends AbstractController
     public function newGanger(EntityManagerInterface $entityManager): Response
     {
         $newGanger = new MyGangers();
-        $newGanger->setName('Bruce Willis')
+        $newGanger->setName('Chuck Norris')
             ->setTypeId(2)
-            ->setGangId(1)
+            ->setGangId(3)
             ->setCredits(45)
             ->setMove(4)
             ->setWeaponSkill(4)
@@ -93,7 +94,7 @@ class UsersController extends AbstractController
             ->setCost(185)
             ->setAdv(4)
             ->setXp(64)
-            ->setImage('img/esher_figurine.png');
+            ->setImage('img/cawdor_figurine.png');
 
         $entityManager->persist($newGanger);
         $entityManager->flush();

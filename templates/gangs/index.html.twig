@@ -28,7 +28,7 @@
 					<tbody>
 						{% for gangerData in gangersData %}
 							<tr>
-								<td><img src="{ gangerData.image }}" alt="{{ gangerData.name }}"></td>
+								<td><img src="/{{ gangerData.image }}" alt="{{ gangerData.name }}"></td>
 								<td class="align-middle">{{ gangerData.name | upper }}<br> {{ gangerData.typeId }}</td>
 								<td class="d-flex flex-row">
 									<table class="mx-auto">
@@ -118,8 +118,8 @@
 				</table>
 			</div>
 
-			<a href="#" class="btn btn-secondary">Edit</a>
-			<a href="#" class="btn btn-danger">Delete</a>
+			<a href="#" class="btn btn-secondary mb-4">Edit</a>
+			<a href="#" class="btn btn-danger mb-4">Delete</a>
 		</div>
 	</section>
 

@@ -17,7 +17,6 @@ class GangsController extends AbstractController
     public function show(GangsRepository $repository, MyGangersRepository $gangersRepository, $id): Response
     {
         $gangData = $repository->displayGangData($id);
-        // dd($gangData);
 
         if(!$gangData) {
             throw $this->createNotFoundException('Error: this gang does not exist');

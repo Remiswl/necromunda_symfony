@@ -16,6 +16,7 @@
 							<h5 class="card-title">{{ gang.pseudo ~ '-' ~ gang.houseId }}</h5>
 							<p class="card-text">{{ gang.gangName }}</p>
 							<a href="{{ path('my_gang', {id : gang.id}) }}" class="btn btn-primary">View gang</a>
+							<p>Created { gang.createdAt | ago }} </p>
 						</div>
 					</div>
 				</div>

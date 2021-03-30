@@ -11,8 +11,16 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class RecruitmentController extends AbstractController
 {
+    public const GANGER_TYPE = [
+        0 => 'Gang Leader',
+        1 => 'Balaise',
+        2 => 'Ganger',
+        3 => 'Kid'
+    ];
+
+
      /**
-     * @Route("/recruitment", name="recruitment")
+     * @Route("/newGang", name="new_gang")
      */
     public function newGang(): Response
     {
@@ -30,6 +38,10 @@ class RecruitmentController extends AbstractController
             'form' => $form -> createView()
         ]);
     }
+
+    /**
+     * @Route("/recruitment", name="recruitment")
+     */
 }
 
 

@@ -6,20 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use App\Repository\GangTypeRepository;
+use App\Repository\HousesRepository;
 
 class HousesController extends AbstractController
 {
     /**
      * @Route("/houses", name="houses")
      */
-    public function index(GangTypeRepository $repository): Response #Injecter la classe GangsRepository, sous le nom de $repository
+    public function index(HousesRepository $repository): Response #Injecter la classe GangsRepository, sous le nom de $repository
     {
-        $gangsNames = $repository->findAllGangsNames(); #Va récupérer la méthode findAllGangsNames de la classe $repository (src/Repository/GangTypeRepository.php)
+        $houses = $repository->findAllGangsNames(); #Va récupérer la méthode findAllGangsNames de la classe $repository (src/Repository/GangTypeRepository.php)
 
         return $this->render('houses/index.html.twig', [
-            'controller_name' => 'GangsController', #ligne utile ?
-            'houses' => $gangsNames #renvoyer le résultat de la requête
+            'controller_name' => 'HousesController', #ligne utile ?
+            'houses' => $houses #renvoyer le résultat de la requête
         ]);
     }
 

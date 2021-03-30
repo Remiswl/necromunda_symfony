@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=GangTypeRepository::class)
  */
-class GangType
+class Houses
 {
     /**
      * @ORM\Id

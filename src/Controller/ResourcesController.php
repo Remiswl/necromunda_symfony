@@ -11,7 +11,7 @@ class ResourcesController extends AbstractController
     /**
      * @Route("/resources", name="resources")
      */
-    public function index(): Response
+    public function displayResources(): Response
     {
         return $this->render('resources/index.html.twig', [
             'controller_name' => 'ResourcesController',

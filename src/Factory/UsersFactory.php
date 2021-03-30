@@ -38,7 +38,7 @@ final class UsersFactory extends ModelFactory
         return [
             'pseudo' => 'Player 1',
             'gangName' => 'The Killers of the hive',
-            'gangTypeId' => 1
+            'housed' => 1
         ];
     }
 

@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\GangType;
+use App\Entity\Houses;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method GangType|null find($id, $lockMode = null, $lockVersion = null)
- * @method GangType|null findOneBy(array $criteria, array $orderBy = null)
- * @method GangType[]    findAll()
- * @method GangType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Houses|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Houses|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Houses[]    findAll()
+ * @method Houses[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GangTypeRepository extends ServiceEntityRepository
+class HousesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, GangType::class);
+        parent::__construct($registry, Houses::class);
     }
 
     /**
-     * @return Gangs[] Returns an array of Gangs objects
+     * @return Houses[] Returns an array of Houses objects
      */
 
     public function findAllGangsNames()
@@ -33,7 +33,7 @@ class GangTypeRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return GangType[] Returns an array of GangType objects
+    //  * @return Houses[] Returns an array of Houses objects
     //  */
     /*
     public function findByExampleField($value)
@@ -50,7 +50,7 @@ class GangTypeRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?GangType
+    public function findOneBySomeField($value): ?Houses
     {
         return $this->createQueryBuilder('g')
             ->andWhere('g.exampleField = :val')

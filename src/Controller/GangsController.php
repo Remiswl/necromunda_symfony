@@ -12,11 +12,25 @@ use App\Repository\MyGangersRepository;
 class GangsController extends AbstractController
 {
     /**
-     * @Route("/gangs/{id}", name="gangs")
+     * @Route("/gangs", name="gangs")
+     */
+    public function list(GangsRepository $repository): Response
+    {
+        $gangs_names = $repository->displayGangsNames();
+        //dd($gangs_names);
+        return $this->render('gangs/gangs_names.html.twig', [
+            'controller_name' => 'GangsController',
+            'gangs' => $gangs_names
+        ]);
+    }
+
+    /**
+     * @Route("/gangs/{id}", name="my_gang")
      */
     public function show(GangsRepository $repository, MyGangersRepository $gangersRepository, $id): Response
     {
         $gangData = $repository->displayGangData($id);
+        dump($gangData);
 
         if(!$gangData) {
             throw $this->createNotFoundException('Error: this gang does not exist');
@@ -26,13 +40,92 @@ class GangsController extends AbstractController
         //$gangersData = $gangersRepository->displayGangersData($id)
         // dd($gangersData);
 
-        return $this->render('gangs/index.html.twig', [
+        return $this->render('gangs/my_gang.html.twig', [
             'controller_name' => 'GangsController',
             'gangData' => $gangData,
             'gangersData' => $gangersData
         ]);
     }
 
+
+
+
+    /**
+     * @Route("/new_gang", name="new_gang")
+     * Prend en paramètres le pseudo le nom du gang et le House_id
+     * Permet  1/ de créer les données générales du gang
+     *         2/ de sélectionner les gangers à intégrer dans le gang (une autre méthode/classe ?)
+     */
+    /*
+    public function newGang(EntityManagerInterface $entityManager): Response
+    {
+        $newGang = new Gangs();
+        $newGang->setUserId(2)
+            ->setGangTypeId(2)
+            ->setCredits(50)
+            ->setGangRating(10)
+            ->setReputation(10)
+            ->setWealth(10)
+            ->setAlliance('none')
+            ->setCreatedAt(new \DateTime('NOW'));
+
+        $entityManager->persist($newGang); #Se préparer à envoyer la variable à Doctrine
+        $entityManager->flush(); #Envoyer la variable à doctrine
+
+        return $this->redirectToRoute('home');
+    }
+    */
+
+    /* OU
+    public function index(): Response
+    {
+        $gangsNames = new GangType(); #Pour instancier la classe correspondant à la table Gangs (cf src/Entity/nom_de_la_classe_en_question)
+        $gangsNames->setName('Delaque'); #un seul setName à la fois --> possibilité d'ajouter plusieurs noms ?
+        $gangsName = $this->getDoctrine()->getManager();
+        $gangsName->persist($gangsNames);
+        $gangsName->flush();
+
+        return $this->render('recruitment/index.html.twig', [
+            'controller_name' => 'RecruitmentController',
+        ]);
+    }
+    */
+
+    /**
+     * @Route("/new_ganger", name="new_ganger")
+     * Insérer un nouveau ganger dans la BDD
+     */
+    /*
+    public function newGanger(EntityManagerInterface $entityManager): Response
+    {
+        $newGanger = new MyGangers();
+        $newGanger->setName('Chuck Norris')
+            ->setTypeId(2)
+            ->setGangId(3)
+            ->setCredits(45)
+            ->setMove(4)
+            ->setWeaponSkill(4)
+            ->setBallisticSkill(4)
+            ->setStrength(4)
+            ->setToughness(3)
+            ->setWounds(3)
+            ->setInitiative(1)
+            ->setAttacks(4)
+            ->setLeadership(1)
+            ->setCool(8)
+            ->setWillpower(2)
+            ->setIntelligence(4)
+            ->setCost(185)
+            ->setAdv(4)
+            ->setXp(64)
+            ->setImage('img/cawdor_figurine.png');
+
+        $entityManager->persist($newGanger);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('home');
+    }
+    */
 
     // public function edit()
     //

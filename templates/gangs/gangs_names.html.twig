@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gangs{% endblock %}
+
+{% block body %}
+
+	<section id="users">
+		<div class="w-100 mx-4 text-center row d-flex flex-wrap">
+
+			{% for gang in gangs %}
+
+				<div class="col-2 my-2">
+					<div class="card">
+						<img class="card-img-top" src="{{ asset('img/cawdor.jpg')}}" alt="house">
+						<div class="card-body">
+							<h5 class="card-title">{{ gang.pseudo ~ '-' ~ gang.houseId }}</h5>
+							<p class="card-text">{{ gang.gangName }}</p>
+							<a href="{{ path('my_gang', {id : gang.id}) }}" class="btn btn-primary">View gang</a>
+						</div>
+					</div>
+				</div>
+
+			{% endfor %}
+
+		</div>
+	</section>
+
+{% endblock %}

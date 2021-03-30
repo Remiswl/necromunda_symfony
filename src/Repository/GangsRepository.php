@@ -6,7 +6,7 @@ use App\Entity\Gangs;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-//use App\Entity\GangType;
+//use App\Entity\Houses;
 
 /**
  * @method Gangs|null find($id, $lockMode = null, $lockVersion = null)
@@ -21,24 +21,34 @@ class GangsRepository extends ServiceEntityRepository
         parent::__construct($registry, Gangs::class);
     }
 
+
+    /**
+    * @return Gangs[] Returns an array of Gangs objects
+    */
+    public function displayGangsNames()
+    {
+        return $this->createQueryBuilder('g')
+            ->orderBy('g.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
     /**
     * @return Gangs[] Returns an array of Gangs objects
     */
     public function displayGangData($id)
     {
         return $this->createQueryBuilder('g')
-            ->andWhere('g.userId = :val')
+            ->andWhere('g.id = :val')
             ->setParameter('val', $id)
 
             // Faire les jointures ici ? ou dans le Controller ?
             // on obtient deux requêtes séparées --> rassembler toutes les infos dans une seule réponse
-            ->innerJoin('App\Entity\GangType', 'gt')
-            ->addSelect('gt')
-            ->andWhere('g.gangTypeId = gt.id')
-
-            ->innerJoin('App\Entity\Users', 'u')
-            ->addSelect('u')
-            ->andWhere('g.userId = u.id')
+            ->innerJoin('App\Entity\Houses', 'h')
+            ->addSelect('h')
+            ->andWhere('g.houseId = h.id')
 
             ->getQuery()
             ->getResult()

@@ -20,12 +20,7 @@ class Gangs
     /**
      * @ORM\Column(type="integer")
      */
-    private $userId;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $gangTypeId;
+    private $houseId;
 
     /**
      * @ORM\Column(type="integer")
@@ -57,31 +52,29 @@ class Gangs
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pseudo;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $gang_name;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUserId(): ?int
+    public function getHouseId(): ?int
     {
-        return $this->userId;
+        return $this->houseId;
     }
 
-    public function setUserId(int $userId): self
+    public function setHouseId(int $houseId): self
     {
-        $this->userId = $userId;
-
-        return $this;
-    }
-
-    public function getGangTypeId(): ?int
-    {
-        return $this->gangTypeId;
-    }
-
-    public function setGangTypeId(int $gangTypeId): self
-    {
-        $this->gangTypeId = $gangTypeId;
+        $this->houseId = $houseId;
 
         return $this;
     }
@@ -154,6 +147,30 @@ class Gangs
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    public function getGangName(): ?string
+    {
+        return $this->gang_name;
+    }
+
+    public function setGangName(string $gang_name): self
+    {
+        $this->gang_name = $gang_name;
 
         return $this;
     }

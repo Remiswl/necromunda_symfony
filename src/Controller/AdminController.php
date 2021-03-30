@@ -6,14 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use App\Repository\GangTypeRepository;
+use App\Repository\HousesRepository;
 
 
 class AdminController extends AbstractController
 {
     private $repository;
 
-    public function __construct(GangTypeRepository $repository){
+    public function __construct(HousesRepository $repository){
     	$this->repository=$repository;
     }
 

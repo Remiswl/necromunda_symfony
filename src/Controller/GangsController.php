@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\GangsRepository;
 use App\Repository\MyGangersRepository;
 use App\Form\MyGangersType;
-use Doctrine\Persistence\ObjectManager;
+// use Doctrine\Persistence\ObjectManager;
 
 class GangsController extends AbstractController
 {

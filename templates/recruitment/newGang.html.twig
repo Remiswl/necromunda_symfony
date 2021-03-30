@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recruitment{% endblock %}
+
+{% block body %}
+
+	<section id="newGang">
+
+		<div class="col-3 m-auto text-white">
+			{{ form_start(form) }}
+
+				{{ form_rest(form) }}
+				<button class="btn btn-primary offset-4">Ready to fight</button>
+
+			{{ form_end(form) }}
+		</div>
+	</section>
+
+{% endblock %}

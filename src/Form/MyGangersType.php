@@ -58,6 +58,5 @@ class MyGangersType extends AbstractType
         }
 
         return $output;
-
     }
 }

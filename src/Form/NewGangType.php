@@ -20,14 +20,7 @@ class NewGangType extends AbstractType
             ->add('gang_name')
             ->add('houseId', ChoiceType::class, [
                 'choices' => $this->getHouse()
-            ])
-            // ->add('credits')
-            // ->add('gangRating')
-            // ->add('reputation')
-            // ->add('wealth')
-            // ->add('alliance')
-            // ->add('createdAt')
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -11,8 +11,7 @@ use App\Entity\Gangs;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\NewGangType;
-
-// use App\Entity\Houses;
+use App\Repository\GangsRepository;
 
 class RecruitmentController extends AbstractController
 {
@@ -53,14 +52,15 @@ class RecruitmentController extends AbstractController
                 ->setAlliance('none')
                 ->setCreatedAt(new \DateTime('NOW'));
 
-            //dd($newGang);
 
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($newGang);
             $em->flush();
 
-            return $this->redirectToRoute('recruitment');
+            $id = $newGang->getId();
+
+            return $this->redirectToRoute('recruitment', ['gang_id' => $id]);
         }
 
         return $this->render('recruitment/newGang.html.twig', [
@@ -68,26 +68,16 @@ class RecruitmentController extends AbstractController
         ]);
     }
 
-
     /**
-     * @Route("/recruitment", name="recruitment")
+     * @Route("/{gang_id}/recruitment", name="recruitment")
      */
-    public function hireGangers(): Response
+    public function hireGangers($gang_id, GangsRepository $gangsRepository): Response
     {
-        /*
-        $form = $this -> createFormBuilder()
-                    -> add('pseudo') # ajouter texte dans la case
-                    -> add('gang_name')
-                    -> add('house_id') # Menu déroulant
-                    -> add('save', SubmitType::class, [
-                        'label' => 'Ready to fight'
-                    ])
-                    -> getForm();
-        */
+        $gangData = $gangsRepository->findOneBy(['id' => $gang_id]);
 
         return $this->render('recruitment/recruitment.html.twig', [
             'controller_name' => 'RecruitmentController',
-            //'form' => $form -> createView()
+            'gangData' => $gangData
         ]);
     }
 }

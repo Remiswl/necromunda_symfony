@@ -6,6 +6,21 @@
 
 	<section id="recruitment">
 
+		<div class="text-center">
+
+			<p class="text-white">Hello {{ gangData.pseudo }}! Select your gangers:</p>
+
+			<div class="col-4 mx-auto">
+				<table class="table table-bordered bg-white">
+					<tr>
+						<td>House: {{ gangData.houseId }}</td>
+					</tr>
+					<tr>
+						<td>Gang name: {{ gangData.gangName | upper }}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
 
 	</section>
 

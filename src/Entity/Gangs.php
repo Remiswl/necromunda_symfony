@@ -60,7 +60,7 @@ class Gangs
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $gang_name;
+    private $gangName;
 
     public function getId(): ?int
     {
@@ -165,12 +165,12 @@ class Gangs
 
     public function getGangName(): ?string
     {
-        return $this->gang_name;
+        return $this->gangName;
     }
 
     public function setGangName(string $gang_name): self
     {
-        $this->gang_name = $gang_name;
+        $this->gang_name = $gangName;
 
         return $this;
     }

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit my gang{% endblock %}
+
+{% block body %}
+
+	<section id="edit_gang">
+
+		<div class="col-10 m-auto text-white">
+		{{ form_start(form) }}
+
+			<div class="row">
+				<div class="col-4">{{ form_row(form.name) }}</div>
+				<div class="col-2">{{ form_row(form.typeId) }}</div>
+			</div>
+
+			<div class="row">
+				<div class="col-2">{{ form_row(form.move) }}</div>
+				<div class="col-2">{{ form_row(form.weaponSkill) }}</div>
+				<div class="col-2">{{ form_row(form.ballisticSkill) }}</div>
+				<div class="col-2">{{ form_row(form.strength) }}</div>
+				<div class="col-2">{{ form_row(form.toughness) }}</div>
+				<div class="col-2">{{ form_row(form.wounds) }}</div>
+			</div>
+
+			<div class="row">
+				<div class="col-2">{{ form_row(form.initiative) }}</div>
+				<div class="col-2">{{ form_row(form.attacks) }}</div>
+				<div class="col-2">{{ form_row(form.leadership) }}</div>
+				<div class="col-2">{{ form_row(form.cool) }}</div>
+				<div class="col-2">{{ form_row(form.willpower) }}</div>
+				<div class="col-2">{{ form_row(form.intelligence) }}</div>
+			</div>
+
+			<div class="row">
+				<div class="col-3">{{ form_row(form.cost) }}</div>
+				<div class="col-3">{{ form_row(form.adv) }}</div>
+				<div class="col-3">{{ form_row(form.xp) }}</div>
+				<div class="col-3">{{ form_row(form.image) }}</div>
+			</div>
+
+			<button class="btn btn-primary">Save changes</button>
+
+		{{ form_end(form) }}
+	</div>
+	</section>
+
+{% endblock %}

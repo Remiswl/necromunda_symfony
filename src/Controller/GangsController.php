@@ -6,18 +6,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\HttpFoundation\Request;
 use App\Repository\GangsRepository;
 use App\Repository\MyGangersRepository;
+use App\Form\MyGangersType;
+use Doctrine\Persistence\ObjectManager;
 
 class GangsController extends AbstractController
 {
+    //private $em;
+
+    //public function __contruct(ObjectManager $em)
+    //{
+    //    $this->em = $em;
+    //}
+
     /**
      * @Route("/gangs", name="gangs")
      */
     public function list(GangsRepository $repository): Response
     {
         $gangs_names = $repository->displayGangsNames();
-        //dd($gangs_names);
+
         return $this->render('gangs/gangs_names.html.twig', [
             'controller_name' => 'GangsController',
             'gangs' => $gangs_names
@@ -25,20 +35,48 @@ class GangsController extends AbstractController
     }
 
     /**
+     * @Route("/gangs/{gang_id}/{ganger_id}/edit", name="edit_ganger")
+     */
+    public function edit(MyGangersRepository $myGangersRepository, $gang_id, $ganger_id, Request $request): Response
+    {
+        $gangerData = $myGangersRepository->displayGangerData($ganger_id);
+
+        // Créer le formulaire - Récupérer les données du formulaire MyGangersType
+        $form = $this->createForm(MyGangersType::class, $gangerData);
+
+        // Gérer la soumission du formulaire
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager(); // Comment ça fonctionne ? Possibilité de simplifier ?
+
+            $em->persist($gangerData);
+            $em->flush();
+
+            return $this->redirectToRoute('my_gang', ['id' => $gang_id]);
+        }
+
+        return $this->render('gangs/edit.html.twig', [
+            'gangerData' => $gangerData,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("/gangs/{id}", name="my_gang")
      */
-    public function show(GangsRepository $repository, MyGangersRepository $gangersRepository, $id): Response
+    public function show(GangsRepository $repository, MyGangersRepository $myGangersRepository, $id): Response
     {
         $gangData = $repository->displayGangData($id);
-        dump($gangData);
+        //dump($gangData);
 
         if(!$gangData) {
             throw $this->createNotFoundException('Error: this gang does not exist');
         }
 
-        $gangersData = $gangersRepository->findAll($id); #Pourquoi findAll et non displayGangersData($id) ?
-        //$gangersData = $gangersRepository->displayGangersData($id)
-        // dd($gangersData);
+        $gangersData = $myGangersRepository->findAll($id); #Pourquoi findAll et non displayGangersData($id) ?
+        //$gangersData = $myGangersRepository->displayGangersData($id)
+        //dd($gangersData);
 
         return $this->render('gangs/my_gang.html.twig', [
             'controller_name' => 'GangsController',
@@ -46,6 +84,7 @@ class GangsController extends AbstractController
             'gangersData' => $gangersData
         ]);
     }
+
 
 
 

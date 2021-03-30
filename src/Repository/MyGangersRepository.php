@@ -33,6 +33,17 @@ class MyGangersRepository extends ServiceEntityRepository
         ;
     }
 
+    public function displayGangerData($id): ?MyGangers
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+
     // /**
     //  * @return MyGangers[] Returns an array of MyGangers objects
     //  */

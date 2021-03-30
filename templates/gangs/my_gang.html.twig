@@ -14,6 +14,7 @@
 							<td>Gang name: {{ gangData.0.gangName | upper }}</td>
 							<td>Stash: {{ gangData.0.credits }} credit</td>
 							<td colspan=2>Gang rating: {{ gangData.0.gangRating }}</td>
+							<td colspan=2 rowspan=2 class="align-middle">Edit</td>
 						</tr>
 						<tr>
 							<td>Image</td>
@@ -60,6 +61,10 @@
 								<td class="text-left">Shotgun <i class="fas fa-info-circle"></i></td>
 								<td class="align-middle">{{ gangerData.cost }}</td>
 								<td class="align-middle">{{ gangerData.xp }}</td>
+								<td>
+									<a href="{{ path('edit_ganger', {gang_id : gangData.0.id, ganger_id : gangerData.id})}}" class="btn btn-secondary mb-4">Edit</a>
+									<a href="#" class="btn btn-danger mb-4">Delete</a>
+								</td>
 							</tr>
 						{% endfor %}
 
@@ -117,9 +122,6 @@
 					</tbody>
 				</table>
 			</div>
-
-			<a href="#" class="btn btn-secondary mb-4">Edit</a>
-			<a href="#" class="btn btn-danger mb-4">Delete</a>
 		</div>
 	</section>
 

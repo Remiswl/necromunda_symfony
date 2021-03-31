@@ -2,14 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\Gangs;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use App\Controller\RecruitmentController;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+use App\Entity\Gangs;
+use App\Entity\Houses;
+use App\Controller\RecruitmentController;
 
 class NewGangType extends AbstractType
 {
@@ -18,8 +19,9 @@ class NewGangType extends AbstractType
         $builder
             ->add('pseudo')
             ->add('gangName')
-            ->add('houseId', ChoiceType::class, [
-                'choices' => $this->getHouse()
+            ->add('house', EntityType::class, [
+                'class' => 'App\Entity\Houses',
+                'choice_label' => 'name',
             ]);
     }
 
@@ -28,17 +30,5 @@ class NewGangType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Gangs::class,
         ]);
-    }
-
-    private function getHouse()
-    {
-        $types = RecruitmentController::HOUSES;
-        $output = [];
-
-        foreach($types as $k => $v) {
-            $output[$v] = $k;
-        }
-
-        return $output;
     }
 }

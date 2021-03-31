@@ -24,6 +24,8 @@ class GangsController extends AbstractController
     {
         $gangs_names = $repository->displayGangsNames();
 
+        //$newGang = $this->getDoctrine()->getRepository(Gangs::class)->findAll();
+
         return $this->render('gangs/gangs_names.html.twig', [
             'controller_name' => 'GangsController',
             'gangs' => $gangs_names
@@ -71,13 +73,13 @@ class GangsController extends AbstractController
      */
     public function show(GangsRepository $repository, MyGangersRepository $myGangersRepository, $gang_id, GangersTypesRepository $gangersTypesRepository): Response
     {
-        // Récupérer le nom du gang
+        // Récupérer les infos du gang
         $gangData = $repository->displayGangData($gang_id);
 
         if(!$gangData) {
             throw $this->createNotFoundException('Error: this gang does not exist');
         }
-        // Récupérer les infos de chaque ganger du gang $id
+        // Récupérer les infos de chaque ganger du gang
         $gangersData = $myGangersRepository->displayGangersData($gang_id);
 
         return $this->render('gangs/my_gang.html.twig', [

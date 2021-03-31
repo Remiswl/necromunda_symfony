@@ -13,7 +13,7 @@
 					<div class="card">
 						<img class="card-img-top" src="{{ asset('img/cawdor.jpg')}}" alt="house">
 						<div class="card-body">
-							<h5 class="card-title">{{ gang.pseudo | upper ~ '-' ~ gang.houseId }}</h5>
+							<h5 class="card-title">{{ gang.pseudo | upper ~ '-' ~ gang.house }}</h5>
 							<p class="card-text">{{ gang.gangName }}</p>
 							<a href="{{ path('my_gang', {gang_id : gang.id}) }}" class="btn btn-primary">View gang</a>
 							<p>Created {{ gang.createdAt | ago }} </p>

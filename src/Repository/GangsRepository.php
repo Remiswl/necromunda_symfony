@@ -41,13 +41,6 @@ class GangsRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('g')
             ->andWhere('g.id = :val')
             ->setParameter('val', $id)
-
-            // Faire les jointures ici ? ou dans le Controller ?
-            // on obtient deux requêtes séparées --> rassembler toutes les infos dans une seule réponse
-            ->innerJoin('App\Entity\Houses', 'h')
-            ->addSelect('h')
-            ->andWhere('g.houseId = h.id')
-
             ->getQuery()
             ->getResult()
         ;

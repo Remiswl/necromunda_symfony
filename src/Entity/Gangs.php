@@ -28,21 +28,6 @@ class Gangs
     private $gangRating;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $reputation;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $wealth;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $alliance;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -61,6 +46,21 @@ class Gangs
      * @ORM\ManyToOne(targetEntity=Houses::class, inversedBy="gangs")
      */
     private $house;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $reputation;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $wealth;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $alliance;
 
     public function getId(): ?int
     {
@@ -87,42 +87,6 @@ class Gangs
     public function setGangRating(int $gangRating): self
     {
         $this->gangRating = $gangRating;
-
-        return $this;
-    }
-
-    public function getReputation(): ?int
-    {
-        return $this->reputation;
-    }
-
-    public function setReputation(int $reputation): self
-    {
-        $this->reputation = $reputation;
-
-        return $this;
-    }
-
-    public function getWealth(): ?int
-    {
-        return $this->wealth;
-    }
-
-    public function setWealth(int $wealth): self
-    {
-        $this->wealth = $wealth;
-
-        return $this;
-    }
-
-    public function getAlliance(): ?string
-    {
-        return $this->alliance;
-    }
-
-    public function setAlliance(string $alliance): self
-    {
-        $this->alliance = $alliance;
 
         return $this;
     }
@@ -171,6 +135,42 @@ class Gangs
     public function setHouse(?Houses $house): self
     {
         $this->house = $house;
+
+        return $this;
+    }
+
+    public function getReputation(): ?int
+    {
+        return $this->reputation;
+    }
+
+    public function setReputation(int $reputation): self
+    {
+        $this->reputation = $reputation;
+
+        return $this;
+    }
+
+    public function getWealth(): ?int
+    {
+        return $this->wealth;
+    }
+
+    public function setWealth(int $wealth): self
+    {
+        $this->wealth = $wealth;
+
+        return $this;
+    }
+
+    public function getAlliance(): ?string
+    {
+        return $this->alliance;
+    }
+
+    public function setAlliance(string $alliance): self
+    {
+        $this->alliance = $alliance;
 
         return $this;
     }

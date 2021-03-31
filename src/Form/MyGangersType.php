@@ -43,16 +43,4 @@ class MyGangersType extends AbstractType
             'data_class' => MyGangers::class,
         ]);
     }
-
-    private function getGangerType()
-    {
-        $types = RecruitmentController::GANGER_TYPE;
-        $output = [];
-
-        foreach($types as $k => $v) {
-            $output[$v] = $k;
-        }
-
-        return $output;
-    }
 }

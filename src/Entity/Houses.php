@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\GangTypeRepository;
+use App\Repository\HousesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=GangTypeRepository::class)
+ * @ORM\Entity(repositoryClass=HousesRepository::class)
  */
 class Houses
 {
@@ -38,6 +38,7 @@ class Houses
      * @ORM\OneToMany(targetEntity=Gangs::class, mappedBy="house")
      */
     private $gangs;
+
 
     public function __construct()
     {
@@ -114,4 +115,11 @@ class Houses
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+
 }

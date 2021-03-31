@@ -21,16 +21,13 @@ All texts and illustrations are the property of Games Workshop. The use of this 
 * ~~Home page (/)~~
 * ~~Resources (/resources)~~
 * Recruit a gang (/recruitment)
-	* 1st page: ask for user name, gang name, gang type,
+	* ~~1st page: enter a name, a gang name and a House ~~
 	* 2nd page: select the gangers, add weapons & equipment; total credits change when select a ganger (start with 1,000 credits)
-	-> modify database : Gangs
 * Create database (see details below)
-* Admin page (/admin):
-	* Allow players and gangs removal
-	* Manage gangers' statistics
-	* Add resources
-	* others?
-* Manage your gang (/users - /gangs) - allow modify gang data
+* Manage your gang (/users - /gangs)
+	* delete gang
+	* delete ganger
+	* add a ganger
 * Start a battle (/battle):
 	* add buttons to roll dices to choose the ground, roll dices for attacks, etc.
 	* a single page with information about the ground, the gangs, etc.?

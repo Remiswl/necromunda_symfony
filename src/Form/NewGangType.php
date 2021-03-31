@@ -17,7 +17,7 @@ class NewGangType extends AbstractType
     {
         $builder
             ->add('pseudo')
-            ->add('gang_name')
+            ->add('gangName')
             ->add('houseId', ChoiceType::class, [
                 'choices' => $this->getHouse()
             ]);

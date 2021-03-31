@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GangersTypesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,6 +24,22 @@ class GangersTypes
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Gangers::class, mappedBy="gangerType")
+     */
+    private $gangers;
+
+    /**
+     * @ORM\OneToMany(targetEntity=MyGangers::class, mappedBy="ganger_type")
+     */
+    private $myGangers;
+
+    public function __construct()
+    {
+        $this->gangers = new ArrayCollection();
+        $this->myGangers = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +53,66 @@ class GangersTypes
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Gangers[]
+     */
+    public function getGangers(): Collection
+    {
+        return $this->gangers;
+    }
+
+    public function addGanger(Gangers $ganger): self
+    {
+        if (!$this->gangers->contains($ganger)) {
+            $this->gangers[] = $ganger;
+            $ganger->setGangerType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGanger(Gangers $ganger): self
+    {
+        if ($this->gangers->removeElement($ganger)) {
+            // set the owning side to null (unless already changed)
+            if ($ganger->getGangerType() === $this) {
+                $ganger->setGangerType(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MyGangers[]
+     */
+    public function getMyGangers(): Collection
+    {
+        return $this->myGangers;
+    }
+
+    public function addMyGanger(MyGangers $myGanger): self
+    {
+        if (!$this->myGangers->contains($myGanger)) {
+            $this->myGangers[] = $myGanger;
+            $myGanger->setGangerType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMyGanger(MyGangers $myGanger): self
+    {
+        if ($this->myGangers->removeElement($myGanger)) {
+            // set the owning side to null (unless already changed)
+            if ($myGanger->getGangerType() === $this) {
+                $myGanger->setGangerType(null);
+            }
+        }
 
         return $this;
     }

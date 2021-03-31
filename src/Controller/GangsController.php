@@ -35,11 +35,12 @@ class GangsController extends AbstractController
     }
 
     /**
-     * @Route("/gangs/{gang_id}/{ganger_id}/edit", name="edit_ganger")
+     * @Route("/gangs/{ganger_id}/edit", name="edit_my_ganger")
      */
-    public function edit(MyGangersRepository $myGangersRepository, $gang_id, $ganger_id, Request $request): Response
+    public function edit(MyGangersRepository $myGangersRepository, $ganger_id, Request $request): Response
     {
         $gangerData = $myGangersRepository->displayGangerData($ganger_id);
+        $gang_id = $gangerData->getGangId();
 
         // Créer le formulaire - Récupérer les données du formulaire MyGangersType
         $form = $this->createForm(MyGangersType::class, $gangerData);
@@ -49,7 +50,6 @@ class GangsController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager(); // Comment ça fonctionne ? Possibilité de simplifier ?
-
             $em->persist($gangerData);
             $em->flush();
 
@@ -107,10 +107,8 @@ class GangsController extends AbstractController
             ->setWealth(10)
             ->setAlliance('none')
             ->setCreatedAt(new \DateTime('NOW'));
-
         $entityManager->persist($newGang); #Se préparer à envoyer la variable à Doctrine
         $entityManager->flush(); #Envoyer la variable à doctrine
-
         return $this->redirectToRoute('home');
     }
     */
@@ -123,7 +121,6 @@ class GangsController extends AbstractController
         $gangsName = $this->getDoctrine()->getManager();
         $gangsName->persist($gangsNames);
         $gangsName->flush();
-
         return $this->render('recruitment/index.html.twig', [
             'controller_name' => 'RecruitmentController',
         ]);
@@ -158,10 +155,8 @@ class GangsController extends AbstractController
             ->setAdv(4)
             ->setXp(64)
             ->setImage('img/cawdor_figurine.png');
-
         $entityManager->persist($newGanger);
         $entityManager->flush();
-
         return $this->redirectToRoute('home');
     }
     */

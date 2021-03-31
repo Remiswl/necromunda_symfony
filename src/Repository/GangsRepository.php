@@ -6,8 +6,6 @@ use App\Entity\Gangs;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-//use App\Entity\Houses;
-
 /**
  * @method Gangs|null find($id, $lockMode = null, $lockVersion = null)
  * @method Gangs|null findOneBy(array $criteria, array $orderBy = null)

@@ -81,5 +81,3 @@ class RecruitmentController extends AbstractController
         ]);
     }
 }
-
-

@@ -168,9 +168,9 @@ class Gangs
         return $this->gangName;
     }
 
-    public function setGangName(string $gang_name): self
+    public function setGangName(string $gangName): self
     {
-        $this->gang_name = $gangName;
+        $this->gangName = $gangName;
 
         return $this;
     }

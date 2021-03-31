@@ -20,16 +20,6 @@ class Gangers
     /**
      * @ORM\Column(type="integer")
      */
-    private $gangerTypeId;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $houseId;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
     private $credits;
 
     /**
@@ -110,30 +100,6 @@ class Gangers
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getGangerTypeId(): ?int
-    {
-        return $this->gangerTypeId;
-    }
-
-    public function setGangerTypeId(int $gangerTypeId): self
-    {
-        $this->gangerTypeId = $gangerTypeId;
-
-        return $this;
-    }
-
-    public function getHouseId(): ?int
-    {
-        return $this->houseId;
-    }
-
-    public function setHouseId(int $houseId): self
-    {
-        $this->houseId = $houseId;
-
-        return $this;
     }
 
     public function getCredits(): ?int

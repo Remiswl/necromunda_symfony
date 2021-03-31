@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GangTypeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,16 @@ class Houses
      * @ORM\Column(type="text")
      */
     private $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Gangs::class, mappedBy="house")
+     */
+    private $gangs;
+
+    public function __construct()
+    {
+        $this->gangs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +81,36 @@ class Houses
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Gangs[]
+     */
+    public function getGangs(): Collection
+    {
+        return $this->gangs;
+    }
+
+    public function addGang(Gangs $gang): self
+    {
+        if (!$this->gangs->contains($gang)) {
+            $this->gangs[] = $gang;
+            $gang->setHouse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGang(Gangs $gang): self
+    {
+        if ($this->gangs->removeElement($gang)) {
+            // set the owning side to null (unless already changed)
+            if ($gang->getHouse() === $this) {
+                $gang->setHouse(null);
+            }
+        }
 
         return $this;
     }

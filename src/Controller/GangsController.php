@@ -5,22 +5,18 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 use Symfony\Component\HttpFoundation\Request;
+
 use App\Repository\GangsRepository;
 use App\Repository\MyGangersRepository;
+use App\Repository\GangersTypesRepository;
 use App\Form\MyGangersType;
-// use Doctrine\Persistence\ObjectManager;
+use App\Entity\GangersTypes;
+use App\Entity\MyGangers;
+
 
 class GangsController extends AbstractController
 {
-    //private $em;
-
-    //public function __contruct(ObjectManager $em)
-    //{
-    //    $this->em = $em;
-    //}
-
     /**
      * @Route("/gangs", name="gangs")
      */
@@ -35,25 +31,33 @@ class GangsController extends AbstractController
     }
 
     /**
-     * @Route("/gangs/{ganger_id}/edit", name="edit_my_ganger")
+     * @Route("/gangers/{ganger_id}/edit", name="edit_my_ganger")
      */
     public function edit(MyGangersRepository $myGangersRepository, $ganger_id, Request $request): Response
     {
-        $gangerData = $myGangersRepository->displayGangerData($ganger_id);
+        // Obtenir les données du ganger
+        $gangerData = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
+
+        // Obtenir le type de ganger
+         $gangerType = $this->getDoctrine()->getRepository(GangersTypes::class)->find($ganger_id);
+         $gangerType = $gangerData->getGangerType()->__toString();
+
+        // Obtenir l'id du gang
         $gang_id = $gangerData->getGangId();
 
         // Créer le formulaire - Récupérer les données du formulaire MyGangersType
         $form = $this->createForm(MyGangersType::class, $gangerData);
-
         // Gérer la soumission du formulaire
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager(); // Comment ça fonctionne ? Possibilité de simplifier ?
+            $em = $this->getDoctrine()->getManager();
             $em->persist($gangerData);
             $em->flush();
 
-            return $this->redirectToRoute('my_gang', ['id' => $gang_id]);
+            $this->addFlash('success', 'Data saved!');
+
+            return $this->redirectToRoute('my_gang', ['gang_id' => $gang_id]);
         }
 
         return $this->render('gangs/edit.html.twig', [
@@ -63,20 +67,18 @@ class GangsController extends AbstractController
     }
 
     /**
-     * @Route("/gangs/{id}", name="my_gang")
+     * @Route("/gangs/{gang_id}", name="my_gang")
      */
-    public function show(GangsRepository $repository, MyGangersRepository $myGangersRepository, $id): Response
+    public function show(GangsRepository $repository, MyGangersRepository $myGangersRepository, $gang_id, GangersTypesRepository $gangersTypesRepository): Response
     {
-        $gangData = $repository->displayGangData($id);
-        //dump($gangData);
+        // Récupérer le nom du gang
+        $gangData = $repository->displayGangData($gang_id);
 
         if(!$gangData) {
             throw $this->createNotFoundException('Error: this gang does not exist');
         }
-
-        $gangersData = $myGangersRepository->findAll($id); #Pourquoi findAll et non displayGangersData($id) ?
-        //$gangersData = $myGangersRepository->displayGangersData($id)
-        //dd($gangersData);
+        // Récupérer les infos de chaque ganger du gang $id
+        $gangersData = $myGangersRepository->displayGangersData($gang_id);
 
         return $this->render('gangs/my_gang.html.twig', [
             'controller_name' => 'GangsController',
@@ -85,35 +87,7 @@ class GangsController extends AbstractController
         ]);
     }
 
-
-
-
-
-    /**
-     * @Route("/new_gang", name="new_gang")
-     * Prend en paramètres le pseudo le nom du gang et le House_id
-     * Permet  1/ de créer les données générales du gang
-     *         2/ de sélectionner les gangers à intégrer dans le gang (une autre méthode/classe ?)
-     */
     /*
-    public function newGang(EntityManagerInterface $entityManager): Response
-    {
-        $newGang = new Gangs();
-        $newGang->setUserId(2)
-            ->setGangTypeId(2)
-            ->setCredits(50)
-            ->setGangRating(10)
-            ->setReputation(10)
-            ->setWealth(10)
-            ->setAlliance('none')
-            ->setCreatedAt(new \DateTime('NOW'));
-        $entityManager->persist($newGang); #Se préparer à envoyer la variable à Doctrine
-        $entityManager->flush(); #Envoyer la variable à doctrine
-        return $this->redirectToRoute('home');
-    }
-    */
-
-    /* OU
     public function index(): Response
     {
         $gangsNames = new GangType(); #Pour instancier la classe correspondant à la table Gangs (cf src/Entity/nom_de_la_classe_en_question)
@@ -160,8 +134,4 @@ class GangsController extends AbstractController
         return $this->redirectToRoute('home');
     }
     */
-
-    // public function edit()
-    //
-    // public function delete()
 }

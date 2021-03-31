@@ -20,11 +20,6 @@ class Gangs
     /**
      * @ORM\Column(type="integer")
      */
-    private $houseId;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
     private $credits;
 
     /**
@@ -62,21 +57,14 @@ class Gangs
      */
     private $gangName;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Houses::class, inversedBy="gangs")
+     */
+    private $house;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getHouseId(): ?int
-    {
-        return $this->houseId;
-    }
-
-    public function setHouseId(int $houseId): self
-    {
-        $this->houseId = $houseId;
-
-        return $this;
     }
 
     public function getCredits(): ?int
@@ -171,6 +159,18 @@ class Gangs
     public function setGangName(string $gangName): self
     {
         $this->gangName = $gangName;
+
+        return $this;
+    }
+
+    public function getHouse(): ?Houses
+    {
+        return $this->house;
+    }
+
+    public function setHouse(?Houses $house): self
+    {
+        $this->house = $house;
 
         return $this;
     }

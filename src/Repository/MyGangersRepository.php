@@ -22,12 +22,12 @@ class MyGangersRepository extends ServiceEntityRepository
     // /**
     //  * @return MyGangers[] Returns an array of MyGangers objects
     //  */
-    public function displayGangersData($id)
+    public function displayGangersData($gang_id)
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.gangId = :val')
-            ->setParameter('val', $id)
-            ->orderBy('m.type_id', 'ASC')
+            ->setParameter('val', $gang_id)
+            ->orderBy('m.gangerType', 'ASC')
             ->getQuery()
             ->getResult()
         ;

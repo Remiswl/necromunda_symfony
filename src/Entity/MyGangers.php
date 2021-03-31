@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MyGangersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,11 +23,6 @@ class MyGangers
      * @ORM\Column(type="string", length=255)
      */
     private $name;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $typeId;
 
     /**
      * @ORM\Column(type="integer")
@@ -117,6 +114,17 @@ class MyGangers
      */
     private $image;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=GangersTypes::class, inversedBy="myGangers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $gangerType;
+
+    public function __construct()
+    {
+        $this->type = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -130,18 +138,6 @@ class MyGangers
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getTypeId(): ?int
-    {
-        return $this->typeId;
-    }
-
-    public function setTypeId(int $typeId): self
-    {
-        $this->typeId = $typeId;
 
         return $this;
     }
@@ -358,6 +354,18 @@ class MyGangers
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getGangerType(): ?GangersTypes
+    {
+        return $this->gangerType;
+    }
+
+    public function setGangerType(?GangersTypes $gangerType): self
+    {
+        $this->gangerType = $gangerType;
 
         return $this;
     }

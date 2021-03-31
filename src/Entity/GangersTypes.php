@@ -25,18 +25,12 @@ class GangersTypes
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Gangers::class, mappedBy="gangerType")
-     */
-    private $gangers;
-
-    /**
-     * @ORM\OneToMany(targetEntity=MyGangers::class, mappedBy="ganger_type")
+     * @ORM\OneToMany(targetEntity=MyGangers::class, mappedBy="gangerType")
      */
     private $myGangers;
 
     public function __construct()
     {
-        $this->gangers = new ArrayCollection();
         $this->myGangers = new ArrayCollection();
     }
 
@@ -53,36 +47,6 @@ class GangersTypes
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Gangers[]
-     */
-    public function getGangers(): Collection
-    {
-        return $this->gangers;
-    }
-
-    public function addGanger(Gangers $ganger): self
-    {
-        if (!$this->gangers->contains($ganger)) {
-            $this->gangers[] = $ganger;
-            $ganger->setGangerType($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGanger(Gangers $ganger): self
-    {
-        if ($this->gangers->removeElement($ganger)) {
-            // set the owning side to null (unless already changed)
-            if ($ganger->getGangerType() === $this) {
-                $ganger->setGangerType(null);
-            }
-        }
 
         return $this;
     }
@@ -115,5 +79,9 @@ class GangersTypes
         }
 
         return $this;
+    }
+
+    public function __toString(){
+        return $this->name;
     }
 }

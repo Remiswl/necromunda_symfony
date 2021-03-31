@@ -6,8 +6,8 @@ use App\Entity\MyGangers;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 use App\Controller\RecruitmentController;
 
 class MyGangersType extends AbstractType
@@ -17,11 +17,7 @@ class MyGangersType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('typeId', ChoiceType::class, [
-                'choices' => $this->getGangerType()
-            ])
-            //->add('gangId')
-            //->add('credits')
+            ->add('gangerType')
             ->add('move')
             ->add('weaponSkill')
             ->add('ballisticSkill')

@@ -27,11 +27,6 @@ class MyGangers
     /**
      * @ORM\Column(type="integer")
      */
-    private $gangId;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
     private $credits;
 
     /**
@@ -120,6 +115,12 @@ class MyGangers
      */
     private $gangerType;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Gangs::class, inversedBy="myGangers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $gang;
+
     public function __construct()
     {
         $this->type = new ArrayCollection();
@@ -138,18 +139,6 @@ class MyGangers
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getGangId(): ?int
-    {
-        return $this->gangId;
-    }
-
-    public function setGangId(int $gangId): self
-    {
-        $this->gangId = $gangId;
 
         return $this;
     }
@@ -366,6 +355,18 @@ class MyGangers
     public function setGangerType(?GangersTypes $gangerType): self
     {
         $this->gangerType = $gangerType;
+
+        return $this;
+    }
+
+    public function getGang(): ?Gangs
+    {
+        return $this->gang;
+    }
+
+    public function setGang(?Gangs $gang): self
+    {
+        $this->gang = $gang;
 
         return $this;
     }

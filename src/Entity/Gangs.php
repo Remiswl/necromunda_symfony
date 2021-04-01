@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GangsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -61,6 +63,16 @@ class Gangs
      * @ORM\Column(type="string", length=255)
      */
     private $alliance;
+
+    /**
+     * @ORM\OneToMany(targetEntity=MyGangers::class, mappedBy="gang")
+     */
+    private $myGangers;
+
+    public function __construct()
+    {
+        $this->myGangers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -171,6 +183,36 @@ class Gangs
     public function setAlliance(string $alliance): self
     {
         $this->alliance = $alliance;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MyGangers[]
+     */
+    public function getMyGangers(): Collection
+    {
+        return $this->myGangers;
+    }
+
+    public function addMyGanger(MyGangers $myGanger): self
+    {
+        if (!$this->myGangers->contains($myGanger)) {
+            $this->myGangers[] = $myGanger;
+            $myGanger->setGang($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMyGanger(MyGangers $myGanger): self
+    {
+        if ($this->myGangers->removeElement($myGanger)) {
+            // set the owning side to null (unless already changed)
+            if ($myGanger->getGang() === $this) {
+                $myGanger->setGang(null);
+            }
+        }
 
         return $this;
     }

@@ -20,7 +20,7 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs", name="gangs")
      */
-    public function list(GangsRepository $repository): Response
+    public function listGangs(GangsRepository $repository): Response
     {
         $gangs_names = $repository->displayGangsNames();
 
@@ -35,7 +35,7 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangers/{ganger_id}/edit", name="edit_my_ganger")
      */
-    public function edit(MyGangersRepository $myGangersRepository, $ganger_id, Request $request): Response
+    public function editGangers(MyGangersRepository $myGangersRepository, $ganger_id, Request $request): Response
     {
         // Obtenir les données du ganger
         $gangerData = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
@@ -45,7 +45,7 @@ class GangsController extends AbstractController
          $gangerType = $gangerData->getGangerType()->__toString();
 
         // Obtenir l'id du gang
-        $gang_id = $gangerData->getGangId();
+        $gangId = $gangerData->getGang()->getId();
 
         // Créer le formulaire - Récupérer les données du formulaire MyGangersType
         $form = $this->createForm(MyGangersType::class, $gangerData);
@@ -59,7 +59,7 @@ class GangsController extends AbstractController
 
             $this->addFlash('success', 'Data saved!');
 
-            return $this->redirectToRoute('my_gang', ['gang_id' => $gang_id]);
+            return $this->redirectToRoute('my_gang', ['gang_id' => $gangId]);
         }
 
         return $this->render('gangs/edit.html.twig', [
@@ -69,12 +69,13 @@ class GangsController extends AbstractController
     }
 
     /**
-     * @Route("/gangs/{gang_id}", name="my_gang")
+     * @Route("/gangs/{gang_id}/edit", name="my_gang")
      */
-    public function show(GangsRepository $repository, MyGangersRepository $myGangersRepository, $gang_id, GangersTypesRepository $gangersTypesRepository): Response
+    public function showGangers(GangsRepository $repository, MyGangersRepository $myGangersRepository, $gang_id, GangersTypesRepository $gangersTypesRepository): Response
     {
         // Récupérer les infos du gang
         $gangData = $repository->displayGangData($gang_id);
+       // dd($gang_id);
 
         if(!$gangData) {
             throw $this->createNotFoundException('Error: this gang does not exist');

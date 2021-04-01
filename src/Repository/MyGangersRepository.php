@@ -2,9 +2,9 @@
 
 namespace App\Repository;
 
-use App\Entity\MyGangers;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\MyGangers;
 
 /**
  * @method MyGangers|null find($id, $lockMode = null, $lockVersion = null)
@@ -25,7 +25,7 @@ class MyGangersRepository extends ServiceEntityRepository
     public function displayGangersData($gang_id)
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.gangId = :val')
+            ->andWhere('m.gang = :val')
             ->setParameter('val', $gang_id)
             ->orderBy('m.gangerType', 'ASC')
             ->getQuery()

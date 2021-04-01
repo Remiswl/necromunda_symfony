@@ -29,9 +29,15 @@ class GangersTypes
      */
     private $myGangers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Gangers::class, mappedBy="type")
+     */
+    private $gangers;
+
     public function __construct()
     {
         $this->myGangers = new ArrayCollection();
+        $this->gangers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,5 +89,35 @@ class GangersTypes
 
     public function __toString(){
         return $this->name;
+    }
+
+    /**
+     * @return Collection|Gangers[]
+     */
+    public function getGangers(): Collection
+    {
+        return $this->gangers;
+    }
+
+    public function addGanger(Gangers $ganger): self
+    {
+        if (!$this->gangers->contains($ganger)) {
+            $this->gangers[] = $ganger;
+            $ganger->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGanger(Gangers $ganger): self
+    {
+        if ($this->gangers->removeElement($ganger)) {
+            // set the owning side to null (unless already changed)
+            if ($ganger->getType() === $this) {
+                $ganger->setType(null);
+            }
+        }
+
+        return $this;
     }
 }

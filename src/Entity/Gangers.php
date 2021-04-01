@@ -97,6 +97,12 @@ class Gangers
      */
     private $xp;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=GangersTypes::class, inversedBy="gangers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $type;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -290,6 +296,18 @@ class Gangers
     public function setXp(int $xp): self
     {
         $this->xp = $xp;
+
+        return $this;
+    }
+
+    public function getType(): ?GangersTypes
+    {
+        return $this->type;
+    }
+
+    public function setType(?GangersTypes $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

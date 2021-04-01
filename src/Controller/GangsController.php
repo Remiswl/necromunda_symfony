@@ -9,10 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 use App\Repository\GangsRepository;
 use App\Repository\MyGangersRepository;
+use App\Repository\GangersRepository;
 use App\Repository\GangersTypesRepository;
 use App\Form\MyGangersType;
 use App\Entity\GangersTypes;
 use App\Entity\MyGangers;
+use App\Entity\Gangers;
+use App\Entity\Gangs;
+use App\Form\NewGangerType;
 
 
 class GangsController extends AbstractController
@@ -26,14 +30,138 @@ class GangsController extends AbstractController
 
         //$newGang = $this->getDoctrine()->getRepository(Gangs::class)->findAll();
 
-        return $this->render('gangs/gangs_names.html.twig', [
+        return $this->render('gangs/gangs.html.twig', [
             'controller_name' => 'GangsController',
             'gangs' => $gangs_names
         ]);
     }
 
     /**
-     * @Route("/gangers/{ganger_id}/edit", name="edit_my_ganger")
+     * @Route("/gangs/{gang_id}/edit", name="my_gang")
+     */
+    public function showGangers(GangsRepository $repository, MyGangersRepository $myGangersRepository, $gang_id, GangersTypesRepository $gangersTypesRepository): Response
+    {
+        $gangData = $repository->displayGangData($gang_id);
+
+        if(!$gangData) {
+            throw $this->createNotFoundException('Error: this gang does not exist');
+        }
+
+        $gangersData = $myGangersRepository->displayGangersData($gang_id);
+
+        return $this->render('gangs/my_gang.html.twig', [
+            'controller_name' => 'GangsController',
+            'gangData' => $gangData,
+            'gangersData' => $gangersData
+        ]);
+    }
+
+    /**
+     * @Route("/gangs/{gang_id}/add", name="new_ganger")
+     */
+    public function addGanger(GangsRepository $repository, Request $request, $gang_id): Response
+    {
+        $gang_id = intval($gang_id);
+
+        $newGanger = new MyGangers;
+
+        $form = $this->createForm(NewGangerType::class, $newGanger);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $gangerTypeId = $newGanger->getGangerType()->getId();
+            $gangerTypeId = $this->getDoctrine()->getRepository(GangersTypes::class)->find($gangerTypeId);
+
+            $gangData = $repository->displayGangData($gang_id);
+            $gangId = $gangData[0]->getId();
+            $gangId = $this->getDoctrine()->getRepository(Gangs::class)->find($gangId);
+
+            $newGanger
+                ->setGang($gangId)
+                ->setGangerType($gangerTypeId)
+                ->setCredits(0)
+                ->setCool(0)
+                ->setWillpower(0)
+                ->setIntelligence(0);
+
+            if($gangerTypeId->getId() === 1){
+                $newGanger
+                    ->setMove(4)
+                    ->setWeaponSkill(4)
+                    ->setBallisticSkill(4)
+                    ->setStrength(3)
+                    ->setToughness(3)
+                    ->setWounds(1)
+                    ->setInitiative(4)
+                    ->setAttacks(1)
+                    ->setLeadership(8)
+                    ->setCost(120)
+                    ->setAdv(0)
+                    ->setXp(0)
+                    ->setImage('img/cawdor_figurine.png');
+            } else if($gangerTypeId->getId() === 2){
+                $newGanger
+                    ->setMove(4)
+                    ->setWeaponSkill(3)
+                    ->setBallisticSkill(3)
+                    ->setStrength(3)
+                    ->setToughness(3)
+                    ->setWounds(1)
+                    ->setInitiative(3)
+                    ->setAttacks(1)
+                    ->setLeadership(7)
+                    ->setCost(60)
+                    ->setAdv(0)
+                    ->setXp(0)
+                    ->setImage('img/cawdor_figurine.png');
+            } else if($gangerTypeId->getId() === 3){
+                $newGanger
+                    ->setMove(4)
+                    ->setWeaponSkill(3)
+                    ->setBallisticSkill(3)
+                    ->setStrength(3)
+                    ->setToughness(3)
+                    ->setWounds(1)
+                    ->setInitiative(3)
+                    ->setAttacks(1)
+                    ->setLeadership(7)
+                    ->setCost(50)
+                    ->setAdv(0)
+                    ->setXp(0)
+                    ->setImage('img/cawdor_figurine.png');
+            } else if($gangerTypeId->getId() === 4){
+                $newGanger
+                    ->setMove(4)
+                    ->setWeaponSkill(2)
+                    ->setBallisticSkill(2)
+                    ->setStrength(3)
+                    ->setToughness(3)
+                    ->setWounds(1)
+                    ->setInitiative(3)
+                    ->setAttacks(1)
+                    ->setLeadership(6)
+                    ->setCost(25)
+                    ->setAdv(0)
+                    ->setXp(0)
+                    ->setImage('img/cawdor_figurine.png');
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newGanger);
+            $em->flush();
+
+            $this->addFlash('success', 'New ganger hired!');
+
+            return $this->redirectToRoute('my_gang', ['gang_id' => $gang_id]);
+        }
+
+        return $this->render('gangs/new_ganger.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/gangs/gangers/{ganger_id}/edit", name="edit_ganger")
      */
     public function editGangers(MyGangersRepository $myGangersRepository, $ganger_id, Request $request): Response
     {
@@ -41,8 +169,8 @@ class GangsController extends AbstractController
         $gangerData = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
 
         // Obtenir le type de ganger
-         $gangerType = $this->getDoctrine()->getRepository(GangersTypes::class)->find($ganger_id);
-         $gangerType = $gangerData->getGangerType()->__toString();
+        $gangerType = $this->getDoctrine()->getRepository(GangersTypes::class)->find($ganger_id);
+        $gangerType = $gangerData->getGangerType()->__toString();
 
         // Obtenir l'id du gang
         $gangId = $gangerData->getGang()->getId();
@@ -69,72 +197,14 @@ class GangsController extends AbstractController
     }
 
     /**
-     * @Route("/gangs/{gang_id}/edit", name="my_gang")
+     * @Route("/gangs/gangers/{ganger_id}/delete", name="delete_ganger", methods="DELETE")
      */
-    public function showGangers(GangsRepository $repository, MyGangersRepository $myGangersRepository, $gang_id, GangersTypesRepository $gangersTypesRepository): Response
+    public function deleteGanger($ganger_id, Request $request): Response
     {
-        // Récupérer les infos du gang
-        $gangData = $repository->displayGangData($gang_id);
-       // dd($gang_id);
+        dd($request);
+        $this->em->remove($MyGangersganger);
+        $this->em->flush();
 
-        if(!$gangData) {
-            throw $this->createNotFoundException('Error: this gang does not exist');
-        }
-        // Récupérer les infos de chaque ganger du gang
-        $gangersData = $myGangersRepository->displayGangersData($gang_id);
-
-        return $this->render('gangs/my_gang.html.twig', [
-            'controller_name' => 'GangsController',
-            'gangData' => $gangData,
-            'gangersData' => $gangersData
-        ]);
+        return $this->redirectToRoute('my_gang', ['gang_id' => $gangId]);
     }
-
-    /*
-    public function index(): Response
-    {
-        $gangsNames = new GangType(); #Pour instancier la classe correspondant à la table Gangs (cf src/Entity/nom_de_la_classe_en_question)
-        $gangsNames->setName('Delaque'); #un seul setName à la fois --> possibilité d'ajouter plusieurs noms ?
-        $gangsName = $this->getDoctrine()->getManager();
-        $gangsName->persist($gangsNames);
-        $gangsName->flush();
-        return $this->render('recruitment/index.html.twig', [
-            'controller_name' => 'RecruitmentController',
-        ]);
-    }
-    */
-
-    /**
-     * @Route("/new_ganger", name="new_ganger")
-     * Insérer un nouveau ganger dans la BDD
-     */
-    /*
-    public function newGanger(EntityManagerInterface $entityManager): Response
-    {
-        $newGanger = new MyGangers();
-        $newGanger->setName('Chuck Norris')
-            ->setTypeId(2)
-            ->setGangId(3)
-            ->setCredits(45)
-            ->setMove(4)
-            ->setWeaponSkill(4)
-            ->setBallisticSkill(4)
-            ->setStrength(4)
-            ->setToughness(3)
-            ->setWounds(3)
-            ->setInitiative(1)
-            ->setAttacks(4)
-            ->setLeadership(1)
-            ->setCool(8)
-            ->setWillpower(2)
-            ->setIntelligence(4)
-            ->setCost(185)
-            ->setAdv(4)
-            ->setXp(64)
-            ->setImage('img/cawdor_figurine.png');
-        $entityManager->persist($newGanger);
-        $entityManager->flush();
-        return $this->redirectToRoute('home');
-    }
-    */
 }

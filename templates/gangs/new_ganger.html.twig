@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gangs{% endblock %}
+
+{% block body %}
+
+	<section id="newGanger1">
+		<div class="col-3 m-auto text-white">
+
+			{{ form_start(form) }}
+
+				{{ form_rest(form) }}
+				<button class="btn btn-primary offset-4">Hire ganger</button>
+
+			{{ form_end(form) }}
+
+
+		</div>
+	</section>
+
+{% endblock %}

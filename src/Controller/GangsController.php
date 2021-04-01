@@ -57,6 +57,21 @@ class GangsController extends AbstractController
     }
 
     /**
+     * @Route("/gangs/{gang_id}/delete", name="delete_gang", methods="DELETE")
+     */
+    public function deleteGang(MyGangersRepository $myGangersRepository, $gang_id, Request $request): Response
+    {
+        $myGang = $this->getDoctrine()->getRepository(Gangs::class)->find($gang_id);
+        $gangId = $myGang->getId();
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($myGang);
+        $em->flush();
+
+        return $this->redirectToRoute('gangs');
+    }
+
+    /**
      * @Route("/gangs/{gang_id}/add", name="new_ganger")
      */
     public function addGanger(GangsRepository $gangsRepository, Request $request, $gang_id): Response

@@ -59,7 +59,7 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{gang_id}/add", name="new_ganger")
      */
-    public function addGanger(GangsRepository $repository, Request $request, $gang_id): Response
+    public function addGanger(GangsRepository $gangsRepository, Request $request, $gang_id): Response
     {
         $gang_id = intval($gang_id);
 
@@ -72,7 +72,7 @@ class GangsController extends AbstractController
             $gangerTypeId = $newGanger->getGangerType()->getId();
             $gangerTypeId = $this->getDoctrine()->getRepository(GangersTypes::class)->find($gangerTypeId);
 
-            $gangData = $repository->displayGangData($gang_id);
+            $gangData = $gangsRepository->displayGangData($gang_id);
             $gangId = $gangData[0]->getId();
             $gangId = $this->getDoctrine()->getRepository(Gangs::class)->find($gangId);
 
@@ -165,19 +165,14 @@ class GangsController extends AbstractController
      */
     public function editGangers(MyGangersRepository $myGangersRepository, $ganger_id, Request $request): Response
     {
-        // Obtenir les données du ganger
         $gangerData = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
 
-        // Obtenir le type de ganger
         $gangerType = $this->getDoctrine()->getRepository(GangersTypes::class)->find($ganger_id);
         $gangerType = $gangerData->getGangerType()->__toString();
 
-        // Obtenir l'id du gang
         $gangId = $gangerData->getGang()->getId();
 
-        // Créer le formulaire - Récupérer les données du formulaire MyGangersType
         $form = $this->createForm(MyGangersType::class, $gangerData);
-        // Gérer la soumission du formulaire
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
@@ -199,11 +194,14 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/gangers/{ganger_id}/delete", name="delete_ganger", methods="DELETE")
      */
-    public function deleteGanger($ganger_id, Request $request): Response
+    public function deleteGanger(MyGangersRepository $myGangersRepository, $ganger_id, Request $request): Response
     {
-        dd($request);
-        $this->em->remove($MyGangersganger);
-        $this->em->flush();
+        $myGangers = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
+        $gangId = $myGangers->getGang()->getId();
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($myGangers);
+        $em->flush();
 
         return $this->redirectToRoute('my_gang', ['gang_id' => $gangId]);
     }

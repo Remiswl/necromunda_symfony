@@ -73,7 +73,7 @@
 								<td class="align-middle">{{ gangerData.xp }}</td>
 								<td class="align-middle">
 									<a href="{{ path('edit_ganger', {ganger_id : gangerData.id}) }}" class="btn btn-secondary mb-3">Edit</a>
-									<form method="post" action='{{ path('delete_ganger', {ganger_id : gangerData.id}) }}'>
+									<form method="post" action='{{ path('delete_ganger', {ganger_id : gangerData.id}) }}' onsubmit="return confirm('Do you realy want to fire your ganger?')">
 										<input type="hidden" name="_method" value="DELETE">
 										<button class="btn btn-danger">Delete</button>
 									</form>

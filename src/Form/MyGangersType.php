@@ -8,8 +8,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-use App\Controller\RecruitmentController;
-
 class MyGangersType extends AbstractType
 {
 
@@ -27,9 +25,6 @@ class MyGangersType extends AbstractType
             ->add('initiative')
             ->add('attacks')
             ->add('leadership')
-            ->add('cool')
-            ->add('willpower')
-            ->add('intelligence')
             ->add('cost')
             ->add('adv')
             ->add('xp')

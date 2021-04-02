@@ -11,7 +11,6 @@ use Doctrine\Persistence\ObjectManager;
 
 use App\Entity\Gangs;
 use App\Form\NewGangType;
-use App\Repository\GangsRepository;
 
 class RecruitmentController extends AbstractController
 {
@@ -37,32 +36,16 @@ class RecruitmentController extends AbstractController
 
 
             $em = $this->getDoctrine()->getManager();
-
             $em->persist($newGang);
-
             $em->flush();
 
             $id = $newGang->getId();
 
-
-            return $this->redirectToRoute('recruitment', ['gang_id' => $id]);
+            return $this->redirectToRoute('my_gang', ['gang_id' => $id]);
         }
 
         return $this->render('recruitment/newGang.html.twig', [
             'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/{gang_id}/recruitment", name="recruitment")
-     */
-    public function hireGangers($gang_id, GangsRepository $gangsRepository): Response
-    {
-        $gangData = $gangsRepository->findOneBy(['id' => $gang_id]);
-
-        return $this->render('recruitment/recruitment.html.twig', [
-            'controller_name' => 'RecruitmentController',
-            'gangData' => $gangData
         ]);
     }
 }

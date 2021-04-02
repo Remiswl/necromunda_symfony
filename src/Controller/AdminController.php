@@ -13,8 +13,8 @@ class AdminController extends AbstractController
 {
     private $repository;
 
-    public function __construct(HousesRepository $repository){
-    	$this->repository=$repository;
+    public function __construct(HousesRepository $housesRepository){
+    	$this->repository=$housesRepository;
     }
 
     /**
@@ -22,7 +22,7 @@ class AdminController extends AbstractController
      */
     public function index(): Response
     {
-        $houses = $this->repository->findAllGangsNames();
+        $houses = $this->repository->findAll();
 
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',

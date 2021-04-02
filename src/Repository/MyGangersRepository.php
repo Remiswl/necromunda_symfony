@@ -27,7 +27,7 @@ class MyGangersRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('m')
             ->andWhere('m.gang = :val')
             ->setParameter('val', $gang_id)
-            ->orderBy('m.gangerType', 'ASC')
+            ->orderBy('m.createdAt', 'ASC')
             ->getQuery()
             ->getResult()
         ;

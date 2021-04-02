@@ -9,8 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use App\Entity\Gangs;
-use App\Entity\Houses;
-use App\Controller\RecruitmentController;
 
 class NewGangType extends AbstractType
 {

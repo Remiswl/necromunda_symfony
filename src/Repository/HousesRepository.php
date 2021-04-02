@@ -19,19 +19,6 @@ class HousesRepository extends ServiceEntityRepository
         parent::__construct($registry, Houses::class);
     }
 
-    /**
-     * @return Houses[] Returns an array of Houses objects
-     */
-
-    public function findAllGangsNames()
-    {
-        return $this->createQueryBuilder('g')
-            ->orderBy('g.name', 'ASC')
-            ->getQuery() #ligne obligatoire
-            ->getResult() #ligne obligatoire
-        ;
-    }
-
     // /**
     //  * @return Houses[] Returns an array of Houses objects
     //  */

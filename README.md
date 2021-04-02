@@ -23,7 +23,6 @@ All texts and illustrations are the property of Games Workshop. The use of this 
 	* Make sure that each gang name is unique
 	* Allow the player to choose an image for his gang (gang's arms, gangers' faces, etc.)
 * Manage your gang
-	* Make automatic the calculation of the gang stach, the gang rating, the total rating and the total Exp
 	* Make possible to add territories
 	* Display gangers' equipment, skills and injuries
 * Manager gangers

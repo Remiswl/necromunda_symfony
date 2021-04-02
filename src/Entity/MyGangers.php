@@ -121,6 +121,11 @@ class MyGangers
      */
     private $gang;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
     public function __construct()
     {
         $this->type = new ArrayCollection();
@@ -367,6 +372,18 @@ class MyGangers
     public function setGang(?Gangs $gang): self
     {
         $this->gang = $gang;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -8,8 +8,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-use App\Entity\Gangers;
-use App\Entity\Houses;
 
 class NewGangerType extends AbstractType
 {

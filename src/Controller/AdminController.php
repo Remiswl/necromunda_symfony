@@ -5,9 +5,12 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 use App\Repository\HousesRepository;
 use App\Repository\TerritoriesRepository;
+use App\Entity\Territories;
+use App\Form\TerritoriesType;
 
 
 class AdminController extends AbstractController
@@ -38,8 +41,27 @@ class AdminController extends AbstractController
     /**
      * @Route("/new_territory", name="new_territory")
      */
-    public function newTerritory(): Response
+    public function newTerritory(Request $request): Response
     {
-        dd('ok');
+        $newTerritory = new Territories();
+
+        $form = $this->createForm(TerritoriesType::class, $newTerritory);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $newTerritory->setD66roll(0);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newTerritory);
+            $em->flush();
+
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('admin/newTerritory.html.twig', [
+            'form' => $form->createView()
+        ]);
+
     }
 }

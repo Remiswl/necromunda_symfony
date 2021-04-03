@@ -44,6 +44,16 @@ class Territories
      */
     private $gang;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $D6tens;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $D6units;
+
     public function __construct()
     {
         $this->gang = new ArrayCollection();
@@ -122,6 +132,30 @@ class Territories
     public function removeGang(Gangs $gang): self
     {
         $this->gang->removeElement($gang);
+
+        return $this;
+    }
+
+    public function getD6tens(): ?int
+    {
+        return $this->D6tens;
+    }
+
+    public function setD6tens(int $D6tens): self
+    {
+        $this->D6tens = $D6tens;
+
+        return $this;
+    }
+
+    public function getD6units(): ?int
+    {
+        return $this->D6units;
+    }
+
+    public function setD6units(int $D6units): self
+    {
+        $this->D6units = $D6units;
 
         return $this;
     }

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210402075912 extends AbstractMigration
+final class Version20210403102000 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -20,15 +20,12 @@ final class Version20210402075912 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE territories ADD d6tens INT NOT NULL, ADD d6units INT NOT NULL');
     }
 
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE gangers DROP FOREIGN KEY FK_A3F4545C54C8C93');
-        $this->addSql('DROP INDEX IDX_A3F4545C54C8C93 ON gangers');
-        $this->addSql('ALTER TABLE my_gangers DROP FOREIGN KEY FK_80C6E9699266B5E');
-        $this->addSql('DROP INDEX IDX_80C6E9699266B5E ON my_gangers');
-        $this->addSql('ALTER TABLE my_gangers DROP created_at');
+        $this->addSql('ALTER TABLE territories DROP d6tens, DROP d6units');
     }
 }

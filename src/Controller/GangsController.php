@@ -51,7 +51,7 @@ class GangsController extends AbstractController
             $totalExp += $gangersData[$i]->getXp();
         }
 
-        return $this->render('gangs/my_gang.html.twig', [
+        return $this->render('gangs/myGang.html.twig', [
             'controller_name' => 'GangsController',
             'gangData' => $gangData,
             'gangersData' => $gangersData,
@@ -161,10 +161,10 @@ class GangsController extends AbstractController
 
             $this->addFlash('success', 'New ganger hired!');
 
-            return $this->redirectToRoute('my_gang', ['gang_id' => $gang_id]);
+            return $this->redirectToRoute('myGang', ['gang_id' => $gang_id]);
         }
 
-        return $this->render('gangs/new_ganger.html.twig', [
+        return $this->render('gangs/newGanger.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -191,7 +191,7 @@ class GangsController extends AbstractController
 
             $this->addFlash('success', 'Data saved!');
 
-            return $this->redirectToRoute('my_gang', ['gang_id' => $gangId]);
+            return $this->redirectToRoute('myGang', ['gang_id' => $gangId]);
         }
 
         return $this->render('gangs/edit.html.twig', [
@@ -212,6 +212,14 @@ class GangsController extends AbstractController
         $em->remove($myGangers);
         $em->flush();
 
-        return $this->redirectToRoute('my_gang', ['gang_id' => $gangId]);
+        return $this->redirectToRoute('myGang', ['gang_id' => $gangId]);
+    }
+
+    /**
+     * @Route("/gangs/{gang_id}/territories/add", name="new_territory")
+     */
+    public function addTerritory(): Response
+    {
+
     }
 }

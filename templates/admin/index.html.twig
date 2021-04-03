@@ -5,23 +5,39 @@
 {% block body %}
 
 	<section id="admin" class="mb-5">
-		<div class="text-center text-white">
-			<p>List of houses</p>
+		<div class="text-center text-white col-10 mx-auto">
 
-			<ul>
-				{% for house in houses %}
-					<li>{{ house.name }}</li>
-				{% endfor %}
-			</ul>
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{ message }}
+				</div>
+			{% endfor %}
 
 			<p>List of territories</p>
 
-			<ul>
-				{% for territory in territories %}
-					<li>{{ territory.name }}</li>
-				{% endfor %}
-			</ul>
+			<table class="table table-bordered bg-white">
+				<thead class="bg-secondary text-white">
+					<tr>
+						<td class="col-1">Name</td>
+						<td class="col-1">D66 roll</td>
+						<td class="col-1">Income</td>
+						<td class="col-9">Description</td>
+					</tr>
+				</thead>
 
+				<tbody>
+					{% for territory in territories %}
+						<tr>
+							<td class="col-1">{{ territory.name }}</td>
+							<td class="col-1">{{ territory.d6tens ~ territory.d6units }}</td>
+							<td class="col-1">{{ territory.income }}</td>
+							<td class="col-9 text-left">{{ territory.description }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<a href="{{ path('edit_territories') }}" class="btn btn-secondary my-2">Edit territories</a>
 			<a href="{{ path('new_territory') }}" class="btn btn-secondary my-2">New territory</a>
 
 		</div>

@@ -64,4 +64,34 @@ class AdminController extends AbstractController
         ]);
 
     }
+
+    /**
+     * @Route("/edit_territories", name="edit_territories")
+     */
+    public function editTerritories(Request $request): Response
+    {
+        $territoriesData = $this->getDoctrine()->getRepository(Territories::class)->findAll();
+
+        for ($i = 0; $i < sizeof($territoriesData); $i++) {
+            $form = $this->createForm(TerritoriesType::class, $territoriesData[$i]);
+        }
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            dd('ok');
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($territoriesData);
+            $em->flush();
+
+            $this->addFlash('success', 'Data saved!');
+
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('admin/editTerritories.html.twig', [
+            'territoriesData' => $territoriesData,
+            'form' => $form->createView()
+        ]);
+    }
 }

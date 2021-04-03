@@ -39,7 +39,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/new_territory", name="new_territory")
+     * @Route("/admin/new_territory", name="new_territory")
      */
     public function newTerritory(Request $request): Response
     {
@@ -63,7 +63,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/edit_territories", name="edit_territories")
+     * @Route("/admin/edit_territories", name="edit_territories")
      */
     public function editTerritories(Request $request): Response
     {

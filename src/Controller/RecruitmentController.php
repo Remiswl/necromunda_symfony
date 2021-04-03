@@ -27,13 +27,26 @@ class RecruitmentController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
 
             $newGang
-                ->setReputation(4)
-                ->setWealth(10)
+                ->setReputation(0)
+                ->setWealth(0)
                 ->setAlliance('no')
                 ->setCredits(1000)
-                ->setGangRating(10)
+                ->setGangRating(0)
                 ->setCreatedAt(new \DateTime('NOW'));
 
+            if ($newGang->getHouse()->getId() === 1) {
+                $newGang->setImage('img/cawdor.jpg');
+            } else if ($newGang->getHouse()->getId() === 2) {
+                $newGang->setImage('img/cawdor.jpg');
+            } else if ($newGang->getHouse()->getId() === 3) {
+                $newGang->setImage('img/cawdor.jpg');
+            } else if ($newGang->getHouse()->getId() === 4) {
+                $newGang->setImage('img/Goliath/goliath_arms.png');
+            } else if ($newGang->getHouse()->getId() === 5) {
+                $newGang->setImage('img/cawdor.jpg');
+            } else if ($newGang->getHouse()->getId() === 6) {
+                $newGang->setImage('img/Van_Saar/van_saar_arms.png');
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($newGang);

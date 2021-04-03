@@ -22,3 +22,11 @@ footer {
 #gangs img {
 	height:110px;
 }
+
+#users .card {
+	height:385px;
+}
+
+#users img {
+	height:50%;
+}

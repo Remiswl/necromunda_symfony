@@ -41,7 +41,7 @@ class RecruitmentController extends AbstractController
 
             $id = $newGang->getId();
 
-            return $this->redirectToRoute('my_gang', ['gang_id' => $id]);
+            return $this->redirectToRoute('show_gang', ['gang_id' => $id]);
         }
 
         return $this->render('recruitment/newGang.html.twig', [

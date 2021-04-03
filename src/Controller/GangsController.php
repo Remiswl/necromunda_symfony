@@ -181,8 +181,8 @@ class GangsController extends AbstractController
     {
         $gangerData = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
 
-        $gangerType = $this->getDoctrine()->getRepository(GangersTypes::class)->find($ganger_id);
-        $gangerType = $gangerData->getGangerType()->__toString();
+        //$gangerType = $this->getDoctrine()->getRepository(GangersTypes::class)->find($ganger_id);
+        //$gangerType = $gangerData->getGangerType()->__toString();
 
         $gangId = $gangerData->getGang()->getId();
 

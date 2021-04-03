@@ -32,9 +32,9 @@ class GangsController extends AbstractController
     }
 
     /**
-     * @Route("/gangs/{gang_id}/edit", name="my_gang")
+     * @Route("/gangs/{gang_id}/show_gang", name="show_gang")
      */
-    public function showGangers(GangsRepository $gangsRepository, MyGangersRepository $myGangersRepository, $gang_id): Response
+    public function showGang(GangsRepository $gangsRepository, MyGangersRepository $myGangersRepository, $gang_id): Response
     {
         $gangData = $gangsRepository->displayGangData($gang_id);
 
@@ -61,14 +61,19 @@ class GangsController extends AbstractController
     }
 
     /**
-     * @Route("/gangs/{gang_id}/delete", name="delete_gang", methods="DELETE")
+     * @Route("/gangs/{gang_id}/delete_gang", name="delete_gang", methods="DELETE")
      */
     public function deleteGang($gang_id): Response
     {
+        // Select the gang to delete
         $myGang = $this->getDoctrine()->getRepository(Gangs::class)->find($gang_id);
         $gangId = $myGang->getId();
 
+        // Also delete gangers
+        $gangersToDelete = $this->getDoctrine()->getRepository(MyGangers::class)->find($gang_id);
+
         $em = $this->getDoctrine()->getManager();
+        $em->remove($gangersToDelete);
         $em->remove($myGang);
         $em->flush();
 
@@ -76,7 +81,7 @@ class GangsController extends AbstractController
     }
 
     /**
-     * @Route("/gangs/{gang_id}/add", name="new_ganger")
+     * @Route("/gangs/{gang_id}/add_ganger", name="new_ganger")
      */
     public function addGanger(GangsRepository $gangsRepository, Request $request, $gang_id): Response
     {
@@ -161,7 +166,7 @@ class GangsController extends AbstractController
 
             $this->addFlash('success', 'New ganger hired!');
 
-            return $this->redirectToRoute('myGang', ['gang_id' => $gang_id]);
+            return $this->redirectToRoute('show_gang', ['gang_id' => $gang_id]);
         }
 
         return $this->render('gangs/newGanger.html.twig', [
@@ -170,7 +175,7 @@ class GangsController extends AbstractController
     }
 
     /**
-     * @Route("/gangs/gangers/{ganger_id}/edit", name="edit_ganger")
+     * @Route("/gangers/{ganger_id}/edit", name="edit_ganger")
      */
     public function editGangers($ganger_id, Request $request): Response
     {
@@ -191,7 +196,7 @@ class GangsController extends AbstractController
 
             $this->addFlash('success', 'Data saved!');
 
-            return $this->redirectToRoute('myGang', ['gang_id' => $gangId]);
+            return $this->redirectToRoute('show_gang', ['gang_id' => $gangId]);
         }
 
         return $this->render('gangs/edit.html.twig', [
@@ -201,7 +206,7 @@ class GangsController extends AbstractController
     }
 
     /**
-     * @Route("/gangs/gangers/{ganger_id}/delete", name="delete_ganger", methods="DELETE")
+     * @Route("/gangers/{ganger_id}/delete", name="delete_ganger", methods="DELETE")
      */
     public function deleteGanger($ganger_id): Response
     {
@@ -212,14 +217,16 @@ class GangsController extends AbstractController
         $em->remove($myGangers);
         $em->flush();
 
-        return $this->redirectToRoute('myGang', ['gang_id' => $gangId]);
+        return $this->redirectToRoute('show_gang', ['gang_id' => $gangId]);
     }
 
     /**
      * @Route("/gangs/{gang_id}/territories/add", name="new_territory")
      */
+    /*
     public function addTerritory(): Response
     {
 
     }
+    */
 }

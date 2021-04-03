@@ -27,9 +27,6 @@ class RecruitmentController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
 
             $newGang
-                ->setReputation(0)
-                ->setWealth(0)
-                ->setAlliance('no')
                 ->setCredits(1000)
                 ->setGangRating(0)
                 ->setCreatedAt(new \DateTime('NOW'));

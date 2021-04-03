@@ -35,11 +35,6 @@ class Territories
     private $income;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $D66roll;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Gangs::class, inversedBy="territories")
      */
     private $gang;
@@ -96,18 +91,6 @@ class Territories
     public function setIncome(string $income): self
     {
         $this->income = $income;
-
-        return $this;
-    }
-
-    public function getD66roll(): ?int
-    {
-        return $this->D66roll;
-    }
-
-    public function setD66roll(int $D66roll): self
-    {
-        $this->D66roll = $D66roll;
 
         return $this;
     }

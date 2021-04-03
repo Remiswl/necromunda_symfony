@@ -50,8 +50,6 @@ class AdminController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
 
-            $newTerritory->setD66roll(0);
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($newTerritory);
             $em->flush();
@@ -62,7 +60,6 @@ class AdminController extends AbstractController
         return $this->render('admin/newTerritory.html.twig', [
             'form' => $form->createView()
         ]);
-
     }
 
     /**

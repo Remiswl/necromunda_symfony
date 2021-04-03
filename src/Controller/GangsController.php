@@ -69,11 +69,16 @@ class GangsController extends AbstractController
         $myGang = $this->getDoctrine()->getRepository(Gangs::class)->find($gang_id);
         $gangId = $myGang->getId();
 
-        // Also delete gangers
-        $gangersToDelete = $this->getDoctrine()->getRepository(MyGangers::class)->find($gang_id);
+        // Also delete its gangers
+        $gangersToDelete = $this->getDoctrine()->getRepository(MyGangers::class)->findAll();
+
+        for ($i = 0; $i < sizeof($gangersToDelete); $i++) {
+            if($gangersToDelete[$i]->getGang()->getId() === $gangId) {
+                $this->deleteGanger($gangersToDelete[$i]->getId());
+            }
+        }
 
         $em = $this->getDoctrine()->getManager();
-        $em->remove($gangersToDelete);
         $em->remove($myGang);
         $em->flush();
 
@@ -181,8 +186,8 @@ class GangsController extends AbstractController
     {
         $gangerData = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
 
-        //$gangerType = $this->getDoctrine()->getRepository(GangersTypes::class)->find($ganger_id);
-        //$gangerType = $gangerData->getGangerType()->__toString();
+        $gangerType = $this->getDoctrine()->getRepository(GangersTypes::class)->find($ganger_id);
+        $gangerType = $gangerData->getGangerType()->__toString();
 
         $gangId = $gangerData->getGang()->getId();
 

@@ -4,7 +4,7 @@
 
 Necromunda is a skirmish tabletop war game produced by Games Workshop. This website will help you to create and manage your gangs.
 
-All texts and illustrations are the property of Games Workshop. The use of this website will exclusively be private.
+All texts and illustrations are the property of Games Workshop.
 
 
 ## Technologies
@@ -23,19 +23,19 @@ All texts and illustrations are the property of Games Workshop. The use of this 
 	* Make sure that each gang name is unique
 	* Allow the player to choose an image for his gang (gang's arms, gangers' faces, etc.)
 * Manage your gang
-	* Make possible to add territories
+	* Make possible to add territories and display them
 	* Display gangers' equipment, skills and injuries
 * Manager gangers
 	* Add equîpment, skills and injuries
 	* Modify image
 	* set default image
 	* add a list of images the player can choose
-	* @Route: add a slig with the ganger's name
+	* @Route: add a slug with the ganger's name
 * ~~Houses~~
 * ~~Resources~~
 * Settings
-	* add and modify weapons and their properties
-	* add and modify territories and their properties
+	* add and modify weapons
+	* modify territories
 	* etc.
 * Finish create database (see details below)
 
@@ -56,6 +56,7 @@ Next steps:
 * ~GangersTypes~
 * ~Gangers (= list of gangers' caracterics depending on the gang)~
 * ~MyGangers (= create a new lign for each ganger as soon as a new gang is formed)~
+* ~Territories~
 
 * Weapons (= the table lists the weapons' caracteristics)
 	* category (basic weapon, close combat weapon, pistol, special weapon, heavy weapon)
@@ -68,25 +69,10 @@ Next steps:
 	* armourPiercing
 	* damage
 	* ammo
-* GangersWeapons (= the table lists the weapons of each ganger)
-	* weaponId
-	* gangerId
-* WeaponsTraits (structure to be confirmed)
-	* weaponId
-	* which traits?
 * Wargears (structure to be confirmed)
 	* category (grenades, armour, personal equipment)
 	* cost
 	* caracteristics?
-* GangersWargears
-	* wargearId
-	* gangerId
 * Skills (structure to be confirmed)
 	* listOfSkillsId
 	* gangerId
-* ListOfSkills (structure to be confirmed)
-	* caracteristics
-* Territories (structure to be confirmed)
-	* gangId
-* GangStash
-	* gangId

@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+use App\Entity\GangersTypes;
 
 class NewGangerType extends AbstractType
 {
@@ -16,7 +17,7 @@ class NewGangerType extends AbstractType
         $builder
             ->add('name')
             ->add('gangerType', EntityType::class, [
-                'class' => 'App\Entity\GangersTypes',
+                'class' => GangersTypes::class,
                 'choice_label' => 'name',
             ]);
     }

@@ -4,7 +4,7 @@
 
 {% block body %}
 
-	<section id="admin">
+	<section id="admin" class="mb-5">
 		<div class="text-center text-white">
 			<p>List of houses</p>
 
@@ -13,6 +13,17 @@
 					<li>{{ house.name }}</li>
 				{% endfor %}
 			</ul>
+
+			<p>List of territories</p>
+
+			<ul>
+				{% for territory in territories %}
+					<li>{{ territory.name }}</li>
+				{% endfor %}
+			</ul>
+
+			<a href="{{ path('new_territory') }}" class="btn btn-secondary my-2">New territory</a>
+
 		</div>
 	</section>
 

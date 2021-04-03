@@ -4,8 +4,7 @@
 
 {% block body %}
 
-	<section id="gangs">
-
+	<section id="gangs" class="mb-5">
 		<div class="text-center mx-5">
 			<div class="col-10 mx-auto">
 
@@ -28,7 +27,10 @@
 						<tr>
 							<td>Image</td>
 							<td>Name</td>
-							<td>Characteristics</td>
+							<td>
+								Characteristics
+								<i class="fas fa-info-circle" title=" M => Move &#013 WS => Weapon skill &#013 BS => Ballistic skill &#013 S => Strength &#013 T => Toughness &#013 W => Wounds &#013 I => Initiative &#013 A => Attacks &#013 Ld => Leadership"></i>
+							</td>
 							<td>Equipment, skills & injuries</td>
 							<td>Cost</td>
 							<td>Exp.</td>
@@ -66,7 +68,6 @@
 											<td>{{ gangerData.leadership }}</td>
 										</tr>
 									</table>
-									<i class="fas fa-info-circle" title=" M => Move &#013 WS => Weapon skill &#013 BS => Ballistic skill &#013 S => Strength &#013 T => Toughness &#013 W => Wounds &#013 I => Initiative &#013 A => Attacks &#013 Ld => Leadership"></i>
 								</td>
 								<td class="text-left">Shotgun <i class="fas fa-info-circle"></i></td>
 								<td class="align-middle">{{ gangerData.cost }}</td>
@@ -136,16 +137,12 @@
 					</tbody>
 				</table>
 
-				<table class="col-2 text-right">
-					<tr>
-						<td class="align-middle"><a href="{{ path('new_ganger', {gang_id : gangData.0.id}) }}" class="btn btn-secondary">New ganger</a></td>
-					</tr>
-					<tr>
-						<td class="align-middle"><a href="#" class="btn btn-secondary">New territory</a></td>
-					</tr>
+				<table class="col-2 d-flex flex-column text-right">
 					<tr>
 						<td class="align-middle">
-							<form method="post" action='{{ path('delete_gang', {gang_id : gangData.0.id}) }}' onsubmit="return confirm('Do you really want to delete your gang?')">
+							<a href="{{ path('new_ganger', {gang_id : gangData.0.id}) }}" class="btn btn-secondary my-2">New ganger</a>
+							<a href="#" class="btn btn-secondary my-2">New territory</a>
+							<form class="my-2" method="post" action='{{ path('delete_gang', {gang_id : gangData.0.id}) }}' onsubmit="return confirm('Do you really want to delete your gang?')">
 									<input type="hidden" name="_method" value="DELETE">
 									<button class="btn btn-danger">Delete gang</button>
 							</form>
@@ -155,7 +152,6 @@
 
 			</div>
 		</div>
-
 	</section>
 
 {% endblock %}

@@ -70,21 +70,6 @@ class Gangers
     /**
      * @ORM\Column(type="integer")
      */
-    private $cool;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $willpower;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $intelligence;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
     private $cost;
 
     /**
@@ -224,42 +209,6 @@ class Gangers
     public function setLeadership(int $leadership): self
     {
         $this->leadership = $leadership;
-
-        return $this;
-    }
-
-    public function getCool(): ?int
-    {
-        return $this->cool;
-    }
-
-    public function setCool(int $cool): self
-    {
-        $this->cool = $cool;
-
-        return $this;
-    }
-
-    public function getWillpower(): ?int
-    {
-        return $this->willpower;
-    }
-
-    public function setWillpower(int $willpower): self
-    {
-        $this->willpower = $willpower;
-
-        return $this;
-    }
-
-    public function getIntelligence(): ?int
-    {
-        return $this->intelligence;
-    }
-
-    public function setIntelligence(int $intelligence): self
-    {
-        $this->intelligence = $intelligence;
 
         return $this;
     }

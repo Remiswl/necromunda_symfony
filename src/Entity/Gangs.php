@@ -69,9 +69,15 @@ class Gangs
      */
     private $myGangers;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Territories::class, mappedBy="gang")
+     */
+    private $territories;
+
     public function __construct()
     {
         $this->myGangers = new ArrayCollection();
+        $this->territories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -212,6 +218,33 @@ class Gangs
             if ($myGanger->getGang() === $this) {
                 $myGanger->setGang(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Territories[]
+     */
+    public function getTerritories(): Collection
+    {
+        return $this->territories;
+    }
+
+    public function addTerritory(Territories $territory): self
+    {
+        if (!$this->territories->contains($territory)) {
+            $this->territories[] = $territory;
+            $territory->addGang($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTerritory(Territories $territory): self
+    {
+        if ($this->territories->removeElement($territory)) {
+            $territory->removeGang($this);
         }
 
         return $this;

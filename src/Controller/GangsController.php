@@ -103,9 +103,6 @@ class GangsController extends AbstractController
                 ->setAdv(0)
                 ->setXp(0)
                 ->setCredits(0)
-                ->setCool(0)
-                ->setWillpower(0)
-                ->setIntelligence(0)
                 ->setCreatedAt(new \DateTime('NOW'));
 
             if($gangerTypeId->getId() === 1){

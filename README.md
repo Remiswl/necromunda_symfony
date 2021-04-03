@@ -30,6 +30,7 @@ All texts and illustrations are the property of Games Workshop. The use of this 
 	* Modify image
 	* set default image
 	* add a list of images the player can choose
+	* @Route: add a slig with the ganger's name
 * ~~Houses~~
 * ~~Resources~~
 * Settings

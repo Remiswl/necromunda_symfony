@@ -30,14 +30,17 @@ All texts and illustrations are the property of Games Workshop.
 	* Modify image
 	* set default image
 	* add a list of images the player can choose
-	* @Route: add a slug with the ganger's name
+	* @Route: add a slug with the ganger's name (Grafikart - Découverte de Doctrine 33')
 * ~~Houses~~
 * ~~Resources~~
 * Settings
 	* add and modify weapons
 	* modify territories
 	* etc.
+* Fixtures
+	* Create fixtures (with Faker; Grafikart - Paginer les biens 2'34")
 * Finish create database (see details below)
+* Allow access to the site to registered users (Grafikart - Le composant Security)
 
 Next steps:
 * Start a battle (/battle):

@@ -7,8 +7,9 @@
 	<section id="edit_territory" class="mb-5">
 		<div class="col-10 m-auto text-white">
 
-				{{ form_start(form) }}
+				{% for territory in territories %}
 
+				{{ form_start(form) }}
 					<div class="row">
 						<div class="col-2">
 							{{ form_row(form.name) }}
@@ -20,8 +21,9 @@
 						</div>
 						<div class="col-8">{{ form_row(form.description) }}</div>
 					</div>
-
 				{{ form_end(form) }}
+
+				{% endfor %}
 
 				<div class="text-center">
 					<button class="btn btn-primary">Save changes</button>

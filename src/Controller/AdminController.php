@@ -65,20 +65,26 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/edit_territories", name="edit_territories")
      */
-    public function editTerritories(Request $request): Response
+    // public function editTerritories(Request $request): Response
+    public function editTerritories(Request $request, TerritoriesRepository $territoriesRepository): Response
     {
-        $territoriesData = $this->getDoctrine()->getRepository(Territories::class)->findAll();
+        // $territoriesData = $this->getDoctrine()->getRepository(Territories::class)->findAll();
+        $territories = $territoriesRepository->findAll();
 
-        for ($i = 0; $i < sizeof($territoriesData); $i++) {
-            $form = $this->createForm(TerritoriesType::class, $territoriesData[$i]);
+//dd($territories);
+        for ($i = 0; $i < sizeof($territories); $i++) {
+            $form = $this->createForm(TerritoriesType::class, $territories[$i]);
+        $form->handleRequest($request);
+
         }
 
-        $form->handleRequest($request);
+//dd($form);
+
 
         if($form->isSubmitted() && $form->isValid()) {
             dd('ok');
             $em = $this->getDoctrine()->getManager();
-            $em->persist($territoriesData);
+            $em->persist($territories);
             $em->flush();
 
             $this->addFlash('success', 'Data saved!');
@@ -87,7 +93,7 @@ class AdminController extends AbstractController
         }
 
         return $this->render('admin/editTerritories.html.twig', [
-            'territoriesData' => $territoriesData,
+            'territories' => $territories,
             'form' => $form->createView()
         ]);
     }

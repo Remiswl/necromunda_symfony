@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use App\Repository\GangsRepository;
 use App\Repository\MyGangersRepository;
+use App\Repository\GangersTypesRepository;
 use App\Form\MyGangersType;
 use App\Form\NewGangerType;
 use App\Entity\GangersTypes;
@@ -23,7 +24,9 @@ class GangsController extends AbstractController
      */
     public function listGangs(GangsRepository $gangsRepository): Response
     {
-        $gangs_names = $gangsRepository->displayGangsNames();
+        //$gangs_names = $gangsRepository->displayGangsNames();
+        $gangs_names = $gangsRepository->findAll();
+
 
         return $this->render('gangs/gangs.html.twig', [
             'controller_name' => 'GangsController',
@@ -63,14 +66,17 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{gang_id}/delete_gang", name="delete_gang", methods="DELETE")
      */
-    public function deleteGang($gang_id): Response
+    // public function deleteGang($gang_id): Response
+    public function deleteGang($gang_id, GangsRepository $gangsRepository, MyGangersRepository $myGangersRepository): Response
     {
         // Select the gang to delete
-        $myGang = $this->getDoctrine()->getRepository(Gangs::class)->find($gang_id);
+        // $myGang = $this->getDoctrine()->getRepository(Gangs::class)->find($gang_id);
+        $myGang = $gangsRepository->find($gang_id);
         $gangId = $myGang->getId();
 
         // Also delete its gangers
-        $gangersToDelete = $this->getDoctrine()->getRepository(MyGangers::class)->findAll();
+        // $gangersToDelete = $this->getDoctrine()->getRepository(MyGangers::class)->findAll();
+        $gangersToDelete = $myGangersRepository->findAll();
 
         for ($i = 0; $i < sizeof($gangersToDelete); $i++) {
             if($gangersToDelete[$i]->getGang()->getId() === $gangId) {
@@ -88,9 +94,10 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{gang_id}/add_ganger", name="new_ganger")
      */
-    public function addGanger(GangsRepository $gangsRepository, Request $request, $gang_id): Response
+    // public function addGanger(GangsRepository $gangsRepository, Request $request, $gang_id): Response
+    public function addGanger(GangsRepository $gangsRepository, GangersTypesRepository $gangersTypesRepository, Request $request, $gang_id): Response
     {
-        $gang_id = intval($gang_id);
+        // $gang_id = intval($gang_id);
 
         $newGanger = new MyGangers;
 
@@ -99,12 +106,15 @@ class GangsController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             $gangerTypeId = $newGanger->getGangerType()->getId();
-            $gangerTypeId = $this->getDoctrine()->getRepository(GangersTypes::class)->find($gangerTypeId);
+            // $gangerTypeId = $this->getDoctrine()->getRepository(GangersTypes::class)->find($gangerTypeId);
+            $gangerTypeId = $gangersTypesRepository->find($gangerTypeId);
 
-            $gangData = $gangsRepository->displayGangData($gang_id);
+            // $gangData = $gangsRepository->displayGangData($gang_id);
+            $gangData = $gangsRepository->find(intval($gang_id));
 
-            $gangId = $gangData[0]->getId();
-            $gangId = $this->getDoctrine()->getRepository(Gangs::class)->find($gangId);
+            $gangId = $gangData->getId();
+            // $gangId = $this->getDoctrine()->getRepository(Gangs::class)->find($gangId);
+            $gangId = $gangsRepository->find($gangId);
 
             $newGanger
                 ->setGang($gangId)
@@ -118,6 +128,7 @@ class GangsController extends AbstractController
             if($gangerTypeId->getId() === 1){
                 $newGanger
                     ->setWeaponSkill(4)
+                    // ->setWeaponSkill(+=2) ??????????????????????
                     ->setBallisticSkill(4)
                     ->setStrength(3)
                     ->setToughness(3)
@@ -182,11 +193,14 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangers/{ganger_id}/edit", name="edit_ganger")
      */
-    public function editGangers($ganger_id, Request $request): Response
+    // public function editGangers($ganger_id, Request $request): Response
+    public function editGangers(MyGangersRepository $myGangersRepository, GangersTypesRepository $gangersTypesRepository, $ganger_id, Request $request): Response
     {
-        $gangerData = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
+        // $gangerData = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
+        $gangerData = $myGangersRepository->find($ganger_id);
 
-        $gangerType = $this->getDoctrine()->getRepository(GangersTypes::class)->find($ganger_id);
+        //$gangerType = $this->getDoctrine()->getRepository(GangersTypes::class)->find($ganger_id);
+        $gangerType = $gangersTypesRepository->find($ganger_id);
         $gangerType = $gangerData->getGangerType()->__toString();
 
         $gangId = $gangerData->getGang()->getId();
@@ -206,7 +220,8 @@ class GangsController extends AbstractController
 
         return $this->render('gangs/edit.html.twig', [
             'gangerData' => $gangerData,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'gang_id' => $gangId
         ]);
     }
 
@@ -214,8 +229,10 @@ class GangsController extends AbstractController
      * @Route("/gangers/{ganger_id}/delete", name="delete_ganger", methods="DELETE")
      */
     public function deleteGanger($ganger_id): Response
+    // public function deleteGanger($ganger_id, MyGangersRepository $myGangers): Response #Ne fonctionne pas
     {
         $myGangers = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
+        // $myGangers = $myGangers->find($ganger_id); #Ne fonctionne pas
         $gangId = $myGangers->getGang()->getId();
 
         $em = $this->getDoctrine()->getManager();

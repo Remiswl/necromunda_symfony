@@ -20,7 +20,6 @@ All texts and illustrations are the property of Games Workshop.
 
 * ~~Home page~~
 * Recruit a gang
-	* Make sure that each gang name is unique
 	* Allow the player to choose an image for his gang (gang's arms, gangers' faces, etc.)
 * Manage your gang
 	* Make possible to add territories and display them

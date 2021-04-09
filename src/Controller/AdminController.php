@@ -39,7 +39,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/new_territory", name="new_territory")
+     * @Route("/admin/new", name="new_territory")
      */
     public function newTerritory(Request $request): Response
     {
@@ -63,28 +63,21 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/edit_territories", name="edit_territories")
+     * @Route("/admin/{territory_id}/edit", name="edit_territory")
      */
-    // public function editTerritories(Request $request): Response
-    public function editTerritories(Request $request, TerritoriesRepository $territoriesRepository): Response
+    public function editTerritories(Request $request, TerritoriesRepository $territoriesRepository, $territory_id): Response
     {
-        // $territoriesData = $this->getDoctrine()->getRepository(Territories::class)->findAll();
-        $territories = $territoriesRepository->findAll();
+        $territoryData = $territoriesRepository->find($territory_id);
 
-//dd($territories);
-        for ($i = 0; $i < sizeof($territories); $i++) {
-            $form = $this->createForm(TerritoriesType::class, $territories[$i]);
+        dd($territoryData);
+
+        $form = $this->createForm(TerritoriesType::class, $territoryData);
         $form->handleRequest($request);
-
-        }
-
-//dd($form);
-
 
         if($form->isSubmitted() && $form->isValid()) {
             dd('ok');
             $em = $this->getDoctrine()->getManager();
-            $em->persist($territories);
+            $em->persist($territoryData);
             $em->flush();
 
             $this->addFlash('success', 'Data saved!');
@@ -93,8 +86,16 @@ class AdminController extends AbstractController
         }
 
         return $this->render('admin/editTerritories.html.twig', [
-            'territories' => $territories,
+            'territories' => $territoryData,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/admin/{territory_id}/delete", name="delete_territory")
+     */
+    public function deleteTerritories(Request $request, TerritoriesRepository $territoriesRepository, $territory_id): Response
+    {
+        dd('ok');
     }
 }

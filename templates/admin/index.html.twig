@@ -22,6 +22,7 @@
 						<td class="col-1">D66 roll</td>
 						<td class="col-1">Income</td>
 						<td class="col-9">Description</td>
+						<td class="col-1">Actions</td>
 					</tr>
 				</thead>
 
@@ -32,12 +33,18 @@
 							<td class="col-1">{{ territory.d6tens ~ territory.d6units }}</td>
 							<td class="col-1">{{ territory.income }}</td>
 							<td class="col-9 text-left">{{ territory.description }}</td>
+							<td>
+								<a href="{{ path('edit_territory', {territory_id : territory.id}) }}" class="btn btn-secondary mb-3">Edit</a>
+								<form method="post" action='{{ path('delete_territory', {territory_id : territory.id}) }}' onsubmit="return confirm('Do you really want to delete this territory?')">
+									<input type="hidden" name="_method" value="DELETE">
+									<button class="btn btn-danger">Delete</button>
+								</form>
+							</td>
 						</tr>
 					{% endfor %}
 				</tbody>
 			</table>
 
-			<a href="{{ path('edit_territories') }}" class="btn btn-secondary my-2">Edit territories</a>
 			<a href="{{ path('new_territory') }}" class="btn btn-secondary my-2">New territory</a>
 			<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
 

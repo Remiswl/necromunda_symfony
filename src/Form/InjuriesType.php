@@ -12,8 +12,7 @@ class InjuriesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('d6tens')
-            ->add('d6units')
+            ->add('d66')
             ->add('description')
         ;
     }

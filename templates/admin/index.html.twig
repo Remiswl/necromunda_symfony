@@ -12,9 +12,13 @@
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item"><a class="nav-link text-white" href="#territories">Territories</a></li>
 						<li class="nav-item"><a class="nav-link text-white" href="#injuries">Injuries</a></li>
+						<li class="nav-item"><a class="nav-link text-white" href="#weapons">Weapons</a></li>
+						<li class="nav-item"><a class="nav-link text-white" href="#skills">Skills</a></li>
 					</ul>
 				</div>
 			</nav>
+
+			 <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 
 			{% for message in app.flashes('success') %}
 				<div class="alert alert-success">
@@ -87,6 +91,11 @@
 
 			<a href="{{ path('new_injury') }}" class="btn btn-secondary my-2">New injury</a>
 			<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
+
+			<p id="weapons">List of weapons</p>
+
+			<p id="skills">List of skills</p>
+
 
 		</div>
 	</section>

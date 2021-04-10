@@ -7,13 +7,22 @@
 	<section id="admin" class="mb-5">
 		<div class="text-center text-white col-10 mx-auto">
 
+			<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item"><a class="nav-link text-white" href="#territories">Territories</a></li>
+						<li class="nav-item"><a class="nav-link text-white" href="#injuries">Injuries</a></li>
+					</ul>
+				</div>
+			</nav>
+
 			{% for message in app.flashes('success') %}
 				<div class="alert alert-success">
 					{{ message }}
 				</div>
 			{% endfor %}
 
-			<p>List of territories</p>
+			<p id="territories">List of territories</p>
 
 			<table class="table table-bordered bg-white">
 				<thead class="bg-secondary text-white">
@@ -46,6 +55,37 @@
 			</table>
 
 			<a href="{{ path('new_territory') }}" class="btn btn-secondary my-2">New territory</a>
+			<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
+
+			<p id="injuries">Serious injuries Chart</p>
+
+			<table class="table table-bordered bg-white">
+				<thead class="bg-secondary text-white">
+					<tr>
+						<td class="col-1">D66 roll</td>
+						<td class="col-10">Description</td>
+						<td class="col-1">Actions</td>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for injury in injuries %}
+						<tr>
+							<td class="col-1">{{ injury.d6tens ~ injury.d6units }}</td>
+							<td class="col-1">{{ injury.description }}</td>
+							<td>
+								<a href="{{ path('edit_injury', {injury_id : injury.id}) }}" class="btn btn-secondary mb-3">Edit</a>
+								<form method="post" action='{{ path('delete_injury', {injury_id : injury.id}) }}' onsubmit="return confirm('Do you really want to delete this injury?')">
+									<input type="hidden" name="_method" value="DELETE">
+									<button class="btn btn-danger">Delete</button>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<a href="{{ path('new_injury') }}" class="btn btn-secondary my-2">New injury</a>
 			<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
 
 		</div>

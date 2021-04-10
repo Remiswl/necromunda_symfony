@@ -7,19 +7,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-use App\Repository\HousesRepository;
 use App\Repository\TerritoriesRepository;
+use App\Repository\InjuriesRepository;
 use App\Entity\Territories;
+use App\Entity\Injuries;
 use App\Form\TerritoriesType;
+use App\Form\InjuriesType;
 
 
 class AdminController extends AbstractController
 {
-    private $housesRepository;
+    private $injuriesRepository;
     private $territoriesRepository;
 
-    public function __construct(HousesRepository $housesRepository, TerritoriesRepository $territoriesRepository){
-    	$this->housesRepository=$housesRepository;
+    public function __construct(TerritoriesRepository $territoriesRepository, InjuriesRepository $injuriesRepository){
+    	$this->injuriesRepository=$injuriesRepository;
         $this->territoriesRepository=$territoriesRepository;
     }
 
@@ -28,18 +30,18 @@ class AdminController extends AbstractController
      */
     public function index(): Response
     {
-        $houses = $this->housesRepository->findAll();
         $territories = $this->territoriesRepository->findAll();
+        $injuries = $this->injuriesRepository->findAll();
 
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',
-            'houses' => $houses,
-            'territories' => $territories
+            'territories' => $territories,
+            'injuries' => $injuries,
         ]);
     }
 
     /**
-     * @Route("/admin/new", name="new_territory")
+     * @Route("/admin/territories/new_territory", name="new_territory")
      */
     public function newTerritory(Request $request): Response
     {
@@ -58,12 +60,12 @@ class AdminController extends AbstractController
         }
 
         return $this->render('admin/newTerritory.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/admin/{territory_id}/edit", name="edit_territory")
+     * @Route("/admin/territories/{territory_id}/edit", name="edit_territory")
      */
     public function editTerritories(Request $request, TerritoriesRepository $territoriesRepository, $territory_id): Response
     {
@@ -84,12 +86,12 @@ class AdminController extends AbstractController
 
         return $this->render('admin/editTerritories.html.twig', [
             'territories' => $territoryData,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/admin/{territory_id}/delete", name="delete_territory")
+     * @Route("/admin/territories/{territory_id}/delete", name="delete_territory")
      */
     public function deleteTerritories($territory_id): Response
     {
@@ -98,6 +100,71 @@ class AdminController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($territory);
+        $em->flush();
+
+        return $this->redirectToRoute('admin');
+    }
+
+    /**
+     * @Route("/admin/injuries/new_injury", name="new_injury")
+     */
+    public function newInjury(Request $request): Response
+    {
+        $newInjury = new Injuries();
+
+        $form = $this->createForm(InjuriesType::class, $newInjury);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newInjury);
+            $em->flush();
+
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('admin/newInjury.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/injuries/{injury_id}/edit", name="edit_injury")
+     */
+    public function editInjuries(Request $request, InjuriesRepository $injuriesRepository, $injury_id): Response
+    {
+        $injuryData = $injuriesRepository->find($injury_id);
+
+        $form = $this->createForm(InjuriesType::class, $injuryData);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($injuryData);
+            $em->flush();
+
+            $this->addFlash('success', 'Data saved!');
+
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('admin/editInjuries.html.twig', [
+            'injuries' => $injuryData,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/injuries/{injury_id}/delete", name="delete_injury")
+     */
+    public function deleteInjuries($injury_id): Response
+    {
+        $injury = $this->getDoctrine()->getRepository(Injuries::class)->find($injury_id);
+        $injuryId = $injury->getId();
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($injury);
         $em->flush();
 
         return $this->redirectToRoute('admin');

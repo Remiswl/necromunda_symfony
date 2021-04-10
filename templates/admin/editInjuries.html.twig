@@ -1,21 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit territory{% endblock %}
+{% block title %}Edit injury{% endblock %}
 
 {% block body %}
 
-	<section id="edit_territory" class="mb-5">
+	<section id="edit_injury" class="mb-5">
 		<div class="col-10 m-auto text-white">
 
 			{{ form_start(form) }}
 				<div class="row">
 					<div class="col-2">
-						{{ form_row(form.name) }}
-						{{ form_row(form.income) }}
-					</div>
-					<div class="col-2">
-						{{ form_row(form.D6tens) }}
-						{{ form_row(form.D6units) }}
+						{{ form_row(form.d6tens) }}
+						{{ form_row(form.d6units) }}
 					</div>
 					<div class="col-8">{{ form_row(form.description) }}</div>
 				</div>

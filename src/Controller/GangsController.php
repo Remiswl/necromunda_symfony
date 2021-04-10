@@ -29,7 +29,7 @@ class GangsController extends AbstractController
 
         return $this->render('gangs/gangs.html.twig', [
             'controller_name' => 'GangsController',
-            'gangs' => $gangs_names
+            'gangs' => $gangs_names,
         ]);
     }
 
@@ -53,12 +53,15 @@ class GangsController extends AbstractController
             $totalExp += $gangersData[$i]->getXp();
         }
 
+        $gangRating = $totalCost + $totalExp;
+
         return $this->render('gangs/myGang.html.twig', [
             'controller_name' => 'GangsController',
             'gangData' => $gangData,
             'gangersData' => $gangersData,
             'totalCost' => $totalCost,
-            'totalExp' => $totalExp
+            'totalExp' => $totalExp,
+            'gangRating' => $gangRating,
         ]);
     }
 
@@ -207,7 +210,7 @@ class GangsController extends AbstractController
         return $this->render('gangs/edit.html.twig', [
             'gangerData' => $gangerData,
             'form' => $form->createView(),
-            'gang_id' => $gangId
+            'gang_id' => $gangId,
         ]);
     }
 

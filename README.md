@@ -34,8 +34,6 @@ All texts and illustrations are the property of Games Workshop.
 * ~~Resources~~
 * Settings
 	* add and modify weapons
-	* modify territories
-	* etc.
 * Fixtures
 	* Create fixtures (with Faker; Grafikart - Paginer les biens 2'34")
 * Finish create database (see details below)

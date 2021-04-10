@@ -95,10 +95,6 @@ class GangsController extends AbstractController
      */
     public function addGanger(GangsRepository $gangsRepository, GangersTypesRepository $gangersTypesRepository, GangersImgRepository $gangersImgRepository, Request $request, $gang_id): Response
     {
-
-// Problèmes mise en page
-// Rajouter Escher, Goliath, Orlock, Van Saar
-
         $newGanger = new MyGangers;
 
         $houseId = $gangsRepository->find($gang_id);

@@ -25,17 +25,15 @@ All texts and illustrations are the property of Games Workshop.
 	* Make possible to add territories and display them
 	* Display gangers' equipment, skills and injuries
 * Manager gangers
-	* Add equîpment, skills and injuries
+	* Add equipment/weapons, skills and injuries
 	* Modify image
-	* set default image
-	* add a list of images the player can choose
+	* when recruit, add a list of images the player can choose
 	* @Route: add a slug with the ganger's name (Grafikart - Découverte de Doctrine 33')
 * ~~Houses~~
 * ~~Resources~~
 * Settings
-	* add and modify weapons
-* Fixtures
-	* Create fixtures (with Faker; Grafikart - Paginer les biens 2'34")
+	* add, modify and delete weapons
+	* add, modify and delete skills
 * Finish create database (see details below)
 * Allow access to the site to registered users (Grafikart - Le composant Security)
 
@@ -58,8 +56,16 @@ Next steps:
 * ~~MyGangers (= create a new lign for each ganger as soon as a new gang is formed)~~
 * ~~Territories~~
 * ~~Serious_injuries_chart~~
+* ~~GangersImg~~
 
-* Weapons (= the table lists the weapons' caracteristics)
+* Skills
+	* name
+	* description
+	* -> ManyToOne relation with SkillCategories
+	* -> ManyToMany relations with gangers
+* SkillsCategories
+	* name (agility, combat, ferocity, muscle, shooting, stealth, techno)
+* Weapons
 	* name
 	* category (basic weapon, close combat weapon, pistol, special weapon, heavy weapon)
 	* cost
@@ -74,10 +80,4 @@ Next steps:
 	* damage
 	* ammo
 
-* Wargears (structure to be confirmed)
-	* category (grenades, armour, personal equipment)
-	* cost
-	* caracteristics?
-* Skills (structure to be confirmed)
-	* listOfSkillsId
-	* gangerId
+	* -> ManyToMany relations with gangers

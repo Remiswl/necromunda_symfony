@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New skill{% endblock %}
+
+{% block body %}
+
+	<section id="new_territory" class="mb-5">
+		<div class="col-3 m-auto text-white">
+
+			{{ form_start(form) }}
+
+				<div>{{ form_row(form.name) }}</div>
+				<div>{{ form_row(form.description) }}</div>
+				<div>{{ form_row(form.income) }}</div>
+				<div class="row">
+					<div class="col-6">{{ form_row(form.D6tens) }}</div>
+					<div class="col-6">{{ form_row(form.D6units) }}</div>
+				</div>
+
+				<button class="btn btn-primary offset-4">Add territory</button>
+				<a href="{{ path('admin') }}" class="btn btn-secondary my-2">Back</a>
+
+			{{ form_end(form) }}
+
+		</div>
+	</section>
+
+{% endblock %}

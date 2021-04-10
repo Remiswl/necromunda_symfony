@@ -9,20 +9,30 @@ use Symfony\Component\HttpFoundation\Request;
 
 use App\Repository\TerritoriesRepository;
 use App\Repository\InjuriesRepository;
+use App\Repository\WeaponsRepository;
+use App\Repository\SkillsRepository;
 use App\Entity\Territories;
+use App\Entity\Skills;
+use App\Entity\Weapons;
 use App\Entity\Injuries;
 use App\Form\TerritoriesType;
 use App\Form\InjuriesType;
+use App\Form\SkillsType;
+use App\Form\WeaponsType;
 
 
 class AdminController extends AbstractController
 {
     private $injuriesRepository;
     private $territoriesRepository;
+    private $weaponsRepository;
+    private $skillsRepository;
 
-    public function __construct(TerritoriesRepository $territoriesRepository, InjuriesRepository $injuriesRepository){
-    	$this->injuriesRepository=$injuriesRepository;
-        $this->territoriesRepository=$territoriesRepository;
+    public function __construct(TerritoriesRepository $territoriesRepository, InjuriesRepository $injuriesRepository, SkillsRepository $skillsRepository, WeaponsRepository $weaponsRepository){
+    	$this->injuriesRepository = $injuriesRepository;
+        $this->territoriesRepository = $territoriesRepository;
+        $this->skillsRepository = $skillsRepository;
+        $this->weaponsRepository = $weaponsRepository;
     }
 
     /**
@@ -32,13 +42,19 @@ class AdminController extends AbstractController
     {
         $territories = $this->territoriesRepository->findAll();
         $injuries = $this->injuriesRepository->findAll();
+        $weapons = $this->weaponsRepository->findAll();
+        $skills = $this->skillsRepository->findAll();
 
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',
             'territories' => $territories,
             'injuries' => $injuries,
+            'weapons' => $weapons,
+            'skills' => $skills,
         ]);
     }
+
+// Territories
 
     /**
      * @Route("/admin/territories/new_territory", name="new_territory")
@@ -105,6 +121,8 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin');
     }
 
+// Injuries
+
     /**
      * @Route("/admin/injuries/new_injury", name="new_injury")
      */
@@ -164,6 +182,140 @@ class AdminController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($injury);
+        $em->flush();
+
+        return $this->redirectToRoute('admin');
+    }
+
+// Weapons
+
+    /**
+     * @Route("/admin/weapons/new_weapon", name="new_weapon")
+     */
+    public function newWeapon(Request $request): Response
+    {
+        $newWeapon = new Weapons();
+
+        $form = $this->createForm(WeaponsType::class, $newWeapon);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newWeapon);
+            $em->flush();
+
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('admin/newWeapon.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/weapons/{weapon_id}/edit", name="edit_weapon")
+     */
+    public function editWeapon(Request $request, WeaponsRepository $weaponsRepository, $weapon_id): Response
+    {
+        $weaponData = $weaponsRepository->find($weapon_id);
+
+        $form = $this->createForm(WeaponsType::class, $weaponData);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($weaponData);
+            $em->flush();
+
+            $this->addFlash('success', 'Data saved!');
+
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('admin/editWeapons.html.twig', [
+            'weapons' => $weaponData,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/weapons/{weapon_id}/delete", name="delete_weapon")
+     */
+    public function deleteWeapon($weapon_id): Response
+    {
+        $weapon = $this->getDoctrine()->getRepository(Weapons::class)->find($weapon_id);
+        $weaponId = $weapon->getId();
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($weapon);
+        $em->flush();
+
+        return $this->redirectToRoute('admin');
+    }
+
+// Skills
+
+    /**
+     * @Route("/admin/skills/new_skill", name="new_skill")
+     */
+    public function newSkill(Request $request): Response
+    {
+        $newSkill = new Skills();
+
+        $form = $this->createForm(SkillsType::class, $newSkill);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newSkill);
+            $em->flush();
+
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('admin/newSkill.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/skills/{skill_id}/edit", name="edit_skill")
+     */
+    public function editSkill(Request $request, SkillsRepository $skillsRepository, $skill_id): Response
+    {
+        $skillData = $skillsRepository->find($skill_id);
+
+        $form = $this->createForm(SkillsType::class, $skillData);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($skillData);
+            $em->flush();
+
+            $this->addFlash('success', 'Data saved!');
+
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('admin/editSkills.html.twig', [
+            'skills' => $territoryData,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/skills/{skill_id}/delete", name="delete_skill")
+     */
+    public function deleteSkill($skill_id): Response
+    {
+        $skill = $this->getDoctrine()->getRepository(Skills::class)->find($skill_id);
+        $tskillId = $skill->getId();
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($skill);
         $em->flush();
 
         return $this->redirectToRoute('admin');

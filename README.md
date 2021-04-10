@@ -57,20 +57,20 @@ Next steps:
 * ~~Territories~~
 * ~~Serious_injuries_chart~~
 * ~~GangersImg~~
+* ~~SkillsCategories~~
+* ~~WeaponsCategories~~
 
 * Skills
-	* name
-	* description
+	* ~~name~~
+	* ~~description~~
 	* -> ManyToOne relation with SkillCategories
 	* -> ManyToMany relations with gangers
-* SkillsCategories
-	* name (agility, combat, ferocity, muscle, shooting, stealth, techno)
-* Weapons
-	* name
-	* category (basic weapon, close combat weapon, pistol, special weapon, heavy weapon)
-	* cost
-	* availability
 
+* Weapons
+	* ~~name~~
+	* ~~cost~~
+
+	* availability
 	* shortRange
 	* longRange
 	* shortAccuracy
@@ -81,3 +81,4 @@ Next steps:
 	* ammo
 
 	* -> ManyToMany relations with gangers
+	* -> ManyToOne relation with WeaponsCategories

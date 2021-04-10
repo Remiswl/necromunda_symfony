@@ -92,12 +92,71 @@
 			<a href="{{ path('new_injury') }}" class="btn btn-secondary my-2">New injury</a>
 			<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
 
+
 			<p id="weapons">List of weapons</p>
+
+			<table class="table table-bordered bg-white">
+				<thead class="bg-secondary text-white">
+					<tr>
+						<td>Name</td>
+						<td>Cost</td>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for weapon in weapons %}
+						<tr>
+							<td>{{ weapon.name }}</td>
+							<td>{{ weapon.cost }}</td>
+							<td>
+								<a href="{{ path('edit_weapon', {weapon_id : weapon.id}) }}" class="btn btn-secondary mb-3">Edit</a>
+								<form method="post" action='{{ path('delete_weapon', {weapon_id : weapon.id}) }}' onsubmit="return confirm('Do you really want to delete this weapon?')">
+									<input type="hidden" name="_method" value="DELETE">
+									<button class="btn btn-danger">Delete</button>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<a href="{{ path('new_weapon') }}" class="btn btn-secondary my-2">New weapon</a>
+			<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
+
 
 			<p id="skills">List of skills</p>
 
+			<table class="table table-bordered bg-white">
+				<thead class="bg-secondary text-white">
+					<tr>
+						<td>Name</td>
+						<td>Description</td>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for skill in skills %}
+						<tr>
+							<td>{{ skill.name }}</td>
+							<td class="text-left">{{ skill.description }}</td>
+							<td>
+								<a href="{{ path('edit_skill', {skill_id : skill.id}) }}" class="btn btn-secondary mb-3">Edit</a>
+								<form method="post" action='{{ path('delete_skill', {skill_id : skill.id}) }}' onsubmit="return confirm('Do you really want to delete this skill?')">
+									<input type="hidden" name="_method" value="DELETE">
+									<button class="btn btn-danger">Delete</button>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<a href="{{ path('new_skill') }}" class="btn btn-secondary my-2">New skill</a>
+			<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
 
 		</div>
 	</section>
 
 {% endblock %}
+
+{% block javascripts %}<script type="module" src="{{ asset('js/index.js') }}"></script>{% endblock %}

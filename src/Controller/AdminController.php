@@ -69,13 +69,10 @@ class AdminController extends AbstractController
     {
         $territoryData = $territoriesRepository->find($territory_id);
 
-        dd($territoryData);
-
         $form = $this->createForm(TerritoriesType::class, $territoryData);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            dd('ok');
             $em = $this->getDoctrine()->getManager();
             $em->persist($territoryData);
             $em->flush();
@@ -94,8 +91,15 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/{territory_id}/delete", name="delete_territory")
      */
-    public function deleteTerritories(Request $request, TerritoriesRepository $territoriesRepository, $territory_id): Response
+    public function deleteTerritories($territory_id): Response
     {
-        dd('ok');
+        $territory = $this->getDoctrine()->getRepository(Territories::class)->find($territory_id);
+        $territoryId = $territory->getId();
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($territory);
+        $em->flush();
+
+        return $this->redirectToRoute('admin');
     }
 }

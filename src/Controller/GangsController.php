@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\GangsRepository;
 use App\Repository\MyGangersRepository;
 use App\Repository\GangersTypesRepository;
+use App\Repository\GangersImgRepository;
 use App\Form\MyGangersType;
 use App\Form\NewGangerType;
 use App\Entity\GangersTypes;
@@ -25,7 +26,6 @@ class GangsController extends AbstractController
     public function listGangs(GangsRepository $gangsRepository): Response
     {
         $gangs_names = $gangsRepository->findAll();
-
 
         return $this->render('gangs/gangs.html.twig', [
             'controller_name' => 'GangsController',
@@ -93,9 +93,17 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{gang_id}/add_ganger", name="new_ganger")
      */
-    public function addGanger(GangsRepository $gangsRepository, GangersTypesRepository $gangersTypesRepository, Request $request, $gang_id): Response
+    public function addGanger(GangsRepository $gangsRepository, GangersTypesRepository $gangersTypesRepository, GangersImgRepository $gangersImgRepository, Request $request, $gang_id): Response
     {
+
+// Problèmes mise en page
+// Rajouter Escher, Goliath, Orlock, Van Saar
+
         $newGanger = new MyGangers;
+
+        $houseId = $gangsRepository->find($gang_id);
+        $houseId = $houseId->getHouse()->getId();
+        $gangerImg = $gangersImgRepository->findImg($houseId);
 
         $form = $this->createForm(NewGangerType::class, $newGanger);
         $form->handleRequest($request);
@@ -178,7 +186,9 @@ class GangsController extends AbstractController
         }
 
         return $this->render('gangs/newGanger.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'houseId' => $houseId,
+            'images' => $gangerImg,
         ]);
     }
 

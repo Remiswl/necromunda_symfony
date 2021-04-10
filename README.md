@@ -53,14 +53,18 @@ Next steps:
 * ~~Users~~
 * ~~GangType~~
 * ~~Gangs~~
-* ~GangersTypes~
-* ~Gangers (= list of gangers' caracterics depending on the gang)~
-* ~MyGangers (= create a new lign for each ganger as soon as a new gang is formed)~
-* ~Territories~
+* ~~GangersTypes~~
+* ~~Gangers (= list of gangers' caracterics depending on the gang)~~
+* ~~MyGangers (= create a new lign for each ganger as soon as a new gang is formed)~~
+* ~~Territories~~
+* ~~Serious_injuries_chart~~
 
 * Weapons (= the table lists the weapons' caracteristics)
+	* name
 	* category (basic weapon, close combat weapon, pistol, special weapon, heavy weapon)
 	* cost
+	* availability
+
 	* shortRange
 	* longRange
 	* shortAccuracy
@@ -69,6 +73,7 @@ Next steps:
 	* armourPiercing
 	* damage
 	* ammo
+
 * Wargears (structure to be confirmed)
 	* category (grenades, armour, personal equipment)
 	* cost

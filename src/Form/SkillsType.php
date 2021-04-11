@@ -6,6 +6,9 @@ use App\Entity\Skills;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
+use App\Entity\SkillsCategories;
 
 class SkillsType extends AbstractType
 {
@@ -14,6 +17,10 @@ class SkillsType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
+            ->add('category', EntityType::class, [
+                'class' => SkillsCategories::class,
+                'choice_label' => 'name',
+            ]);
         ;
     }
 

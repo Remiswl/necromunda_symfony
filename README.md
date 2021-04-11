@@ -32,8 +32,7 @@ All texts and illustrations are the property of Games Workshop.
 * ~~Houses~~
 * ~~Resources~~
 * Settings
-	* add, modify and delete weapons
-	* add, modify and delete skills
+	* weapons -> add images?
 * Finish create database (see details below)
 * Allow access to the site to registered users (Grafikart - Le composant Security)
 

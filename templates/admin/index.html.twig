@@ -26,7 +26,7 @@
 				</div>
 			{% endfor %}
 
-			<p id="territories">List of territories</p>
+			<h2 id="territories" class="my-3">List of territories</h2>
 
 			<table class="table table-bordered bg-white">
 				<thead class="bg-secondary text-white">
@@ -42,10 +42,10 @@
 				<tbody>
 					{% for territory in territories %}
 						<tr>
-							<td class="col-1">{{ territory.name }}</td>
-							<td class="col-1">{{ territory.d6tens ~ territory.d6units }}</td>
-							<td class="col-1">{{ territory.income }}</td>
-							<td class="col-9 text-left">{{ territory.description }}</td>
+							<td>{{ territory.name }}</td>
+							<td>{{ territory.d6tens ~ territory.d6units }}</td>
+							<td>{{ territory.income }}</td>
+							<td class="text-left">{{ territory.description }}</td>
 							<td>
 								<a href="{{ path('edit_territory', {territory_id : territory.id}) }}" class="btn btn-secondary mb-3">Edit</a>
 								<form method="post" action='{{ path('delete_territory', {territory_id : territory.id}) }}' onsubmit="return confirm('Do you really want to delete this territory?')">
@@ -61,7 +61,7 @@
 			<a href="{{ path('new_territory') }}" class="btn btn-secondary my-2">New territory</a>
 			<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
 
-			<p id="injuries">Serious injuries Chart</p>
+			<h2 id="injuries" class="my-3">Serious injuries Chart</h2>
 
 			<table class="table table-bordered bg-white">
 				<thead class="bg-secondary text-white">
@@ -75,8 +75,8 @@
 				<tbody>
 					{% for injury in injuries %}
 						<tr>
-							<td class="col-1">{{ injury.d66 }}</td>
-							<td class="col-1">{{ injury.description }}</td>
+							<td>{{ injury.d66 }}</td>
+							<td class="text-left">{{ injury.description }}</td>
 							<td>
 								<a href="{{ path('edit_injury', {injury_id : injury.id}) }}" class="btn btn-secondary mb-3">Edit</a>
 								<form method="post" action='{{ path('delete_injury', {injury_id : injury.id}) }}' onsubmit="return confirm('Do you really want to delete this injury?')">
@@ -92,14 +92,15 @@
 			<a href="{{ path('new_injury') }}" class="btn btn-secondary my-2">New injury</a>
 			<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
 
-
-			<p id="weapons">List of weapons</p>
+			<h2 id="weapons" class="my-3">List of weapons</h2>
 
 			<table class="table table-bordered bg-white">
 				<thead class="bg-secondary text-white">
 					<tr>
-						<td>Name</td>
-						<td>Cost</td>
+						<td class="col-1">Name</td>
+						<td class="col-1">Category</td>
+						<td class="col-1">Cost</td>
+						<td class="col-1">Actions</td>
 					</tr>
 				</thead>
 
@@ -107,6 +108,7 @@
 					{% for weapon in weapons %}
 						<tr>
 							<td>{{ weapon.name }}</td>
+							<td>{{ weapon.category }}</td>
 							<td>{{ weapon.cost }}</td>
 							<td>
 								<a href="{{ path('edit_weapon', {weapon_id : weapon.id}) }}" class="btn btn-secondary mb-3">Edit</a>
@@ -123,14 +125,15 @@
 			<a href="{{ path('new_weapon') }}" class="btn btn-secondary my-2">New weapon</a>
 			<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
 
-
-			<p id="skills">List of skills</p>
+			<h2 id="skills" class="my-3">List of skills</h2>
 
 			<table class="table table-bordered bg-white">
 				<thead class="bg-secondary text-white">
 					<tr>
-						<td>Name</td>
-						<td>Description</td>
+						<td class="col-1">Name</td>
+						<td class="col-2">Category</td>
+						<td class="col-6">Description</td>
+						<td class="col-1">Actions</td>
 					</tr>
 				</thead>
 
@@ -138,6 +141,7 @@
 					{% for skill in skills %}
 						<tr>
 							<td>{{ skill.name }}</td>
+							<td>{{ skill.category }}</td>
 							<td class="text-left">{{ skill.description }}</td>
 							<td>
 								<a href="{{ path('edit_skill', {skill_id : skill.id}) }}" class="btn btn-secondary mb-3">Edit</a>

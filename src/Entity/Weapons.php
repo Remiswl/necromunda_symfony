@@ -27,6 +27,12 @@ class Weapons
      */
     private $cost;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=WeaponsCategories::class, inversedBy="weapons")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +58,18 @@ class Weapons
     public function setCost(int $cost): self
     {
         $this->cost = $cost;
+
+        return $this;
+    }
+
+    public function getCategory(): ?WeaponsCategories
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?WeaponsCategories $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

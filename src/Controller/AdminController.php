@@ -28,7 +28,13 @@ class AdminController extends AbstractController
     private $weaponsRepository;
     private $skillsRepository;
 
-    public function __construct(TerritoriesRepository $territoriesRepository, InjuriesRepository $injuriesRepository, SkillsRepository $skillsRepository, WeaponsRepository $weaponsRepository){
+    public function __construct(
+        TerritoriesRepository $territoriesRepository,
+        InjuriesRepository $injuriesRepository,
+        SkillsRepository $skillsRepository,
+        WeaponsRepository $weaponsRepository
+    ){
+
     	$this->injuriesRepository = $injuriesRepository;
         $this->territoriesRepository = $territoriesRepository;
         $this->skillsRepository = $skillsRepository;
@@ -149,7 +155,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/injuries/{injury_id}/edit", name="edit_injury")
      */
-    public function editInjuries(Request $request, InjuriesRepository $injuriesRepository, $injury_id): Response
+    public function editInjuries(Request $request, $injury_id): Response
     {
         $injuryData = $injuriesRepository->find($injury_id);
 
@@ -301,7 +307,7 @@ class AdminController extends AbstractController
         }
 
         return $this->render('admin/editSkills.html.twig', [
-            'skills' => $territoryData,
+            'skills' => $skillData,
             'form' => $form->createView(),
         ]);
     }

@@ -10,14 +10,10 @@
 			{{ form_start(form) }}
 
 				<div>{{ form_row(form.name) }}</div>
-				<div>{{ form_row(form.description) }}</div>
-				<div>{{ form_row(form.income) }}</div>
-				<div class="row">
-					<div class="col-6">{{ form_row(form.D6tens) }}</div>
-					<div class="col-6">{{ form_row(form.D6units) }}</div>
-				</div>
+				<div>{{ form_row(form.cost) }}</div>
+				<div>{{ form_row(form.category) }}</div>
 
-				<button class="btn btn-primary offset-4">Add territory</button>
+				<button class="btn btn-primary offset-4">Add weapon</button>
 				<a href="{{ path('admin') }}" class="btn btn-secondary my-2">Back</a>
 
 			{{ form_end(form) }}

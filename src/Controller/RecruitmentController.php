@@ -34,9 +34,9 @@ class RecruitmentController extends AbstractController
             if ($newGang->getHouse()->getId() === 1) {
                 $newGang->setImage('img/cawdor.jpg');
             } else if ($newGang->getHouse()->getId() === 2) {
-                $newGang->setImage('img/cawdor.jpg');
+                $newGang->setImage('img/Delaque/delaque_arms.png');
             } else if ($newGang->getHouse()->getId() === 3) {
-                $newGang->setImage('img/cawdor.jpg');
+                $newGang->setImage('img/Escher/escher_arms.png');
             } else if ($newGang->getHouse()->getId() === 4) {
                 $newGang->setImage('img/Goliath/goliath_arms.png');
             } else if ($newGang->getHouse()->getId() === 5) {

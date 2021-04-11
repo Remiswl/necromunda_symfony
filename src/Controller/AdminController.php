@@ -106,7 +106,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin');
         }
 
-        return $this->render('admin/editTerritories.html.twig', [
+        return $this->render('admin/editTerritory.html.twig', [
             'territories' => $territoryData,
             'form' => $form->createView(),
         ]);
@@ -155,7 +155,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/injuries/{injury_id}/edit", name="edit_injury")
      */
-    public function editInjuries(Request $request, $injury_id): Response
+    public function editInjuries(Request $request, InjuriesRepository $injuriesRepository, $injury_id): Response
     {
         $injuryData = $injuriesRepository->find($injury_id);
 
@@ -172,7 +172,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin');
         }
 
-        return $this->render('admin/editInjuries.html.twig', [
+        return $this->render('admin/editInjury.html.twig', [
             'injuries' => $injuryData,
             'form' => $form->createView(),
         ]);
@@ -239,7 +239,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin');
         }
 
-        return $this->render('admin/editWeapons.html.twig', [
+        return $this->render('admin/editWeapon.html.twig', [
             'weapons' => $weaponData,
             'form' => $form->createView(),
         ]);
@@ -306,7 +306,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin');
         }
 
-        return $this->render('admin/editSkills.html.twig', [
+        return $this->render('admin/editSkill.html.twig', [
             'skills' => $skillData,
             'form' => $form->createView(),
         ]);

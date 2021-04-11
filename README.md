@@ -24,6 +24,7 @@ All texts and illustrations are the property of Games Workshop.
 * Manage your gang
 	* Make possible to add territories and display them
 	* Display gangers' equipment, skills and injuries
+	* Reduce gang's stash when hire a new ganger
 * Manager gangers
 	* Add equipment/weapons, skills and injuries
 	* Modify image
@@ -33,6 +34,7 @@ All texts and illustrations are the property of Games Workshop.
 * ~~Resources~~
 * Settings
 	* weapons -> add images?
+	* add a button to scroll to top
 * Finish create database (see details below)
 * Allow access to the site to registered users (Grafikart - Le composant Security)
 
@@ -48,11 +50,11 @@ Next steps:
 ## Database
 
 * ~~Users~~
-* ~~GangType~~
+* ~~GangType(Houses)~~
 * ~~Gangs~~
 * ~~GangersTypes~~
-* ~~Gangers (= list of gangers' caracterics depending on the gang)~~
-* ~~MyGangers (= create a new lign for each ganger as soon as a new gang is formed)~~
+* ~~Gangers (= list of gangers' caracterics depending on the gang)~~ -> useful?
+* ~~MyGangers~~
 * ~~Territories~~
 * ~~Serious_injuries_chart~~
 * ~~GangersImg~~
@@ -62,12 +64,13 @@ Next steps:
 * Skills
 	* ~~name~~
 	* ~~description~~
-	* -> ManyToOne relation with SkillCategories
+	* ~~category~~
 	* -> ManyToMany relations with gangers
 
 * Weapons
 	* ~~name~~
 	* ~~cost~~
+	* ~~category~~
 
 	* availability
 	* shortRange
@@ -80,4 +83,3 @@ Next steps:
 	* ammo
 
 	* -> ManyToMany relations with gangers
-	* -> ManyToOne relation with WeaponsCategories

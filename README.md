@@ -34,7 +34,6 @@ All texts and illustrations are the property of Games Workshop.
 * ~~Resources~~
 * Settings
 	* weapons -> add images?
-	* add a button to scroll to top
 * Finish create database (see details below)
 * Allow access to the site to registered users (Grafikart - Le composant Security)
 

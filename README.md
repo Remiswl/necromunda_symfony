@@ -35,7 +35,6 @@ All texts and illustrations are the property of Games Workshop.
 * Settings
 	* weapons -> add images?
 * Finish create database (see details below)
-* Allow access to the site to registered users (Grafikart - Le composant Security)
 
 Next steps:
 * Start a battle (/battle):
@@ -48,7 +47,6 @@ Next steps:
 
 ## Database
 
-* ~~Users~~
 * ~~GangType(Houses)~~
 * ~~Gangs~~
 * ~~GangersTypes~~
@@ -59,6 +57,7 @@ Next steps:
 * ~~GangersImg~~
 * ~~SkillsCategories~~
 * ~~WeaponsCategories~~
+* ~~User~~
 
 * Skills
 	* ~~name~~

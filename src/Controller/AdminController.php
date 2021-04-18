@@ -20,6 +20,8 @@ use App\Form\InjuriesType;
 use App\Form\SkillsType;
 use App\Form\WeaponsType;
 
+// use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 class AdminController extends AbstractController
 {

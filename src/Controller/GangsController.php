@@ -185,6 +185,7 @@ class GangsController extends AbstractController
             'form' => $form->createView(),
             'houseId' => $houseId,
             'images' => $gangerImg,
+            'gangId' => $gang_id,
         ]);
     }
 

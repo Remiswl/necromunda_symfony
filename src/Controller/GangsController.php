@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Gangers;
 use App\Entity\Gangs;
+use App\Entity\Territories;
 use App\Entity\MyGangers;
 use App\Form\MyGangersType;
 use App\Form\NewGangerType;
+use App\Form\TerritoriesType;
 use App\Repository\GangersImgRepository;
 use App\Repository\GangersTypesRepository;
 use App\Repository\GangsRepository;
+use APp\Repository\TerritoriesRepository;
 use App\Repository\MyGangersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -235,12 +238,15 @@ class GangsController extends AbstractController
     }
 
     /*
-     * @Route("/gangs/{gang_id}/territories/add", name="new_territory")
+     * @Route("/gangs/{gang_id}/territories/add", name="new_gang_territory")
      */
-    /*
-    public function addTerritory(): Response
+    public function addTerritory(TerritoriesRepository $territoriesRepository, $gang_id): Response
     {
+        $territories = $this->$territoriesRepository->findAll();
 
+        return $this->render('gangs/newTerritory.html.twig', [
+            'controller_name' => 'GangsController',
+            'territories' => $territories,
+        ]);
     }
-    */
 }

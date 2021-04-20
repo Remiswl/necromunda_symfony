@@ -19,17 +19,16 @@ class TerritoriesRepository extends ServiceEntityRepository
         parent::__construct($registry, Territories::class);
     }
 
-    // /**
-    //  * @return Territories[] Returns an array of Territories objects
-    //  */
+    /**
+     * return Territories[] Returns an array of Territories objects
+     */
     /*
-    public function findByExampleField($value)
+    public function displayGangTerritories($gang_id)
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('t.gang = :val')
+            ->setParameter('val', $gang_id)
             ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;

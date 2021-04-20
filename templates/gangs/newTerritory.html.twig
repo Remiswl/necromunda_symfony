@@ -33,7 +33,7 @@
 							<td>{{ territory.d6tens ~ territory.d6units }}</td>
 							<td>{{ territory.income }}</td>
 							<td class="text-left">{{ territory.description }}</td>
-							<td><a href="{{ path('edit_territory', {territory_id : territory.id}) }}" class="btn btn-secondary mb-3">Add</a></td>
+							<td><a href="{{ path('insert_new_territory_in_db', {'gang_id' : gang_id, 'territory_id' : territory.id }) }}" class="btn btn-secondary mb-3">Add</a></td>
 						</tr>
 					{% endfor %}
 				</tbody>

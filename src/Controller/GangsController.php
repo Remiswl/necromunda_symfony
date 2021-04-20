@@ -12,7 +12,7 @@ use App\Form\TerritoriesType;
 use App\Repository\GangersImgRepository;
 use App\Repository\GangersTypesRepository;
 use App\Repository\GangsRepository;
-use APp\Repository\TerritoriesRepository;
+use App\Repository\TerritoriesRepository;
 use App\Repository\MyGangersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +29,6 @@ class GangsController extends AbstractController
         $gangsNames = $gangsRepository->findAll();
 
         return $this->render('gangs/gangs.html.twig', [
-            'controller_name' => 'GangsController',
             'gangs' => $gangsNames,
         ]);
     }
@@ -37,14 +36,18 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{gang_id}/show_gang", name="show_gang")
      */
-    public function showGang(GangsRepository $gangsRepository, MyGangersRepository $myGangersRepository, $gang_id): Response
+    public function showGang(TerritoriesRepository $territoriesRepository, GangsRepository $gangsRepository, MyGangersRepository $myGangersRepository, $gang_id): Response
     {
         $gangData = $gangsRepository->displayGangData($gang_id);
+
+//dump(sizeof($gangData));
+//dd($gangData[0]->getTerritories());
 
         if (!$gangData) {
             throw $this->createNotFoundException('Error: this gang does not exist');
         }
 
+        $gangersData = $myGangersRepository->displayGangersData($gang_id);
         $gangersData = $myGangersRepository->displayGangersData($gang_id);
 
         $totalCost = 0;
@@ -57,7 +60,6 @@ class GangsController extends AbstractController
         $gangRating = $totalCost + $totalExp;
 
         return $this->render('gangs/myGang.html.twig', [
-            'controller_name' => 'GangsController',
             'gangData' => $gangData,
             'gangersData' => $gangersData,
             'totalCost' => $totalCost,
@@ -89,6 +91,41 @@ class GangsController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('gangs');
+    }
+
+    /**
+     * @Route("/gangs/{gang_id}/new_territory", name="new_gang_territory")
+     *
+     */
+     public function addTerritory(TerritoriesRepository $territoriesRepository, $gang_id): Response
+    {
+        $territories = $territoriesRepository->findAll();
+
+        return $this->render('gangs/newTerritory.html.twig', [
+            'territories' => $territories,
+            'gang_id' => $gang_id,
+        ]);
+    }
+
+    /**
+     * @Route("/gangs/{gang_id}/insert_new_territory/{territory_id}", name="insert_new_territory_in_db")
+     */
+    public function insertTerritory(GangsRepository $gangsRepository, TerritoriesRepository $territoriesRepository, $gang_id, $territory_id): Response
+    {
+        $newTerritory = $territoriesRepository->find($territory_id);
+
+        $myGang = $gangsRepository->find($gang_id);
+        $myGang->addTerritory($newTerritory);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($myGang);
+        $em->flush();
+
+        $this->addFlash('success', 'Territory added!');
+
+        return $this->redirectToRoute('show_gang', [
+            'gang_id' => $gang_id,
+        ]);
     }
 
     /**
@@ -235,18 +272,5 @@ class GangsController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('show_gang', ['gang_id' => $gangId]);
-    }
-
-    /*
-     * @Route("/gangs/{gang_id}/territories/add", name="new_gang_territory")
-     */
-    public function addTerritory(TerritoriesRepository $territoriesRepository, $gang_id): Response
-    {
-        $territories = $this->$territoriesRepository->findAll();
-
-        return $this->render('gangs/newTerritory.html.twig', [
-            'controller_name' => 'GangsController',
-            'territories' => $territories,
-        ]);
     }
 }

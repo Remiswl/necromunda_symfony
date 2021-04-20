@@ -2,9 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\MyGangers;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Entity\MyGangers;
 
 /**
  * @method MyGangers|null find($id, $lockMode = null, $lockVersion = null)
@@ -42,7 +42,6 @@ class MyGangersRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-
 
     // /**
     //  * @return MyGangers[] Returns an array of MyGangers objects

@@ -3,12 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Skills;
+use App\Entity\SkillsCategories;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-
-use App\Entity\SkillsCategories;
 
 class SkillsType extends AbstractType
 {
@@ -21,7 +20,6 @@ class SkillsType extends AbstractType
                 'class' => SkillsCategories::class,
                 'choice_label' => 'name',
             ]);
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

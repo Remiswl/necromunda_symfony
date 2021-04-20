@@ -4,24 +4,24 @@ namespace App\Factory;
 
 use App\Entity\Users;
 use App\Repository\UsersRepository;
-use Zenstruck\Foundry\RepositoryProxy;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
+use Zenstruck\Foundry\RepositoryProxy;
 
 /**
- * @method static Users|Proxy createOne(array $attributes = [])
- * @method static Users[]|Proxy[] createMany(int $number, $attributes = [])
- * @method static Users|Proxy find($criteria)
- * @method static Users|Proxy findOrCreate(array $attributes)
- * @method static Users|Proxy first(string $sortedField = 'id')
- * @method static Users|Proxy last(string $sortedField = 'id')
- * @method static Users|Proxy random(array $attributes = [])
- * @method static Users|Proxy randomOrCreate(array $attributes = [])
- * @method static Users[]|Proxy[] all()
- * @method static Users[]|Proxy[] findBy(array $attributes)
- * @method static Users[]|Proxy[] randomSet(int $number, array $attributes = [])
- * @method static Users[]|Proxy[] randomRange(int $min, int $max, array $attributes = [])
- * @method static UsersRepository|RepositoryProxy repository()
+ * @method static      Users|Proxy createOne(array $attributes = [])
+ * @method static      Users[]|Proxy[] createMany(int $number, $attributes = [])
+ * @method static      Users|Proxy find($criteria)
+ * @method static      Users|Proxy findOrCreate(array $attributes)
+ * @method static      Users|Proxy first(string $sortedField = 'id')
+ * @method static      Users|Proxy last(string $sortedField = 'id')
+ * @method static      Users|Proxy random(array $attributes = [])
+ * @method static      Users|Proxy randomOrCreate(array $attributes = [])
+ * @method static      Users[]|Proxy[] all()
+ * @method static      Users[]|Proxy[] findBy(array $attributes)
+ * @method static      Users[]|Proxy[] randomSet(int $number, array $attributes = [])
+ * @method static      Users[]|Proxy[] randomRange(int $min, int $max, array $attributes = [])
+ * @method static      UsersRepository|RepositoryProxy repository()
  * @method Users|Proxy create($attributes = [])
  */
 final class UsersFactory extends ModelFactory
@@ -38,7 +38,7 @@ final class UsersFactory extends ModelFactory
         return [
             'pseudo' => 'Player 1',
             'gangName' => 'The Killers of the hive',
-            'housed' => 1
+            'housed' => 1,
         ];
     }
 

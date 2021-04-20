@@ -19,10 +19,9 @@ class GangsRepository extends ServiceEntityRepository
         parent::__construct($registry, Gangs::class);
     }
 
-
     /**
-    * @return Gangs[] Returns an array of Gangs objects
-    */
+     * @return Gangs[] Returns an array of Gangs objects
+     */
     public function displayGangsNames()
     {
         return $this->createQueryBuilder('g')
@@ -32,10 +31,9 @@ class GangsRepository extends ServiceEntityRepository
         ;
     }
 
-
     /**
-    * @return Gangs[] Returns an array of Gangs objects
-    */
+     * @return Gangs[] Returns an array of Gangs objects
+     */
     public function displayGangData($id)
     {
         return $this->createQueryBuilder('g')

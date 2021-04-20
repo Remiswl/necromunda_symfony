@@ -39,7 +39,6 @@ class Houses
      */
     private $gangs;
 
-
     public function __construct()
     {
         $this->gangs = new ArrayCollection();
@@ -120,6 +119,4 @@ class Houses
     {
         return $this->name;
     }
-
-
 }

@@ -2,21 +2,19 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-
-use App\Repository\GangsRepository;
-use App\Repository\MyGangersRepository;
-use App\Repository\GangersTypesRepository;
-use App\Repository\GangersImgRepository;
-use App\Form\MyGangersType;
-use App\Form\NewGangerType;
-use App\Entity\GangersTypes;
-use App\Entity\MyGangers;
 use App\Entity\Gangers;
 use App\Entity\Gangs;
+use App\Entity\MyGangers;
+use App\Form\MyGangersType;
+use App\Form\NewGangerType;
+use App\Repository\GangersImgRepository;
+use App\Repository\GangersTypesRepository;
+use App\Repository\GangsRepository;
+use App\Repository\MyGangersRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class GangsController extends AbstractController
 {
@@ -25,11 +23,11 @@ class GangsController extends AbstractController
      */
     public function listGangs(GangsRepository $gangsRepository): Response
     {
-        $gangs_names = $gangsRepository->findAll();
+        $gangsNames = $gangsRepository->findAll();
 
         return $this->render('gangs/gangs.html.twig', [
             'controller_name' => 'GangsController',
-            'gangs' => $gangs_names,
+            'gangs' => $gangsNames,
         ]);
     }
 
@@ -40,7 +38,7 @@ class GangsController extends AbstractController
     {
         $gangData = $gangsRepository->displayGangData($gang_id);
 
-        if(!$gangData) {
+        if (!$gangData) {
             throw $this->createNotFoundException('Error: this gang does not exist');
         }
 
@@ -48,7 +46,7 @@ class GangsController extends AbstractController
 
         $totalCost = 0;
         $totalExp = 0;
-        for($i = 0; $i < sizeof($gangersData); $i++) {
+        for ($i = 0; $i < sizeof($gangersData); ++$i) {
             $totalCost += $gangersData[$i]->getCost();
             $totalExp += $gangersData[$i]->getXp();
         }
@@ -77,8 +75,8 @@ class GangsController extends AbstractController
         // Also delete its gangers
         $gangersToDelete = $myGangersRepository->findAll();
 
-        for ($i = 0; $i < sizeof($gangersToDelete); $i++) {
-            if($gangersToDelete[$i]->getGang()->getId() === $gangId) {
+        for ($i = 0; $i < sizeof($gangersToDelete); ++$i) {
+            if ($gangersToDelete[$i]->getGang()->getId() === $gangId) {
                 $this->deleteGanger($gangersToDelete[$i]->getId());
             }
         }
@@ -95,7 +93,7 @@ class GangsController extends AbstractController
      */
     public function addGanger(GangsRepository $gangsRepository, GangersTypesRepository $gangersTypesRepository, GangersImgRepository $gangersImgRepository, Request $request, $gang_id): Response
     {
-        $newGanger = new MyGangers;
+        $newGanger = new MyGangers();
 
         $houseId = $gangsRepository->find($gang_id);
         $houseId = $houseId->getHouse()->getId();
@@ -104,7 +102,7 @@ class GangsController extends AbstractController
         $form = $this->createForm(NewGangerType::class, $newGanger);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $gangerTypeId = $newGanger->getGangerType()->getId();
             $gangerTypeId = $gangersTypesRepository->find($gangerTypeId);
 
@@ -122,7 +120,7 @@ class GangsController extends AbstractController
                 ->setCredits(0)
                 ->setCreatedAt(new \DateTime('NOW'));
 
-            if($gangerTypeId->getId() === 1){
+            if (1 === $gangerTypeId->getId()) {
                 $newGanger
                     ->setWeaponSkill(4)
                     ->setBallisticSkill(4)
@@ -134,7 +132,7 @@ class GangsController extends AbstractController
                     ->setLeadership(8)
                     ->setCost(120)
                     ->setImage('img/cawdor_figurine.png');
-            } else if($gangerTypeId->getId() === 2){
+            } elseif (2 === $gangerTypeId->getId()) {
                 $newGanger
                     ->setWeaponSkill(3)
                     ->setBallisticSkill(3)
@@ -146,7 +144,7 @@ class GangsController extends AbstractController
                     ->setLeadership(7)
                     ->setCost(60)
                     ->setImage('img/cawdor_figurine.png');
-            } else if($gangerTypeId->getId() === 3){
+            } elseif (3 === $gangerTypeId->getId()) {
                 $newGanger
                     ->setWeaponSkill(3)
                     ->setBallisticSkill(3)
@@ -158,7 +156,7 @@ class GangsController extends AbstractController
                     ->setLeadership(7)
                     ->setCost(50)
                     ->setImage('img/cawdor_figurine.png');
-            } else if($gangerTypeId->getId() === 4){
+            } elseif (4 === $gangerTypeId->getId()) {
                 $newGanger
                     ->setWeaponSkill(2)
                     ->setBallisticSkill(2)
@@ -204,7 +202,7 @@ class GangsController extends AbstractController
         $form = $this->createForm(MyGangersType::class, $gangerData);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($gangerData);
             $em->flush();
@@ -226,7 +224,7 @@ class GangsController extends AbstractController
      */
     public function deleteGanger($ganger_id): Response
     {
-        $myGangers = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
+        $myGangers = $this->getDoctrine()->getRepository(MyGangers::class)->find($gangerid);
         $gangId = $myGangers->getGang()->getId();
 
         $em = $this->getDoctrine()->getManager();
@@ -236,7 +234,7 @@ class GangsController extends AbstractController
         return $this->redirectToRoute('show_gang', ['gang_id' => $gangId]);
     }
 
-    /**
+    /*
      * @Route("/gangs/{gang_id}/territories/add", name="new_territory")
      */
     /*

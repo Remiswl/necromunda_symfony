@@ -2,26 +2,24 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-
-use App\Repository\TerritoriesRepository;
-use App\Repository\InjuriesRepository;
-use App\Repository\WeaponsRepository;
-use App\Repository\SkillsRepository;
-use App\Entity\Territories;
-use App\Entity\Skills;
-use App\Entity\Weapons;
 use App\Entity\Injuries;
-use App\Form\TerritoriesType;
+use App\Entity\Skills;
+use App\Entity\Territories;
+use App\Entity\Weapons;
 use App\Form\InjuriesType;
 use App\Form\SkillsType;
+use App\Form\TerritoriesType;
 use App\Form\WeaponsType;
+use App\Repository\InjuriesRepository;
+use App\Repository\SkillsRepository;
+use App\Repository\TerritoriesRepository;
+use App\Repository\WeaponsRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 // use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-
 
 class AdminController extends AbstractController
 {
@@ -35,9 +33,8 @@ class AdminController extends AbstractController
         InjuriesRepository $injuriesRepository,
         SkillsRepository $skillsRepository,
         WeaponsRepository $weaponsRepository
-    ){
-
-    	$this->injuriesRepository = $injuriesRepository;
+    ) {
+        $this->injuriesRepository = $injuriesRepository;
         $this->territoriesRepository = $territoriesRepository;
         $this->skillsRepository = $skillsRepository;
         $this->weaponsRepository = $weaponsRepository;
@@ -62,7 +59,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-// Territories
+    // Territories
 
     /**
      * @Route("/admin/territories/new_territory", name="new_territory")
@@ -74,8 +71,7 @@ class AdminController extends AbstractController
         $form = $this->createForm(TerritoriesType::class, $newTerritory);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($newTerritory);
             $em->flush();
@@ -98,7 +94,7 @@ class AdminController extends AbstractController
         $form = $this->createForm(TerritoriesType::class, $territoryData);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($territoryData);
             $em->flush();
@@ -129,7 +125,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin');
     }
 
-// Injuries
+    // Injuries
 
     /**
      * @Route("/admin/injuries/new_injury", name="new_injury")
@@ -141,7 +137,7 @@ class AdminController extends AbstractController
         $form = $this->createForm(InjuriesType::class, $newInjury);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($newInjury);
             $em->flush();
@@ -164,7 +160,7 @@ class AdminController extends AbstractController
         $form = $this->createForm(InjuriesType::class, $injuryData);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($injuryData);
             $em->flush();
@@ -195,7 +191,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin');
     }
 
-// Weapons
+    // Weapons
 
     /**
      * @Route("/admin/weapons/new_weapon", name="new_weapon")
@@ -207,8 +203,7 @@ class AdminController extends AbstractController
         $form = $this->createForm(WeaponsType::class, $newWeapon);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($newWeapon);
             $em->flush();
@@ -231,7 +226,7 @@ class AdminController extends AbstractController
         $form = $this->createForm(WeaponsType::class, $weaponData);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($weaponData);
             $em->flush();
@@ -262,7 +257,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin');
     }
 
-// Skills
+    // Skills
 
     /**
      * @Route("/admin/skills/new_skill", name="new_skill")
@@ -274,8 +269,7 @@ class AdminController extends AbstractController
         $form = $this->createForm(SkillsType::class, $newSkill);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($newSkill);
             $em->flush();
@@ -298,7 +292,7 @@ class AdminController extends AbstractController
         $form = $this->createForm(SkillsType::class, $skillData);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($skillData);
             $em->flush();

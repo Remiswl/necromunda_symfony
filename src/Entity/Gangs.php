@@ -222,5 +222,4 @@ class Gangs
 
         return $this;
     }
-
 }

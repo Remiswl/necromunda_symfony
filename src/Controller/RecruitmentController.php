@@ -2,19 +2,16 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Persistence\ObjectManager;
-
 use App\Entity\Gangs;
 use App\Form\NewGangType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class RecruitmentController extends AbstractController
 {
-     /**
+    /**
      * @Route("/newGang", name="new_gang")
      */
     public function newGang(Request $request): Response
@@ -24,24 +21,23 @@ class RecruitmentController extends AbstractController
         $form = $this->createForm(NewGangType::class, $newGang);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-
+        if ($form->isSubmitted() && $form->isValid()) {
             $newGang
                 ->setCredits(1000)
                 ->setGangRating(0)
                 ->setCreatedAt(new \DateTime('NOW'));
 
-            if ($newGang->getHouse()->getId() === 1) {
+            if (1 === $newGang->getHouse()->getId()) {
                 $newGang->setImage('img/cawdor.jpg');
-            } else if ($newGang->getHouse()->getId() === 2) {
+            } elseif (2 === $newGang->getHouse()->getId()) {
                 $newGang->setImage('img/Delaque/delaque_arms.png');
-            } else if ($newGang->getHouse()->getId() === 3) {
+            } elseif (3 === $newGang->getHouse()->getId()) {
                 $newGang->setImage('img/Escher/escher_arms.png');
-            } else if ($newGang->getHouse()->getId() === 4) {
+            } elseif (4 === $newGang->getHouse()->getId()) {
                 $newGang->setImage('img/Goliath/goliath_arms.png');
-            } else if ($newGang->getHouse()->getId() === 5) {
+            } elseif (5 === $newGang->getHouse()->getId()) {
                 $newGang->setImage('img/cawdor.jpg');
-            } else if ($newGang->getHouse()->getId() === 6) {
+            } elseif (6 === $newGang->getHouse()->getId()) {
                 $newGang->setImage('img/Van_Saar/van_saar_arms.png');
             }
 
@@ -55,7 +51,7 @@ class RecruitmentController extends AbstractController
         }
 
         return $this->render('recruitment/newGang.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 }

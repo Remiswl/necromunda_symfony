@@ -18,13 +18,29 @@ All texts and illustrations are the property of Games Workshop.
 
 ### To do list
 
+* Gangers:
+	* Gang page:
+		* display ganger's equipment, skills and injuries
+	* Ganger page:
+		* Add buttons to add equipement + skills + injuries
+		* Add buttons to delete equipement + skills + injuries
+		* Create fields to display the ganger's equipment, skills and injuries
+	* Create add_equipment_page -> display a list + 'add' button
+	* Create add_skill_page -> display a list + 'add' button
+	* Create add_injury_page -> display a list + 'add' button
+	* Database:
+		* Skills: add a ManyToMany relations with gangers
+		* Weapons: add a ManyToMany relations with gangers
+
+
 * ~~Home page~~
 * ~~Recruit a gang~~
 * Manage your gang
-	* Make possible to have several times the same territory
 	* Display gangers' equipment, skills and injuries
-	* Reduce gang's stash when hire a new ganger
+	* Make possible to have several times the same territory
+	* Reduce gang's stash when hire a new ganger + error message if gang's stash < 0
 	* Make possible the update of the gang's stash
+	* Make possible to delete gang's territories
 * Manager gangers
 	* Add equipment/weapons, skills and injuries
 	* Modify image
@@ -43,6 +59,7 @@ Next steps:
 	* add buttons to roll dices to choose the ground, roll dices for attacks, etc.
 	* a single page with information about the ground, the gangs, etc.?
 	* last page (/result) to upgrade each ganger after the end of the battlefatal
+	* manage the sell of equipment and weapons
 * Settings
 	* weapons -> add images?
 * Objects to roll dices (xD6, xD3, D66 (1st D6 dice as tens, a 2nd D6 dice as units))

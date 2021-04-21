@@ -20,29 +20,30 @@ All texts and illustrations are the property of Games Workshop.
 
 * Gangers:
 	* Gang page:
-		* display ganger's equipment, skills and injuries
+		* display ganger's weapons, skills and injuries
 	* Ganger page:
-		* Add buttons to add equipement + skills + injuries
-		* Add buttons to delete equipement + skills + injuries
-		* Create fields to display the ganger's equipment, skills and injuries
-	* Create add_equipment_page -> display a list + 'add' button
+		* Add buttons to add weapons, skills + injuries
+		* Add buttons to delete weapons, skills + injuries
+		* Create fields to display the ganger's weapons, skills and injuries
+	* Create add_weapon_page -> display a list + 'add' button
 	* Create add_skill_page -> display a list + 'add' button
 	* Create add_injury_page -> display a list + 'add' button
 	* Database:
 		* Skills: add a ManyToMany relations with gangers
 		* Weapons: add a ManyToMany relations with gangers
+		* Injuries: add a ManyToMany relations with gangers
 
 
 * ~~Home page~~
 * ~~Recruit a gang~~
 * Manage your gang
-	* Display gangers' equipment, skills and injuries
+	* Display gangers' skills and injuries
 	* Make possible to have several times the same territory
 	* Reduce gang's stash when hire a new ganger + error message if gang's stash < 0
 	* Make possible the update of the gang's stash
 	* Make possible to delete gang's territories
 * Manager gangers
-	* Add equipment/weapons, skills and injuries
+	* Add weapons, skills and injuries
 	* Modify image
 	* when recruit, add a list of images the player can choose
 	* @Route: add a slug with the ganger's name (Grafikart - Découverte de Doctrine 33')
@@ -53,6 +54,7 @@ All texts and illustrations are the property of Games Workshop.
 * Finish create database (see details below)
 
 Next steps:
+* add equipment to gangers?
 * Recruit a gang
 	* Allow the player to choose an image for his gang (gang's arms, gangers' faces, etc.)
 * Start a battle (/battle):
@@ -79,6 +81,9 @@ Next steps:
 * ~~SkillsCategories~~
 * ~~WeaponsCategories~~
 * ~~User~~
+
+* Injuries
+	* -> ManyToMany relations with gangers
 
 * Skills
 	* ~~name~~

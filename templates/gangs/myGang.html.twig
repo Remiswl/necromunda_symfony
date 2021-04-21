@@ -17,11 +17,11 @@
 				<table class="table table-bordered bg-white">
 					<thead class="bg-secondary text-white">
 						<tr>
-							<td colspan=2 class="align-middle">House: {{ gangData.0.house | upper }}</td>
-							<td colspan=2 class="align-middle">Gang name: {{ gangData.0.gangName | upper }}</td>
+							<td colspan=2 class="align-middle">House: {{ gang_data.0.house | upper }}</td>
+							<td colspan=2 class="align-middle">Gang name: {{ gang_data.0.gangName | upper }}</td>
 							<td colspan=3>
-								Gang stash: {{ gangData.0.credits }} credits<br>
-								Gang rating: {{ gangRating }}
+								Gang stash: {{ gang_data.0.credits }} credits<br>
+								Gang rating: {{ gang_rating }}
 							</td>
 						</tr>
 						<tr>
@@ -39,10 +39,10 @@
 					</thead>
 
 					<tbody>
-						{% for gangerData in gangersData %}
+						{% for ganger_data in gangers_data %}
 							<tr>
-								<td><img src="/{{ gangerData.image }}" alt="{{ gangerData.name }}"></td>
-								<td class="align-middle">{{ gangerData.name | upper }}<br>{{ gangerData.gangerType.name }}</td>
+								<td><img src="/{{ ganger_data.image }}" alt="{{ ganger_data.name }}"></td>
+								<td class="align-middle">{{ ganger_data.name | upper }}<br>{{ ganger_data.gangerType.name }}</td>
 								<td class="d-flex flex-row">
 									<table class="mx-auto">
 										<tr>
@@ -57,24 +57,24 @@
 											<td>Ld</td>
 										</tr>
 										<tr>
-											<td>{{ gangerData.move }}</td>
-											<td>{{ gangerData.weaponSkill }}</td>
-											<td>{{ gangerData.ballisticSkill }}</td>
-											<td>{{ gangerData.strength }}</td>
-											<td>{{ gangerData.toughness }}</td>
-											<td>{{ gangerData.wounds }}</td>
-											<td>{{ gangerData.initiative }}</td>
-											<td>{{ gangerData.attacks }}</td>
-											<td>{{ gangerData.leadership }}</td>
+											<td>{{ ganger_data.move }}</td>
+											<td>{{ ganger_data.weaponSkill }}</td>
+											<td>{{ ganger_data.ballisticSkill }}</td>
+											<td>{{ ganger_data.strength }}</td>
+											<td>{{ ganger_data.toughness }}</td>
+											<td>{{ ganger_data.wounds }}</td>
+											<td>{{ ganger_data.initiative }}</td>
+											<td>{{ ganger_data.attacks }}</td>
+											<td>{{ ganger_data.leadership }}</td>
 										</tr>
 									</table>
 								</td>
 								<td class="text-left">Shotgun <i class="fas fa-info-circle"></i></td>
-								<td class="align-middle">{{ gangerData.cost }}</td>
-								<td class="align-middle">{{ gangerData.xp }}</td>
+								<td class="align-middle">{{ ganger_data.cost }}</td>
+								<td class="align-middle">{{ ganger_data.xp }}</td>
 								<td class="align-middle">
-									<a href="{{ path('edit_ganger', {ganger_id : gangerData.id}) }}" class="btn btn-secondary mb-3">Edit</a>
-									<form method="post" action='{{ path('delete_ganger', {ganger_id : gangerData.id}) }}' onsubmit="return confirm('Do you really want to fire your ganger?')">
+									<a href="{{ path('edit_ganger', {ganger_id : ganger_data.id}) }}" class="btn btn-secondary mb-3">Edit</a>
+									<form method="post" action='{{ path('delete_ganger', {ganger_id : ganger_data.id}) }}' onsubmit="return confirm('Do you really want to fire your ganger?')">
 										<input type="hidden" name="_method" value="DELETE">
 										<button class="btn btn-danger">Delete</button>
 									</form>
@@ -84,16 +84,15 @@
 
 						<tr>
 							<td colspan=4 class="text-right">TOTALS:</td>
-							<td>{{ totalCost }}</td>
-							<td>{{ totalExp }}</td>
+							<td>{{ total_cost }}</td>
+							<td>{{ total_exp }}</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 
 			<div class="row d-flex justify-content-around mx-5">
-
-				<table class="table table-bordered bg-white col-4">
+				<table class="table table-bordered bg-white col-6">
 					<thead class="bg-secondary text-white">
 						<tr>
 							<td>Territory</td>
@@ -107,44 +106,102 @@
 
 					<tbody>
 						<tr>
-							<td class="text-left">1.<i class="fas fa-info-circle" title="ok"></i></td>
-							<td></td>
-							<td><i class="fas fa-trash-alt"></i></td>
-							<td class="text-left">6.  <i class="fas fa-info-circle" title="ok"></i></td>
-							<td></td>
-							<td><i class="fas fa-trash-alt"></i></td>
+							<td class="text-left">
+								1. {% if gang_territories.0.name is defined %}{{gang_territories.0.name}}{% endif %}
+							</td>
+							<td>
+								{% if gang_territories.0.income is defined %}{{gang_territories.0.income}}{% endif %}
+							</td>
+							<td>
+								<i class="fas fa-trash-alt"></i>
+							</td>
+							<td class="text-left">
+								6. {% if gang_territories.5.name is defined %}{{gang_territories.5.name}}{% endif %}
+							</td>
+							<td>
+								{% if gang_territories.5.income is defined %}{{gang_territories.5.income}}{% endif %}
+							</td>
+							<td>
+								<i class="fas fa-trash-alt"></i>
+							</td>
 						</tr>
 						<tr>
-							<td class="text-left">2. <i class="fas fa-info-circle" title="ok"></i></td>
-							<td></td>
-							<td><i class="fas fa-trash-alt"></i></td>
-							<td class="text-left">7.  <i class="fas fa-info-circle" title="ok"></i></td>
-							<td></td>
-							<td><i class="fas fa-trash-alt"></i></td>
+							<td class="text-left">
+								2. {% if gang_territories.1.name is defined %}{{gang_territories.1.name}}{% endif %}
+							</td>
+							<td>
+								{% if gang_territories.1.income is defined %}{{gang_territories.1.income}}{% endif %}</td>
+							<td>
+								<i class="fas fa-trash-alt"></i>
+							</td>
+							<td class="text-left">
+								7. {% if gang_territories.6.name is defined %}{{gang_territories.6.name}}{% endif %}
+							</td>
+							<td>
+								{% if gang_territories.6.income is defined %}{{gang_territories.6.income}}{% endif %}
+							</td>
+							<td>
+								<i class="fas fa-trash-alt"></i>
+							</td>
 						</tr>
 						<tr>
-							<td class="text-left">3. <i class="fas fa-info-circle" title="ok"></i></td>
-							<td></td>
-							<td><i class="fas fa-trash-alt"></i></td>
-							<td class="text-left">8.  <i class="fas fa-info-circle" title="ok"></i></td>
-							<td></td>
-							<td><i class="fas fa-trash-alt"></i></td>
+							<td class="text-left">
+								3. {% if gang_territories.2.name is defined %}{{gang_territories.2.name}}{% endif %}
+							<td>
+								{% if gang_territories.2.income is defined %}{{gang_territories.2.income}}{% endif %}
+							</td>
+							<td>
+								<i class="fas fa-trash-alt"></i>
+							</td>
+							<td class="text-left">
+								8. {% if gang_territories.7.name is defined %}{{gang_territories.7.name}}{% endif %}
+							</td>
+							<td>
+								{% if gang_territories.7.income is defined %}{{gang_territories.7.income }}{% endif %}
+							</td>
+							<td>
+								<i class="fas fa-trash-alt"></i>
+							</td>
 						</tr>
 						<tr>
-							<td class="text-left">4. <i class="fas fa-info-circle" title="ok"></i></td>
-							<td></td>
-							<td><i class="fas fa-trash-alt"></i></td>
-							<td class="text-left">9.  <i class="fas fa-info-circle" title="ok"></i></td>
-							<td></td>
-							<td><i class="fas fa-trash-alt"></i></td>
+							<td class="text-left">
+								4. {% if gang_territories.3.name is defined %}{{gang_territories.3.name}}{% endif %}
+							</td>
+							<td>
+								{% if gang_territories.3.income is defined %}{{gang_territories.3.income}}{% endif %}
+							</td>
+							<td>
+								<i class="fas fa-trash-alt"></i>
+							</td>
+							<td class="text-left">
+								9. {% if gang_territories.8.name is defined %}{{gang_territories.8.name}}{% endif %}
+							</td>
+							<td>
+								{% if gang_territories.8.income is defined %}{{gang_territories.8.income }}{% endif %}
+							</td>
+							<td>
+								<i class="fas fa-trash-alt"></i>
+							</td>
 						</tr>
 						<tr>
-							<td class="text-left">5. <i class="fas fa-info-circle" title="ok"></i></td>
-							<td></td>
-							<td><i class="fas fa-trash-alt"></i></td>
-							<td class="text-left">10.  <i class="fas fa-info-circle" title="ok"></i></td>
-							<td></td>
-							<td><i class="fas fa-trash-alt"></i></td>
+							<td class="text-left">
+								5. {% if gang_territories.4.income is defined %}{{gang_territories.4.income }}{% endif %}
+							</td>
+							<td>
+								{% if gang_territories.4.income is defined %}{{gang_territories.4.income }}{% endif %}
+							</td>
+							<td>
+								<i class="fas fa-trash-alt"></i>
+							</td>
+							<td class="text-left">
+								10. {% if gang_territories.9.income is defined %}{{gang_territories.9.income }}{% endif %}
+							</td>
+							<td>
+								{% if gang_territories.9.income is defined %}{{gang_territories.9.income }}{% endif %}
+							</td>
+							<td>
+								<i class="fas fa-trash-alt"></i>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -152,9 +209,9 @@
 				<table class="col-2 d-flex flex-column text-right">
 					<tr>
 						<td class="align-middle">
-							<a href="{{ path('new_ganger', {gang_id : gangData.0.id}) }}" class="btn btn-secondary my-2">New ganger</a>
-							<a href="{{ path('new_gang_territory', {gang_id : gangData.0.id}) }}" class="btn btn-secondary my-2">New territory</a>
-							<form class="my-2" method="post" action='{{ path('delete_gang', {gang_id : gangData.0.id}) }}' onsubmit="return confirm('Do you really want to delete your gang?')">
+							<a href="{{ path('new_ganger', {gang_id : gang_data.0.id}) }}" class="btn btn-secondary my-2">New ganger</a>
+							{% if gang_territories|length <= 10 %}<a href="{{ path('new_gang_territory', {gang_id : gang_data.0.id}) }}" class="btn btn-secondary my-2">New territory</a>{% endif %}
+							<form class="my-2" method="post" action='{{ path('delete_gang', {gang_id : gang_data.0.id}) }}' onsubmit="return confirm('Do you really want to delete your gang?')">
 									<input type="hidden" name="_method" value="DELETE">
 									<button class="btn btn-danger">Delete gang</button>
 							</form>

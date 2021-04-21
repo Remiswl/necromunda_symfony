@@ -75,7 +75,7 @@
 				<tbody>
 					{% for injury in injuries %}
 						<tr>
-							<td>{{ injury.d66 }}</td>
+							<td>{{ injury.mind66 ~ ' - ' ~ injury.maxd66 }}</td>
 							<td class="text-left">{{ injury.description }}</td>
 							<td>
 								<a href="{{ path('edit_injury', {injury_id : injury.id}) }}" class="btn btn-secondary mb-3">Edit</a>

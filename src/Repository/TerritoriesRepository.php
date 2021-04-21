@@ -22,18 +22,20 @@ class TerritoriesRepository extends ServiceEntityRepository
     /**
      * return Territories[] Returns an array of Territories objects
      */
-    /*
+
     public function displayGangTerritories($gang_id)
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.gang = :val')
+            ->andWhere('g.id = :val')
             ->setParameter('val', $gang_id)
+            ->leftJoin('t.gang', 'g')
+            ->addSelect('g')
             ->orderBy('t.id', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Territories

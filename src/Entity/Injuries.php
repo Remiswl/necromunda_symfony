@@ -25,9 +25,15 @@ class Injuries
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\Range(min=11, max=66)
+     * @Assert\Range(min=11)
      */
-    private $d66;
+    private $minD66;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\Range(max=66)
+     */
+    private $maxD66;
 
     public function getId(): ?int
     {
@@ -46,14 +52,26 @@ class Injuries
         return $this;
     }
 
-    public function getD66(): ?int
+    public function getMinD66(): ?int
     {
-        return $this->d66;
+        return $this->minD66;
     }
 
-    public function setD66(int $d66): self
+    public function setMinD66(int $minD66): self
     {
-        $this->d66 = $d66;
+        $this->minD66 = $minD66;
+
+        return $this;
+    }
+
+    public function getMaxD66(): ?int
+    {
+        return $this->maxD66;
+    }
+
+    public function setMaxD66(int $maxD66): self
+    {
+        $this->maxD66 = $maxD66;
 
         return $this;
     }

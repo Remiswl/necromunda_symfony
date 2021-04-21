@@ -44,6 +44,22 @@ class GangsRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @return Gangs[] Returns an array of Gangs objects
+     */
+  /*  public function displayGangTerritories()
+    {
+        return $this->createQueryBuilder('g')
+            ->andWhere('g.gangs_id = :val')
+            ->setParameter('val', $gang_id)
+            //->leftJoin()
+
+            ->orderBy('g.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+*/
     // /**
     //  * @return Gangs[] Returns an array of Gangs objects
     //  */

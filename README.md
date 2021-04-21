@@ -21,10 +21,10 @@ All texts and illustrations are the property of Games Workshop.
 * ~~Home page~~
 * ~~Recruit a gang~~
 * Manage your gang
-	* Make possible to add territories and display them
 	* Make possible to have several times the same territory
 	* Display gangers' equipment, skills and injuries
 	* Reduce gang's stash when hire a new ganger
+	* Make possible the update of the gang's stash
 * Manager gangers
 	* Add equipment/weapons, skills and injuries
 	* Modify image
@@ -32,7 +32,8 @@ All texts and illustrations are the property of Games Workshop.
 	* @Route: add a slug with the ganger's name (Grafikart - Découverte de Doctrine 33')
 * ~~Houses~~
 * ~~Resources~~
-* ~~Settings~~
+* Settings
+	* Injuries: make impossible to have a maxD66 < minD66
 * Finish create database (see details below)
 
 Next steps:
@@ -56,7 +57,7 @@ Next steps:
 * ~~Gangers (= list of gangers' caracterics depending on the gang)~~ -> useful?
 * ~~MyGangers~~
 * ~~Territories~~
-* ~~Serious_injuries_chart~~
+* ~~SeriousInjuriesChart~~
 * ~~GangersImg~~
 * ~~SkillsCategories~~
 * ~~WeaponsCategories~~

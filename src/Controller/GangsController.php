@@ -40,15 +40,12 @@ class GangsController extends AbstractController
     {
         $gangData = $gangsRepository->displayGangData($gang_id);
 
-//dump(sizeof($gangData));
-//dd($gangData[0]->getTerritories());
-
         if (!$gangData) {
             throw $this->createNotFoundException('Error: this gang does not exist');
         }
 
         $gangersData = $myGangersRepository->displayGangersData($gang_id);
-        $gangersData = $myGangersRepository->displayGangersData($gang_id);
+        $gangTerritories = $territoriesRepository->displayGangTerritories($gang_id);
 
         $totalCost = 0;
         $totalExp = 0;
@@ -60,11 +57,12 @@ class GangsController extends AbstractController
         $gangRating = $totalCost + $totalExp;
 
         return $this->render('gangs/myGang.html.twig', [
-            'gangData' => $gangData,
-            'gangersData' => $gangersData,
-            'totalCost' => $totalCost,
-            'totalExp' => $totalExp,
-            'gangRating' => $gangRating,
+            'gang_data' => $gangData,
+            'gangers_data' => $gangersData,
+            'gang_territories' => $gangTerritories,
+            'total_cost' => $totalCost,
+            'total_exp' => $totalExp,
+            'gang_rating' => $gangRating,
         ]);
     }
 

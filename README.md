@@ -22,14 +22,14 @@ All texts and illustrations are the property of Games Workshop.
 	* ~~Create add_weapon_page -> display a list + 'add' button~~
 	* ~~Create add_skill_page -> display a list + 'add' button~~
 	* ~~Create add_injury_page -> display a list + 'add' button~~
-	* Ganger page:
-		* Create fields to display the ganger's weapons, skills and injuries
-		* Add buttons to add weapons, skills + injuries
-		* Add buttons to delete weapons, skills + injuries
-	* Database:
-		* Skills: add a ManyToMany relations with gangers
-		* Weapons: add a ManyToMany relations with gangers
-		* Injuries: add a ManyToMany relations with gangers
+	* ~~Ganger page:
+		* ~~Create fields to display the ganger's weapons, skills and injuries~~
+		* ~~Add buttons to add weapons, skills + injuries~~
+		* ~~Add buttons to delete weapons, skills + injuries~~
+	* ~~Database:
+		* ~~Skills: add a ManyToMany relations with gangers~~
+		* ~~Weapons: add a ManyToMany relations with gangers~~
+		* ~~Injuries: add a ManyToMany relations with gangers~~
 	* GangsController:
 		* modify method editGangers -> display list of weapons, skills and injuries
 		* as for the territories, add the following routes:

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SkillsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,6 +34,16 @@ class Skills
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=MyGangers::class, inversedBy="skills")
+     */
+    private $ganger;
+
+    public function __construct()
+    {
+        $this->ganger = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -70,6 +82,30 @@ class Skills
     public function setCategory(?SkillsCategories $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MyGangers[]
+     */
+    public function getGanger(): Collection
+    {
+        return $this->ganger;
+    }
+
+    public function addGanger(MyGangers $ganger): self
+    {
+        if (!$this->ganger->contains($ganger)) {
+            $this->ganger[] = $ganger;
+        }
+
+        return $this;
+    }
+
+    public function removeGanger(MyGangers $ganger): self
+    {
+        $this->ganger->removeElement($ganger);
 
         return $this;
     }

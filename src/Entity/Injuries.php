@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\InjuriesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -34,6 +36,16 @@ class Injuries
      * @Assert\Range(max=66)
      */
     private $maxD66;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=MyGangers::class, inversedBy="injuries")
+     */
+    private $gangers;
+
+    public function __construct()
+    {
+        $this->gangers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -72,6 +84,30 @@ class Injuries
     public function setMaxD66(int $maxD66): self
     {
         $this->maxD66 = $maxD66;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MyGangers[]
+     */
+    public function getGangers(): Collection
+    {
+        return $this->gangers;
+    }
+
+    public function addGanger(MyGangers $ganger): self
+    {
+        if (!$this->gangers->contains($ganger)) {
+            $this->gangers[] = $ganger;
+        }
+
+        return $this;
+    }
+
+    public function removeGanger(MyGangers $ganger): self
+    {
+        $this->gangers->removeElement($ganger);
 
         return $this;
     }

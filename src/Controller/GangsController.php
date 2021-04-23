@@ -91,6 +91,8 @@ class GangsController extends AbstractController
         return $this->redirectToRoute('gangs');
     }
 
+// Territories
+
     /**
      * @Route("/gangs/{gang_id}/new_territory", name="new_gang_territory")
      *
@@ -125,6 +127,43 @@ class GangsController extends AbstractController
             'gang_id' => $gang_id,
         ]);
     }
+
+
+// Injuries
+
+    /**
+     * @Route("/gangers/{ganger_id}/new_injury", name="new_ganger_injury")
+     *
+     */
+     public function addInjury(InjuriesRepository $injuriesRepository, $ganger_id): Response
+    {
+        dd('ok');
+    }
+
+// Weapons
+
+    /**
+     * @Route("/gangers/{ganger_id}/new_weapon", name="new_ganger_weapon")
+     *
+     */
+     public function addWeapon(WeaponsRepository $weaponsRepository, $ganger_id): Response
+    {
+        dd('ok');
+    }
+
+// Skills
+
+    /**
+     * @Route("/gangers/{ganger_id}/new_skill", name="new_ganger_skill")
+     *
+     */
+     public function addSkill(SkillsRepository $skillsRepository, $gang_id): Response
+    {
+        dd('ok');
+    }
+
+
+// Gangers
 
     /**
      * @Route("/gangs/{gang_id}/add_ganger", name="new_ganger")

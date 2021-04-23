@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add an injury{% endblock %}
+
+{% block body %}
+
+	<section id="new_injury" class="mb-5">
+		<div class="text-center text-white col-10 mx-auto">
+
+			<a href="{{ path('edit_ganger', {'ganger_id' : ganger_id }) }}" class="btn btn-secondary my-2">Back</a>
+
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{ message }}
+				</div>
+			{% endfor %}
+
+			<table class="table table-bordered bg-white">
+				<thead class="bg-secondary text-white">
+					<tr>
+						<td class="col-1">D66</td>
+						<td class="col-9">Description</td>
+						<td class="col-1">Action</td>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for injury in injuries %}
+						<tr>
+							<td>{{ injury.mind66 ~ ' - ' ~ injury.maxd66 }}</td>
+							<td class="text-left">{{ territory.description }}</td>
+							<td><a href="{{ path('insert_new_injury_in_db', {'ganger_id' : ganger_id, 'injury_id' : injury.id }) }}" class="btn btn-secondary mb-3">Add</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+{% endblock %}

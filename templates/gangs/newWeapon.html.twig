@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add a weapon{% endblock %}
+
+{% block body %}
+
+	<section id="new_weapon" class="mb-5">
+		<div class="text-center text-white col-10 mx-auto">
+
+			<a href="{{ path('edit_ganger', {'ganger_id' : ganger_id }) }}" class="btn btn-secondary my-2">Back</a>
+
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{ message }}
+				</div>
+			{% endfor %}
+
+			<table class="table table-bordered bg-white">
+				<thead class="bg-secondary text-white">
+					<tr>
+						<td class="col-1">Name</td>
+						<td class="col-1">Category</td>
+						<td class="col-1">Cost</td>
+						<td class="col-1">Actions</td>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for weapon in weapons %}
+						<tr>
+							<td>{{ weapon.name }}</td>
+							<td>{{ weapon.category }}</td>
+							<td>{{ weapon.cost }}</td>
+							<td><a href="{{ path('insert_new_weapon_in_db', {'ganger_id' : ganger_id, 'weapon_id' : weapon.id }) }}" class="btn btn-secondary mb-3">Add</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+{% endblock %}

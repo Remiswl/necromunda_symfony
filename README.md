@@ -22,27 +22,27 @@ All texts and illustrations are the property of Games Workshop.
 	* ~~Create add_weapon_page -> display a list + 'add' button~~
 	* ~~Create add_skill_page -> display a list + 'add' button~~
 	* ~~Create add_injury_page -> display a list + 'add' button~~
-	* ~~Ganger page:
+	* ~~Ganger page:~~
 		* ~~Create fields to display the ganger's weapons, skills and injuries~~
 		* ~~Add buttons to add weapons, skills + injuries~~
 		* ~~Add buttons to delete weapons, skills + injuries~~
-	* ~~Database:
+	* ~~Database:~~
 		* ~~Skills: add a ManyToMany relations with gangers~~
 		* ~~Weapons: add a ManyToMany relations with gangers~~
 		* ~~Injuries: add a ManyToMany relations with gangers~~
 	* GangsController:
-		* modify method editGangers -> display list of weapons, skills and injuries
+		* ~~modify method editGangers -> display list of weapons, skills and injuries~~
 		* as for the territories, add the following routes:
-			* new_ganger_weapon (on the page of all weapons, so that the player can choose one weapon for his ganger)
-			* insert_new_weapon_in_db
-			* new_ganger_skill
+			* ~~new_ganger_weapon (on the page of all weapons, so that the player can choose one weapon for his ganger)~~
+			* ~~new_ganger_skill~~
+			* ~~new_ganger_injuries~~
+			* ~~insert_new_weapon_in_db~~
 			* insert_new_skills_in_db
-			* new_ganger_injuries
 			* insert_new_injuries_in_db
 		* as for the settings, add the following routes:
 			* new_ganger_injury (on ganger's page, to access to the list of all injuries than can be added)
 			* new_ganger_skill
-			* new_ganger_weapon
+			* ~~new_ganger_weapon~~
 			* delete_ganger_injury
 			* delete_ganger_skill
 			* delete_ganger_weapon
@@ -103,15 +103,8 @@ Next steps:
 * ~~SkillsCategories~~
 * ~~WeaponsCategories~~
 * ~~User~~
-
-* Injuries
-	* -> ManyToMany relations with gangers
-
-* Skills
-	* ~~name~~
-	* ~~description~~
-	* ~~category~~
-	* -> ManyToMany relations with gangers
+* ~~Injuries~~
+* ~~Skills~~
 
 * Weapons
 	* ~~name~~
@@ -127,5 +120,3 @@ Next steps:
 	* armourPiercing
 	* damage
 	* ammo
-
-	* -> ManyToMany relations with gangers

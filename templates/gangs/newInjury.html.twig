@@ -28,7 +28,7 @@
 					{% for injury in injuries %}
 						<tr>
 							<td>{{ injury.mind66 ~ ' - ' ~ injury.maxd66 }}</td>
-							<td class="text-left">{{ territory.description }}</td>
+							<td class="text-left">{{ injury.description }}</td>
 							<td><a href="{{ path('insert_new_injury_in_db', {'ganger_id' : ganger_id, 'injury_id' : injury.id }) }}" class="btn btn-secondary mb-3">Add</a></td>
 						</tr>
 					{% endfor %}

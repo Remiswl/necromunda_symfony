@@ -45,7 +45,7 @@
 
 
 
-		<h2 id="injuries" class="my-3">Gangers' injuries</h2>
+		<h2 id="injuries" class="my-3">Ganger's injuries</h2>
 
 		<table class="table table-bordered bg-white">
 			<thead class="bg-secondary text-white">
@@ -62,10 +62,9 @@
 						<td>{{ injury.mind66 ~ ' - ' ~ injury.maxd66 }}</td>
 						<td class="text-left">{{ injury.description }}</td>
 						<td>
-							<a href="{{ path('new_ganger_injury', {ganger_id : ganger.id}) }}" class="btn btn-secondary my-2">Add weapon</a>
-							<form method="post" action='{{ path('delete_ganger_injury', {injury_id : injury.id}) }}' onsubmit="return confirm('Do you really want to delete this injury?')">
+							<form method="post" action='{{ path('delete_ganger_injury', {injury_id : injury.id, ganger_id : ganger_id}) }}' onsubmit="return confirm('Do you really want to delete this injury?')">
 								<input type="hidden" name="_method" value="DELETE">
-								<button class="btn btn-danger">Delete</button>
+								<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
 							</form>
 						</td>
 					</tr>
@@ -73,7 +72,7 @@
 			</tbody>
 		</table>
 
-		<a href="{{ path('new_ganger_injury') }}" class="btn btn-secondary my-2">New injury</a>
+		<a href="{{ path('new_ganger_injury', {ganger_id : ganger_id}) }}" class="btn btn-secondary my-2">New injury</a>
 		<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
 
 		<h2 id="weapons" class="my-3">Ganger's weapons</h2>
@@ -95,10 +94,9 @@
 						<td>{{ weapon.category }}</td>
 						<td>{{ weapon.cost }}</td>
 						<td>
-							<a href="{{ path('new_ganger_weapon', {ganger_id : ganger.id}) }}" class="btn btn-secondary my-2">Add weapon</a>
-							<form method="post" action='{{ path('delete_ganger_weapon', {weapon_id : weapon.id}) }}' onsubmit="return confirm('Do you really want to delete this weapon?')">
+							<form method="post" action='{{ path('delete_ganger_weapon', {weapon_id : weapon.id, ganger_id : ganger_id}) }}' onsubmit="return confirm('Do you really want to delete this weapon?')">
 								<input type="hidden" name="_method" value="DELETE">
-								<button class="btn btn-danger">Delete</button>
+								<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
 							</form>
 						</td>
 					</tr>
@@ -106,7 +104,7 @@
 			</tbody>
 		</table>
 
-		<a href="{{ path('new_ganger_weapon') }}" class="btn btn-secondary my-2">New weapon</a>
+		<a href="{{ path('new_ganger_weapon', {ganger_id : ganger_id}) }}" class="btn btn-secondary my-2">New weapon</a>
 		<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
 
 		<h2 id="skills" class="my-3">Ganger's skills</h2>
@@ -128,10 +126,9 @@
 						<td>{{ skill.category }}</td>
 						<td class="text-left">{{ skill.description }}</td>
 						<td>
-							<a href="{{ path('new_ganger_skill', {ganger_id : ganger.id}) }}" class="btn btn-secondary my-2">Add skill</a>
-							<form method="post" action='{{ path('delete_ganger_skill', {skill_id : skill.id}) }}' onsubmit="return confirm('Do you really want to delete this skill?')">
+							<form method="post" action='{{ path('delete_ganger_skill', {skill_id : skill.id, ganger_id : ganger_id}) }}' onsubmit="return confirm('Do you really want to delete this skill?')">
 								<input type="hidden" name="_method" value="DELETE">
-								<button class="btn btn-danger">Delete</button>
+								<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
 							</form>
 						</td>
 					</tr>
@@ -139,7 +136,7 @@
 			</tbody>
 		</table>
 
-		<a href="{{ path('new_ganger_skill') }}" class="btn btn-secondary my-2">New skill</a>
+		<a href="{{ path('new_ganger_skill', {ganger_id : ganger_id}) }}" class="btn btn-secondary my-2">New skill</a>
 		<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
 
 	</div>

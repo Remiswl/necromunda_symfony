@@ -13,6 +13,9 @@ use App\Repository\GangersImgRepository;
 use App\Repository\GangersTypesRepository;
 use App\Repository\GangsRepository;
 use App\Repository\TerritoriesRepository;
+use App\Repository\InjuriesRepository;
+use App\Repository\WeaponsRepository;
+use App\Repository\SkillsRepository;
 use App\Repository\MyGangersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -128,6 +131,50 @@ class GangsController extends AbstractController
         ]);
     }
 
+// Weapons
+
+    /**
+     * @Route("/gangers/{ganger_id}/new_weapon", name="new_ganger_weapon")
+     *
+     */
+     public function addWeapon(WeaponsRepository $weaponsRepository, $ganger_id): Response
+    {
+        $weapons = $weaponsRepository->findAll();
+
+        return $this->render('gangs/newWeapon.html.twig', [
+            'weapons' => $weapons,
+            'ganger_id' => $ganger_id,
+        ]);
+    }
+
+    /**
+     * @Route("/gangs/{ganger_id}/insert_new_weapon/{weapon_id}", name="insert_new_weapon_in_db")
+     */
+    public function insertWeapon(WeaponsRepository $weaponsRepository, MyGangersRepository $myGangersRepository, $ganger_id, $weapon_id): Response
+    {
+        $newWeapon = $weaponsRepository->find($weapon_id);
+
+        $myGanger = $myGangersRepository->find($ganger_id);
+        $myGanger->addWeapon($newWeapon);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($myGanger);
+        $em->flush();
+
+        $this->addFlash('success', 'Weapon added!');
+
+        return $this->redirectToRoute('edit_ganger', [
+            'ganger_id' => $ganger_id,
+        ]);
+    }
+
+    /**
+     * @Route("/gangs/{ganger_id}/delet_weapon/{weapon_id}", name="delete_ganger_weapon")
+     */
+    public function deleteGangerWeapon($ganger_id, $weapon_id): Response
+    {
+        dd('ok');
+    }
 
 // Injuries
 
@@ -137,19 +184,14 @@ class GangsController extends AbstractController
      */
      public function addInjury(InjuriesRepository $injuriesRepository, $ganger_id): Response
     {
-        dd('ok');
+        $injuries = $injuriesRepository->findAll();
+
+        return $this->render('gangs/newInjury.html.twig', [
+            'injuries' => $injuries,
+            'ganger_id' => $ganger_id,
+        ]);
     }
 
-// Weapons
-
-    /**
-     * @Route("/gangers/{ganger_id}/new_weapon", name="new_ganger_weapon")
-     *
-     */
-     public function addWeapon(WeaponsRepository $weaponsRepository, $ganger_id): Response
-    {
-        dd('ok');
-    }
 
 // Skills
 
@@ -159,7 +201,12 @@ class GangsController extends AbstractController
      */
      public function addSkill(SkillsRepository $skillsRepository, $gang_id): Response
     {
-        dd('ok');
+        $skills = $Repository->findAll();
+
+        return $this->render('gangs/newSkill.html.twig', [
+            'skills' => $skills,
+            'ganger_id' => $ganger_id,
+        ]);
     }
 
 
@@ -267,14 +314,19 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangers/{ganger_id}/edit", name="edit_ganger")
      */
-    public function editGangers(MyGangersRepository $myGangersRepository, GangersTypesRepository $gangersTypesRepository, $ganger_id, Request $request): Response
+    public function editGangers(MyGangersRepository $myGangersRepository, GangersTypesRepository $gangersTypesRepository, InjuriesRepository $injuriesRepository, WeaponsRepository $weaponsRepository, SkillsRepository $skillsRepository, $ganger_id, Request $request): Response
     {
         $gangerData = $myGangersRepository->find($ganger_id);
+        $gangerId = $gangerData->getId();
 
         $gangerType = $gangersTypesRepository->find($ganger_id);
         $gangerType = $gangerData->getGangerType()->__toString();
 
         $gangId = $gangerData->getGang()->getId();
+
+        $gangerWeapons = $weaponsRepository->displayGangerWeapons($ganger_id);
+        $gangerInfuries = $injuriesRepository->find($ganger_id);
+        $gangerSkills = $skillsRepository->find($ganger_id);
 
         $form = $this->createForm(MyGangersType::class, $gangerData);
         $form->handleRequest($request);
@@ -291,6 +343,10 @@ class GangsController extends AbstractController
 
         return $this->render('gangs/edit.html.twig', [
             'gangerData' => $gangerData,
+            'ganger_id' => $gangerId,
+            'injuries' => $gangerInfuries,
+            'weapons' => $gangerWeapons,
+            'skills' => $gangerSkills,
             'form' => $form->createView(),
             'gang_id' => $gangId,
         ]);

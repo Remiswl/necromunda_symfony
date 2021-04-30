@@ -19,6 +19,22 @@ class WeaponsRepository extends ServiceEntityRepository
         parent::__construct($registry, Weapons::class);
     }
 
+    /**
+    * @return Weapons[] Returns an array of Weapons objects
+    */
+    public function displayGangerWeapons($ganger_id)
+    {
+        return $this->createQueryBuilder('w')
+            ->andWhere('g.id = :val')
+            ->setParameter('val', $ganger_id)
+            ->leftJoin('w.ganger', 'g')
+            ->addSelect('g')
+            ->orderBy('w.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Weapons[] Returns an array of Weapons objects
     //  */

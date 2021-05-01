@@ -74,6 +74,7 @@ All texts and images are the property of Games Workshop.
 * Settings
 	* Injuries: make impossible to have a maxD66 < minD66
 * Finish create database (see details below)
+* Controllers: test all routes and add createNotfoundExceptions
 
 Next steps:
 * add equipment to gangers?

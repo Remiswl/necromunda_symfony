@@ -47,8 +47,12 @@ class GangsController extends AbstractController
             throw $this->createNotFoundException('Error: this gang does not exist');
         }
 
-        $gangersData = $myGangersRepository->displayGangersData($gang_id);
         $gangTerritories = $territoriesRepository->displayGangTerritories($gang_id);
+        $gangersData = $myGangersRepository->displayGangersData($gang_id);
+
+        if(!$gangersData) {
+            throw $this->createNotFoundException();
+        }
 
         $totalCost = 0;
         $totalExp = 0;
@@ -58,7 +62,7 @@ class GangsController extends AbstractController
         }
 
         $gangRating = $totalCost + $totalExp;
-// dd($gangersData);
+
         return $this->render('gangs/myGang.html.twig', [
             'gang_data' => $gangData,
             'gangers_data' => $gangersData,
@@ -76,6 +80,11 @@ class GangsController extends AbstractController
     {
         // Select the gang to delete
         $myGang = $gangsRepository->find($gang_id);
+
+        if(!$myGang) {
+            throw $this->createNotFoundException();
+        }
+
         $gangId = $myGang->getId();
 
         // Also delete its gangers
@@ -116,8 +125,12 @@ class GangsController extends AbstractController
     public function insertTerritory(GangsRepository $gangsRepository, TerritoriesRepository $territoriesRepository, $gang_id, $territory_id): Response
     {
         $newTerritory = $territoriesRepository->find($territory_id);
-
         $myGang = $gangsRepository->find($gang_id);
+
+        if(!$newTerritory || !$myGang) {
+            throw $this->createNotFoundException();
+        }
+
         $myGang->addTerritory($newTerritory);
 
         $em = $this->getDoctrine()->getManager();
@@ -134,11 +147,15 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{gang_id}/remove_gang_territory/{territory_id}", name="remove_gang_territory")
      */
-    public function deleteGangTerritory(GangsRepository $gangsRepository, TerritoriesRepository $territoriesRepository, $gang_id, $territory_id): Response
+    public function deleteTerritory(GangsRepository $gangsRepository, TerritoriesRepository $territoriesRepository, $gang_id, $territory_id): Response
     {
         $territory = $territoriesRepository->find($territory_id);
-
         $myGang = $gangsRepository->find($gang_id);
+
+        if(!$myGang || !$territory) {
+            throw $this->createNotFoundException();
+        }
+
         $myGang->removeTerritory($territory);
 
         $em = $this->getDoctrine()->getManager();
@@ -173,8 +190,13 @@ class GangsController extends AbstractController
     public function insertWeapon(WeaponsRepository $weaponsRepository, MyGangersRepository $myGangersRepository, $ganger_id, $weapon_id): Response
     {
         $newWeapon = $weaponsRepository->find($weapon_id);
-
         $myGanger = $myGangersRepository->find($ganger_id);
+
+
+        if(!$myGanger || !$newWeapon) {
+            throw $this->createNotFoundException();
+        }
+
         $myGanger->addWeapon($newWeapon);
 
         $em = $this->getDoctrine()->getManager();
@@ -194,8 +216,12 @@ class GangsController extends AbstractController
     public function deleteGangerWeapon(WeaponsRepository $weaponsRepository, MyGangersRepository $myGangersRepository, $ganger_id, $weapon_id): Response
     {
         $weapon = $weaponsRepository->find($weapon_id);
-
         $myGanger = $myGangersRepository->find($ganger_id);
+
+        if(!$myGanger || !$weapon) {
+            throw $this->createNotFoundException();
+        }
+
         $myGanger->removeWeapon($weapon);
 
         $em = $this->getDoctrine()->getManager();
@@ -230,8 +256,12 @@ class GangsController extends AbstractController
     public function insertInjury(InjuriesRepository $injuriesRepository, MyGangersRepository $myGangersRepository, $ganger_id, $injury_id): Response
     {
         $newInjury = $injuriesRepository->find($injury_id);
-
         $myGanger = $myGangersRepository->find($ganger_id);
+
+        if(!$myGanger || !$newInjury) {
+            throw $this->createNotFoundException();
+        }
+
         $myGanger->addInjury($newInjury);
 
         $em = $this->getDoctrine()->getManager();
@@ -251,8 +281,12 @@ class GangsController extends AbstractController
     public function deleteGangerInjury(InjuriesRepository $injuriesRepository, MyGangersRepository $myGangersRepository, $ganger_id, $injury_id): Response
     {
         $injury = $injuriesRepository->find($injury_id);
-
         $myGanger = $myGangersRepository->find($ganger_id);
+
+        if(!$myGanger || !$injury) {
+            throw $this->createNotFoundException();
+        }
+
         $myGanger->removeInjury($injury);
 
         $em = $this->getDoctrine()->getManager();
@@ -287,8 +321,12 @@ class GangsController extends AbstractController
     public function insertSkill(SkillsRepository $skillsRepository, MyGangersRepository $myGangersRepository, $ganger_id, $skill_id): Response
     {
         $newSkill = $skillsRepository->find($skill_id);
-
         $myGanger = $myGangersRepository->find($ganger_id);
+
+        if(!$myGanger || !$newSkill) {
+            throw $this->createNotFoundException();
+        }
+
         $myGanger->addSkill($newSkill);
 
         $em = $this->getDoctrine()->getManager();
@@ -308,8 +346,12 @@ class GangsController extends AbstractController
     public function deleteGangerSkill(SkillsRepository $skillsRepository, MyGangersRepository $myGangersRepository, $ganger_id, $skill_id): Response
     {
         $skill = $skillsRepository->find($skill_id);
-
         $myGanger = $myGangersRepository->find($ganger_id);
+
+        if(!$myGanger || !$skill) {
+            throw $this->createNotFoundException();
+        }
+
         $myGanger->removeSkill($skill);
 
         $em = $this->getDoctrine()->getManager();
@@ -332,8 +374,13 @@ class GangsController extends AbstractController
         $newGanger = new MyGangers();
 
         $houseId = $gangsRepository->find($gang_id);
-        $houseId = $houseId->getHouse()->getId();
         $gangerImg = $gangersImgRepository->findImg($houseId);
+
+        if(!$houseId || !$gangerImg) {
+            throw $this->createNotFoundException();
+        }
+
+        $houseId = $houseId->getHouse()->getId();
 
         $form = $this->createForm(NewGangerType::class, $newGanger);
         $form->handleRequest($request);
@@ -429,9 +476,19 @@ class GangsController extends AbstractController
     public function editGangers(MyGangersRepository $myGangersRepository, GangersTypesRepository $gangersTypesRepository, InjuriesRepository $injuriesRepository, WeaponsRepository $weaponsRepository, SkillsRepository $skillsRepository, $ganger_id, Request $request): Response
     {
         $gangerData = $myGangersRepository->find($ganger_id);
+
+        if(!$gangerData) {
+            throw $this->createNotFoundException();
+        }
+
         $gangerId = $gangerData->getId();
 
         $gangerType = $gangersTypesRepository->find($ganger_id);
+
+        if(!$gangerType) {
+            throw $this->createNotFoundException();
+        }
+
         $gangerType = $gangerData->getGangerType()->__toString();
 
         $gangId = $gangerData->getGang()->getId();
@@ -470,6 +527,11 @@ class GangsController extends AbstractController
     public function deleteGanger($ganger_id): Response
     {
         $myGangers = $this->getDoctrine()->getRepository(MyGangers::class)->find($gangerid);
+
+        if(!$myGangers) {
+            throw $this->createNotFoundException();
+        }
+
         $gangId = $myGangers->getGang()->getId();
 
         $em = $this->getDoctrine()->getManager();

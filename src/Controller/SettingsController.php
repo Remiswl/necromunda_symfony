@@ -91,6 +91,10 @@ class SettingsController extends AbstractController
     {
         $territoryData = $territoriesRepository->find($territory_id);
 
+        if(!$territoryData) {
+            throw $this->createNotFoundException();
+        }
+
         $form = $this->createForm(TerritoriesType::class, $territoryData);
         $form->handleRequest($request);
 
@@ -116,6 +120,11 @@ class SettingsController extends AbstractController
     public function deleteTerritories($territory_id): Response
     {
         $territory = $this->getDoctrine()->getRepository(Territories::class)->find($territory_id);
+
+        if(!$territory) {
+            throw $this->createNotFoundException();
+        }
+
         $territoryId = $territory->getId();
 
         $em = $this->getDoctrine()->getManager();
@@ -157,6 +166,10 @@ class SettingsController extends AbstractController
     {
         $injuryData = $injuriesRepository->find($injury_id);
 
+        if(!$injuryData) {
+            throw $this->createNotFoundException();
+        }
+
         $form = $this->createForm(InjuriesType::class, $injuryData);
         $form->handleRequest($request);
 
@@ -182,6 +195,11 @@ class SettingsController extends AbstractController
     public function deleteInjuries($injury_id): Response
     {
         $injury = $this->getDoctrine()->getRepository(Injuries::class)->find($injury_id);
+
+        if(!$injury) {
+            throw $this->createNotFoundException();
+        }
+
         $injuryId = $injury->getId();
 
         $em = $this->getDoctrine()->getManager();
@@ -223,6 +241,10 @@ class SettingsController extends AbstractController
     {
         $weaponData = $weaponsRepository->find($weapon_id);
 
+        if(!$weaponData) {
+            throw $this->createNotFoundException();
+        }
+
         $form = $this->createForm(WeaponsType::class, $weaponData);
         $form->handleRequest($request);
 
@@ -248,6 +270,11 @@ class SettingsController extends AbstractController
     public function deleteWeapon($weapon_id): Response
     {
         $weapon = $this->getDoctrine()->getRepository(Weapons::class)->find($weapon_id);
+
+        if(!$weapon) {
+            throw $this->createNotFoundException();
+        }
+
         $weaponId = $weapon->getId();
 
         $em = $this->getDoctrine()->getManager();
@@ -289,6 +316,10 @@ class SettingsController extends AbstractController
     {
         $skillData = $skillsRepository->find($skill_id);
 
+        if(!$skillData) {
+            throw $this->createNotFoundException();
+        }
+
         $form = $this->createForm(SkillsType::class, $skillData);
         $form->handleRequest($request);
 
@@ -314,6 +345,11 @@ class SettingsController extends AbstractController
     public function deleteSkill($skill_id): Response
     {
         $skill = $this->getDoctrine()->getRepository(Skills::class)->find($skill_id);
+
+        if(!$skill) {
+            throw $this->createNotFoundException();
+        }
+
         $tskillId = $skill->getId();
 
         $em = $this->getDoctrine()->getManager();

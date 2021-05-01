@@ -75,13 +75,13 @@
 								</td>
 								<td class="text-left">
 									{% for weapon in ganger_data.weapons %}
-										<p>{{ weapon.name }} <i class="fas fa-info-circle"></i></p>
+										<p>{{ weapon.name }}</p>
 									{% endfor %}
 									{% for skill in ganger_data.skills %}
-										<p>{{ skill.name }} <i class="fas fa-info-circle"></i></p>
+										<p>{{ skill.name }} <i class="fas fa-info-circle" title="{{ skill.description }}"></i></p>
 									{% endfor %}
 									{% for injury in ganger_data.injuries %}
-										<p>{{ injury.name }} <i class="fas fa-info-circle"></i></p>
+										<p>{{ injury.name }} <i class="fas fa-info-circle" title="{{ injury.description }}"></i></p>
 									{% endfor %}
 								</td>
 								<td class="align-middle">{{ ganger_data.cost }}</td>

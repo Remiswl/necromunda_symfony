@@ -87,9 +87,9 @@ class SettingsController extends AbstractController
     /**
      * @Route("/settings/territories/{territory_id}/edit", name="edit_territory")
      */
-    public function editTerritories(Request $request, TerritoriesRepository $territoriesRepository, $territory_id): Response
+    public function editTerritories(Request $request, $territory_id): Response
     {
-        $territoryData = $territoriesRepository->find($territory_id);
+        $territoryData = $this->territoriesRepository->find($territory_id);
 
         if(!$territoryData) {
             throw $this->createNotFoundException();
@@ -162,9 +162,9 @@ class SettingsController extends AbstractController
     /**
      * @Route("/settings/injuries/{injury_id}/edit", name="edit_injury")
      */
-    public function editInjuries(Request $request, InjuriesRepository $injuriesRepository, $injury_id): Response
+    public function editInjuries(Request $request, $injury_id): Response
     {
-        $injuryData = $injuriesRepository->find($injury_id);
+        $injuryData = $this->injuriesRepository->find($injury_id);
 
         if(!$injuryData) {
             throw $this->createNotFoundException();
@@ -237,9 +237,9 @@ class SettingsController extends AbstractController
     /**
      * @Route("/settings/weapons/{weapon_id}/edit", name="edit_weapon")
      */
-    public function editWeapon(Request $request, WeaponsRepository $weaponsRepository, $weapon_id): Response
+    public function editWeapon(Request $request, $weapon_id): Response
     {
-        $weaponData = $weaponsRepository->find($weapon_id);
+        $weaponData = $this->weaponsRepository->find($weapon_id);
 
         if(!$weaponData) {
             throw $this->createNotFoundException();
@@ -312,9 +312,9 @@ class SettingsController extends AbstractController
     /**
      * @Route("/settings/skills/{skill_id}/edit", name="edit_skill")
      */
-    public function editSkill(Request $request, SkillsRepository $skillsRepository, $skill_id): Response
+    public function editSkill(Request $request, $skill_id): Response
     {
-        $skillData = $skillsRepository->find($skill_id);
+        $skillData = $this->skillsRepository->find($skill_id);
 
         if(!$skillData) {
             throw $this->createNotFoundException();

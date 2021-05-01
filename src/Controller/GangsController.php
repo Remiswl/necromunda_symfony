@@ -24,12 +24,35 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GangsController extends AbstractController
 {
+    private $territoriesRepository;
+    private $injuriesRepository;
+    private $skillsRepository;
+    private $weaponsRepository;
+    private $myGangersRepositor;
+    private $gangsRepository;
+
+    public function __construct(
+        TerritoriesRepository $territoriesRepository,
+        InjuriesRepository $injuriesRepository,
+        SkillsRepository $skillsRepository,
+        WeaponsRepository $weaponsRepository,
+        MyGangersRepository $myGangersRepository,
+        GangsRepository $gangsRepository
+    ) {
+        $this->territoriesRepository = $territoriesRepository;
+        $this->injuriesRepository = $injuriesRepository;
+        $this->skillsRepository = $skillsRepository;
+        $this->weaponsRepository = $weaponsRepository;
+        $this->myGangersRepository = $myGangersRepository;
+        $this->gangsRepository = $gangsRepository;
+    }
+
     /**
      * @Route("/gangs", name="gangs")
      */
-    public function listGangs(GangsRepository $gangsRepository): Response
+    public function listGangs(): Response
     {
-        $gangsNames = $gangsRepository->findAll();
+        $gangsNames = $this->gangsRepository->findAll();
 
         return $this->render('gangs/gangs.html.twig', [
             'gangs' => $gangsNames,
@@ -39,16 +62,16 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{gang_id}/show_gang", name="show_gang")
      */
-    public function showGang(TerritoriesRepository $territoriesRepository, GangsRepository $gangsRepository, MyGangersRepository $myGangersRepository, $gang_id): Response
+    public function showGang($gang_id): Response
     {
-        $gangData = $gangsRepository->displayGangData($gang_id);
+        $gangData = $this->gangsRepository->displayGangData($gang_id);
 
         if (!$gangData) {
             throw $this->createNotFoundException('Error: this gang does not exist');
         }
 
-        $gangTerritories = $territoriesRepository->displayGangTerritories($gang_id);
-        $gangersData = $myGangersRepository->displayGangersData($gang_id);
+        $gangTerritories = $this->territoriesRepository->displayGangTerritories($gang_id);
+        $gangersData = $this->myGangersRepository->displayGangersData($gang_id);
 
         if(!$gangersData) {
             throw $this->createNotFoundException();
@@ -76,10 +99,10 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{gang_id}/delete_gang", name="delete_gang", methods="DELETE")
      */
-    public function deleteGang($gang_id, GangsRepository $gangsRepository, MyGangersRepository $myGangersRepository): Response
+    public function deleteGang($gang_id): Response
     {
         // Select the gang to delete
-        $myGang = $gangsRepository->find($gang_id);
+        $myGang = $this->gangsRepository->find($gang_id);
 
         if(!$myGang) {
             throw $this->createNotFoundException();
@@ -88,7 +111,7 @@ class GangsController extends AbstractController
         $gangId = $myGang->getId();
 
         // Also delete its gangers
-        $gangersToDelete = $myGangersRepository->findAll();
+        $gangersToDelete = $this->myGangersRepository->findAll();
 
         for ($i = 0; $i < sizeof($gangersToDelete); ++$i) {
             if ($gangersToDelete[$i]->getGang()->getId() === $gangId) {
@@ -109,9 +132,9 @@ class GangsController extends AbstractController
      * @Route("/gangs/{gang_id}/new_territory", name="new_gang_territory")
      *
      */
-     public function addTerritory(TerritoriesRepository $territoriesRepository, $gang_id): Response
+     public function addTerritory($gang_id): Response
     {
-        $territories = $territoriesRepository->findAll();
+        $territories = $this->territoriesRepository->findAll();
 
         return $this->render('gangs/newTerritory.html.twig', [
             'territories' => $territories,
@@ -122,10 +145,10 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{gang_id}/insert_new_territory/{territory_id}", name="insert_new_territory_in_db")
      */
-    public function insertTerritory(GangsRepository $gangsRepository, TerritoriesRepository $territoriesRepository, $gang_id, $territory_id): Response
+    public function insertTerritory($gang_id, $territory_id): Response
     {
-        $newTerritory = $territoriesRepository->find($territory_id);
-        $myGang = $gangsRepository->find($gang_id);
+        $newTerritory = $this->territoriesRepository->find($territory_id);
+        $myGang = $this->gangsRepository->find($gang_id);
 
         if(!$newTerritory || !$myGang) {
             throw $this->createNotFoundException();
@@ -147,10 +170,10 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{gang_id}/remove_gang_territory/{territory_id}", name="remove_gang_territory")
      */
-    public function deleteTerritory(GangsRepository $gangsRepository, TerritoriesRepository $territoriesRepository, $gang_id, $territory_id): Response
+    public function deleteTerritory($gang_id, $territory_id): Response
     {
-        $territory = $territoriesRepository->find($territory_id);
-        $myGang = $gangsRepository->find($gang_id);
+        $territory = $this->territoriesRepository->find($territory_id);
+        $myGang = $this->gangsRepository->find($gang_id);
 
         if(!$myGang || !$territory) {
             throw $this->createNotFoundException();
@@ -174,9 +197,9 @@ class GangsController extends AbstractController
      * @Route("/gangers/{ganger_id}/new_weapon", name="new_ganger_weapon")
      *
      */
-     public function addWeapon(WeaponsRepository $weaponsRepository, $ganger_id): Response
+     public function addWeapon($ganger_id): Response
     {
-        $weapons = $weaponsRepository->findAll();
+        $weapons = $this->weaponsRepository->findAll();
 
         return $this->render('gangs/newWeapon.html.twig', [
             'weapons' => $weapons,
@@ -187,10 +210,10 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{ganger_id}/insert_new_weapon/{weapon_id}", name="insert_new_weapon_in_db")
      */
-    public function insertWeapon(WeaponsRepository $weaponsRepository, MyGangersRepository $myGangersRepository, $ganger_id, $weapon_id): Response
+    public function insertWeapon($ganger_id, $weapon_id): Response
     {
-        $newWeapon = $weaponsRepository->find($weapon_id);
-        $myGanger = $myGangersRepository->find($ganger_id);
+        $newWeapon = $this->weaponsRepository->find($weapon_id);
+        $myGanger = $this->myGangersRepository->find($ganger_id);
 
 
         if(!$myGanger || !$newWeapon) {
@@ -213,10 +236,10 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{ganger_id}/remove_weapon/{weapon_id}", name="remove_ganger_weapon")
      */
-    public function deleteGangerWeapon(WeaponsRepository $weaponsRepository, MyGangersRepository $myGangersRepository, $ganger_id, $weapon_id): Response
+    public function deleteGangerWeapon($ganger_id, $weapon_id): Response
     {
-        $weapon = $weaponsRepository->find($weapon_id);
-        $myGanger = $myGangersRepository->find($ganger_id);
+        $weapon = $this->weaponsRepository->find($weapon_id);
+        $myGanger = $this->myGangersRepository->find($ganger_id);
 
         if(!$myGanger || !$weapon) {
             throw $this->createNotFoundException();
@@ -240,9 +263,9 @@ class GangsController extends AbstractController
      * @Route("/gangers/{ganger_id}/new_injury", name="new_ganger_injury")
      *
      */
-     public function addInjury(InjuriesRepository $injuriesRepository, $ganger_id): Response
+     public function addInjury($ganger_id): Response
     {
-        $injuries = $injuriesRepository->findAll();
+        $injuries = $this->injuriesRepository->findAll();
 
         return $this->render('gangs/newInjury.html.twig', [
             'injuries' => $injuries,
@@ -253,10 +276,10 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{ganger_id}/insert_new_injury/{injury_id}", name="insert_new_injury_in_db")
      */
-    public function insertInjury(InjuriesRepository $injuriesRepository, MyGangersRepository $myGangersRepository, $ganger_id, $injury_id): Response
+    public function insertInjury($ganger_id, $injury_id): Response
     {
-        $newInjury = $injuriesRepository->find($injury_id);
-        $myGanger = $myGangersRepository->find($ganger_id);
+        $newInjury = $this->injuriesRepository->find($injury_id);
+        $myGanger = $this->myGangersRepository->find($ganger_id);
 
         if(!$myGanger || !$newInjury) {
             throw $this->createNotFoundException();
@@ -278,10 +301,10 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{ganger_id}/remove_injury/{injury_id}", name="remove_ganger_injury")
      */
-    public function deleteGangerInjury(InjuriesRepository $injuriesRepository, MyGangersRepository $myGangersRepository, $ganger_id, $injury_id): Response
+    public function deleteGangerInjury($ganger_id, $injury_id): Response
     {
-        $injury = $injuriesRepository->find($injury_id);
-        $myGanger = $myGangersRepository->find($ganger_id);
+        $injury = $this->injuriesRepository->find($injury_id);
+        $myGanger = $this->myGangersRepository->find($ganger_id);
 
         if(!$myGanger || !$injury) {
             throw $this->createNotFoundException();
@@ -305,9 +328,9 @@ class GangsController extends AbstractController
      * @Route("/gangers/{ganger_id}/new_skill", name="new_ganger_skill")
      *
      */
-     public function addSkill(SkillsRepository $skillsRepository, $gang_id): Response
+     public function addSkill($gang_id): Response
     {
-        $skills = $Repository->findAll();
+        $skills = $this->skillsRepository->findAll();
 
         return $this->render('gangs/newSkill.html.twig', [
             'skills' => $skills,
@@ -318,10 +341,10 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{ganger_id}/insert_new_skill/{skill_id}", name="insert_new_skill_in_db")
      */
-    public function insertSkill(SkillsRepository $skillsRepository, MyGangersRepository $myGangersRepository, $ganger_id, $skill_id): Response
+    public function insertSkill($ganger_id, $skill_id): Response
     {
-        $newSkill = $skillsRepository->find($skill_id);
-        $myGanger = $myGangersRepository->find($ganger_id);
+        $newSkill = $this->skillsRepository->find($skill_id);
+        $myGanger = $this->myGangersRepository->find($ganger_id);
 
         if(!$myGanger || !$newSkill) {
             throw $this->createNotFoundException();
@@ -343,10 +366,10 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{ganger_id}/remove_skill/{skill_id}", name="remove_ganger_skill")
      */
-    public function deleteGangerSkill(SkillsRepository $skillsRepository, MyGangersRepository $myGangersRepository, $ganger_id, $skill_id): Response
+    public function deleteGangerSkill($ganger_id, $skill_id): Response
     {
-        $skill = $skillsRepository->find($skill_id);
-        $myGanger = $myGangersRepository->find($ganger_id);
+        $skill = $this->skillsRepository->find($skill_id);
+        $myGanger = $this->myGangersRepository->find($ganger_id);
 
         if(!$myGanger || !$skill) {
             throw $this->createNotFoundException();
@@ -369,14 +392,14 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{gang_id}/add_ganger", name="new_ganger")
      */
-    public function addGanger(GangsRepository $gangsRepository, GangersTypesRepository $gangersTypesRepository, GangersImgRepository $gangersImgRepository, Request $request, $gang_id): Response
+    public function addGanger(GangersTypesRepository $gangersTypesRepository, GangersImgRepository $gangersImgRepository, Request $request, $gang_id): Response
     {
         $newGanger = new MyGangers();
 
-        $houseId = $gangsRepository->find($gang_id);
+        $houseId = $this->gangsRepository->find($gang_id);
         $gangerImg = $gangersImgRepository->findImg($houseId);
 
-        if(!$houseId || !$gangerImg) {
+        if(!$houseId) {
             throw $this->createNotFoundException();
         }
 
@@ -389,10 +412,10 @@ class GangsController extends AbstractController
             $gangerTypeId = $newGanger->getGangerType()->getId();
             $gangerTypeId = $gangersTypesRepository->find($gangerTypeId);
 
-            $gangData = $gangsRepository->find(intval($gang_id));
+            $gangData = $this->gangsRepository->find(intval($gang_id));
 
             $gangId = $gangData->getId();
-            $gangId = $gangsRepository->find($gangId);
+            $gangId = $this->gangsRepository->find($gangId);
 
             $newGanger
                 ->setGang($gangId)
@@ -473,9 +496,9 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangers/{ganger_id}/edit", name="edit_ganger")
      */
-    public function editGangers(MyGangersRepository $myGangersRepository, GangersTypesRepository $gangersTypesRepository, InjuriesRepository $injuriesRepository, WeaponsRepository $weaponsRepository, SkillsRepository $skillsRepository, $ganger_id, Request $request): Response
+    public function editGangers(GangersTypesRepository $gangersTypesRepository, $ganger_id, Request $request): Response
     {
-        $gangerData = $myGangersRepository->find($ganger_id);
+        $gangerData = $this->myGangersRepository->find($ganger_id);
 
         if(!$gangerData) {
             throw $this->createNotFoundException();
@@ -484,18 +507,13 @@ class GangsController extends AbstractController
         $gangerId = $gangerData->getId();
 
         $gangerType = $gangersTypesRepository->find($ganger_id);
-
-        if(!$gangerType) {
-            throw $this->createNotFoundException();
-        }
-
         $gangerType = $gangerData->getGangerType()->__toString();
 
         $gangId = $gangerData->getGang()->getId();
 
-        $gangerWeapons = $weaponsRepository->displayGangerWeapons($ganger_id);
-        $gangerInfuries = $injuriesRepository->displayGangerInjuries($ganger_id);
-        $gangerSkills = $skillsRepository->displayGangerSkills($ganger_id);
+        $gangerWeapons = $this->weaponsRepository->displayGangerWeapons($ganger_id);
+        $gangerInfuries = $this->injuriesRepository->displayGangerInjuries($ganger_id);
+        $gangerSkills = $this->skillsRepository->displayGangerSkills($ganger_id);
 
         $form = $this->createForm(MyGangersType::class, $gangerData);
         $form->handleRequest($request);

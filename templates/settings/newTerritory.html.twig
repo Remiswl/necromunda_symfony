@@ -5,7 +5,12 @@
 {% block body %}
 
 	<section id="new_territory" class="mb-5">
+
 		<div class="col-3 m-auto text-white">
+
+			<div class="text-right">
+				<a href="{{ path('settings') }}" class="btn btn-secondary my-2">Back</a>
+			</div>
 
 			{{ form_start(form) }}
 
@@ -18,7 +23,6 @@
 				</div>
 
 				<button class="btn btn-primary offset-4">Add territory</button>
-				<a href="{{ path('settings') }}" class="btn btn-secondary my-2">Back</a>
 
 			{{ form_end(form) }}
 

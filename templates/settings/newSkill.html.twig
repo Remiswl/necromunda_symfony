@@ -5,7 +5,12 @@
 {% block body %}
 
 	<section id="new_skill" class="mb-5">
+
 		<div class="col-3 m-auto text-white">
+
+			<div class="text-right">
+				<a href="{{ path('settings') }}" class="btn btn-secondary my-2">Back</a>
+			</div>
 
 			{{ form_start(form) }}
 
@@ -14,7 +19,6 @@
 				<div>{{ form_row(form.category) }}</div>
 
 				<button class="btn btn-primary offset-4">Add skill</button>
-				<a href="{{ path('settings') }}" class="btn btn-secondary my-2">Back</a>
 
 			{{ form_end(form) }}
 

@@ -6,6 +6,10 @@
 
 	<section id="gangs" class="mb-5">
 		<div class="text-center mx-5">
+			<div class="text-right">
+				<a href="{{ path('gangs') }}" class="btn btn-secondary my-2">Back</a>
+			</div>
+
 			<div class="col-10 mx-auto">
 
 				{% for message in app.flashes('success') %}
@@ -31,7 +35,7 @@
 								Characteristics
 								<i class="fas fa-info-circle" title=" M => Move &#013 WS => Weapon skill &#013 BS => Ballistic skill &#013 S => Strength &#013 T => Toughness &#013 W => Wounds &#013 I => Initiative &#013 A => Attacks &#013 Ld => Leadership"></i>
 							</td>
-							<td>Equipment, skills & injuries</td>
+							<td>Weapons, skills & injuries</td>
 							<td>Cost</td>
 							<td>Exp.</td>
 							<td>Edit</td>
@@ -69,7 +73,17 @@
 										</tr>
 									</table>
 								</td>
-								<td class="text-left">Shotgun <i class="fas fa-info-circle"></i></td>
+								<td class="text-left">
+									{% for weapon in ganger_data.weapons %}
+										<p>{{ weapon.name }} <i class="fas fa-info-circle"></i></p>
+									{% endfor %}
+									{% for skill in ganger_data.skills %}
+										<p>{{ skill.name }} <i class="fas fa-info-circle"></i></p>
+									{% endfor %}
+									{% for injury in ganger_data.injuries %}
+										<p>{{ injury.name }} <i class="fas fa-info-circle"></i></p>
+									{% endfor %}
+								</td>
 								<td class="align-middle">{{ ganger_data.cost }}</td>
 								<td class="align-middle">{{ ganger_data.xp }}</td>
 								<td class="align-middle">
@@ -114,6 +128,10 @@
 							</td>
 							<td>
 								<i class="fas fa-trash-alt"></i>
+								{# <form method="post" action='{{ path('remove_gang_territory', {gang_id : gang_data.0.id, territory_id : gang_territories.0.id}) }}' onsubmit="return confirm('Do you really want to remove this territory?')">
+									<input type="hidden" name="_method" value="DELETE">
+									<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+								</form> #}
 							</td>
 							<td class="text-left">
 								6. {% if gang_territories.5.name is defined %}{{gang_territories.5.name}}{% endif %}
@@ -215,7 +233,6 @@
 									<input type="hidden" name="_method" value="DELETE">
 									<button class="btn btn-danger">Delete gang</button>
 							</form>
-							<a href="{{ path('gangs') }}" class="btn btn-secondary my-2">Back</a>
 						</td>
 					</tr>
 				</table>

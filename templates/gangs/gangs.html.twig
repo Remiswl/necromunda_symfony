@@ -5,6 +5,11 @@
 {% block body %}
 
 	<section id="users" class="mb-5">
+
+		<div class="col-10 text-right">
+				<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
+		</div>
+
 		<div class="row d-flex flex-wrap justify-content-center mx-5">
 
 			{% for gang in gangs %}
@@ -23,10 +28,6 @@
 
 			{% endfor %}
 
-		</div>
-
-		<div class="text-center">
-			<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
 		</div>
 
 	</section>

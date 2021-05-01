@@ -7,6 +7,10 @@
 	<section id="houses" class="mb-5">
 		<div class="text-center text-white">
 
+			<div class=" col-10 text-right">
+				<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
+			</div>
+
 			{% for house in houses %}
 
 				<div class="col-6 mx-auto my-4 d-flex flex-row">
@@ -20,8 +24,6 @@
 				</div>
 
 			{% endfor %}
-
-			<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
 
 		</div>
 	</section>

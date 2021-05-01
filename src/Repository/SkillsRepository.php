@@ -19,6 +19,23 @@ class SkillsRepository extends ServiceEntityRepository
         parent::__construct($registry, Skills::class);
     }
 
+    /**
+     * @return Skills[] Returns an array of Skills objects
+     */
+
+    public function displayGangerSkills($ganger_id)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.id = :val')
+            ->setParameter('val', $ganger_id)
+            ->leftJoin('s.ganger', 'g')
+            ->addSelect('g')
+            ->orderBy('s.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Skills[] Returns an array of Skills objects
     //  */

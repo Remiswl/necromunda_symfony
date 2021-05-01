@@ -19,6 +19,22 @@ class InjuriesRepository extends ServiceEntityRepository
         parent::__construct($registry, Injuries::class);
     }
 
+    /*
+    * @return Injuries[] Returns an array of Injuries objects
+    */
+    public function displayGangerInjuries($ganger_id)
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.id = :val')
+            ->setParameter('val', $ganger_id)
+            ->leftJoin('i.gangers', 'g')
+            ->addSelect('g')
+            ->orderBy('i.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Injuries[] Returns an array of Injuries objects
     //  */

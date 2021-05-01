@@ -6,8 +6,9 @@
 
 	<section id="admin" class="mb-5">
 		<div class="text-center text-white col-10 mx-auto">
-
-			<a href="{{ path('show_gang', {'gang_id' : gang_id}) }}" class="btn btn-secondary my-2">Back</a>
+			<div class="text-right">
+				<a href="{{ path('show_gang', {'gang_id' : gang_id}) }}" class="btn btn-secondary my-2">Back</a>
+			</div>
 
 			{% for message in app.flashes('success') %}
 				<div class="alert alert-success">

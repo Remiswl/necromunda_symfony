@@ -58,7 +58,7 @@ class GangsController extends AbstractController
         }
 
         $gangRating = $totalCost + $totalExp;
-
+// dd($gangersData);
         return $this->render('gangs/myGang.html.twig', [
             'gang_data' => $gangData,
             'gangers_data' => $gangersData,
@@ -131,6 +131,26 @@ class GangsController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/gangs/{gang_id}/remove_gang_territory/{territory_id}", name="remove_gang_territory")
+     */
+    public function deleteGangTerritory(GangsRepository $gangsRepository, TerritoriesRepository $territoriesRepository, $gang_id, $territory_id): Response
+    {
+        $territory = $territoriesRepository->find($territory_id);
+
+        $myGang = $gangsRepository->find($gang_id);
+        $myGang->removeTerritory($territory);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+
+        $this->addFlash('success', 'Territory removed!');
+
+        return $this->redirectToRoute('show_gang', [
+            'gang_id' => $gang_id,
+        ]);
+    }
+
 // Weapons
 
     /**
@@ -169,11 +189,23 @@ class GangsController extends AbstractController
     }
 
     /**
-     * @Route("/gangs/{ganger_id}/delet_weapon/{weapon_id}", name="delete_ganger_weapon")
+     * @Route("/gangs/{ganger_id}/remove_weapon/{weapon_id}", name="remove_ganger_weapon")
      */
-    public function deleteGangerWeapon($ganger_id, $weapon_id): Response
+    public function deleteGangerWeapon(WeaponsRepository $weaponsRepository, MyGangersRepository $myGangersRepository, $ganger_id, $weapon_id): Response
     {
-        dd('ok');
+        $weapon = $weaponsRepository->find($weapon_id);
+
+        $myGanger = $myGangersRepository->find($ganger_id);
+        $myGanger->removeWeapon($weapon);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+
+        $this->addFlash('success', 'Weapon removed!');
+
+        return $this->redirectToRoute('edit_ganger', [
+            'ganger_id' => $ganger_id,
+        ]);
     }
 
 // Injuries
@@ -192,6 +224,46 @@ class GangsController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/gangs/{ganger_id}/insert_new_injury/{injury_id}", name="insert_new_injury_in_db")
+     */
+    public function insertInjury(InjuriesRepository $injuriesRepository, MyGangersRepository $myGangersRepository, $ganger_id, $injury_id): Response
+    {
+        $newInjury = $injuriesRepository->find($injury_id);
+
+        $myGanger = $myGangersRepository->find($ganger_id);
+        $myGanger->addInjury($newInjury);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($myGanger);
+        $em->flush();
+
+        $this->addFlash('success', 'Injury removed!');
+
+        return $this->redirectToRoute('edit_ganger', [
+            'ganger_id' => $ganger_id,
+        ]);
+    }
+
+    /**
+     * @Route("/gangs/{ganger_id}/remove_injury/{injury_id}", name="remove_ganger_injury")
+     */
+    public function deleteGangerInjury(InjuriesRepository $injuriesRepository, MyGangersRepository $myGangersRepository, $ganger_id, $injury_id): Response
+    {
+        $injury = $injuriesRepository->find($injury_id);
+
+        $myGanger = $myGangersRepository->find($ganger_id);
+        $myGanger->removeInjury($injury);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+
+        $this->addFlash('success', 'Injury removed!');
+
+        return $this->redirectToRoute('edit_ganger', [
+            'ganger_id' => $ganger_id,
+        ]);
+    }
 
 // Skills
 
@@ -209,6 +281,46 @@ class GangsController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/gangs/{ganger_id}/insert_new_skill/{skill_id}", name="insert_new_skill_in_db")
+     */
+    public function insertSkill(SkillsRepository $skillsRepository, MyGangersRepository $myGangersRepository, $ganger_id, $skill_id): Response
+    {
+        $newSkill = $skillsRepository->find($skill_id);
+
+        $myGanger = $myGangersRepository->find($ganger_id);
+        $myGanger->addSkill($newSkill);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($myGanger);
+        $em->flush();
+
+        $this->addFlash('success', 'Skill added!');
+
+        return $this->redirectToRoute('edit_ganger', [
+            'ganger_id' => $ganger_id,
+        ]);
+    }
+
+    /**
+     * @Route("/gangs/{ganger_id}/remove_skill/{skill_id}", name="remove_ganger_skill")
+     */
+    public function deleteGangerSkill(SkillsRepository $skillsRepository, MyGangersRepository $myGangersRepository, $ganger_id, $skill_id): Response
+    {
+        $skill = $skillsRepository->find($skill_id);
+
+        $myGanger = $myGangersRepository->find($ganger_id);
+        $myGanger->removeSkill($skill);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+
+        $this->addFlash('success', 'Skill removed!');
+
+        return $this->redirectToRoute('edit_ganger', [
+            'ganger_id' => $ganger_id,
+        ]);
+    }
 
 // Gangers
 
@@ -325,8 +437,8 @@ class GangsController extends AbstractController
         $gangId = $gangerData->getGang()->getId();
 
         $gangerWeapons = $weaponsRepository->displayGangerWeapons($ganger_id);
-        $gangerInfuries = $injuriesRepository->find($ganger_id);
-        $gangerSkills = $skillsRepository->find($ganger_id);
+        $gangerInfuries = $injuriesRepository->displayGangerInjuries($ganger_id);
+        $gangerSkills = $skillsRepository->displayGangerSkills($ganger_id);
 
         $form = $this->createForm(MyGangersType::class, $gangerData);
         $form->handleRequest($request);

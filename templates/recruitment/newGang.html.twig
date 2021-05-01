@@ -7,13 +7,16 @@
 	<section id="newGang" class="mb-5">
 		<div class="col-3 m-auto text-white">
 
+			<div class="text-right">
+				<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
+			</div>
+
 			{{ form_start(form) }}
 
 				{{ form_rest(form) }}
 
 				<div class="text-center">
 					<button class="btn btn-primary">Ready to fight</button>
-					<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
 				</div>
 
 			{{ form_end(form) }}

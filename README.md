@@ -4,7 +4,7 @@
 
 Necromunda is a skirmish tabletop war game produced by Games Workshop. This website will help you to create and manage your gangs.
 
-All texts and illustrations are the property of Games Workshop.
+All texts and images are the property of Games Workshop.
 
 
 ## Technologies
@@ -37,16 +37,16 @@ All texts and illustrations are the property of Games Workshop.
 			* ~~new_ganger_skill~~
 			* ~~new_ganger_injuries~~
 			* ~~insert_new_weapon_in_db~~
-			* insert_new_skills_in_db
-			* insert_new_injuries_in_db
+			* ~~insert_new_skills_in_db~~
+			* ~~insert_new_injuries_in_db~~
 		* as for the settings, add the following routes:
-			* new_ganger_injury (on ganger's page, to access to the list of all injuries than can be added)
-			* new_ganger_skill
+			* ~~new_ganger_injury (on ganger's page, to access to the list of all injuries than can be added)~~
+			* ~~new_ganger_skill~~
 			* ~~new_ganger_weapon~~
-			* delete_ganger_injury
-			* delete_ganger_skill
-			* delete_ganger_weapon
-	* Gang page: display ganger's weapons, skills and injuries
+			* ~~delete_ganger_injury~~
+			* ~~delete_ganger_skill~~
+			* ~~delete_ganger_weapon~~
+	* ~~Gang page: display ganger's weapons, skills and injuries~~
 	* Weapons:
 		* reduce gang's stash when choose
 	* Skills:

@@ -49,17 +49,13 @@ All texts and images are the property of Games Workshop.
 	* ~~Gang page: display ganger's weapons, skills and injuries~~
 	* Weapons:
 		* reduce gang's stash when choose
-	* Skills:
-		*
-	* Injuries:
-		*
 
 
 
 * ~~Home page~~
 * ~~Recruit a gang~~
 * Manage your gang
-	* Display gangers' skills and injuries
+	* ~~Display gangers' skills and injuries~~
 	* Make possible to have several times the same territory
 	* Reduce gang's stash when hire a new ganger + error message if gang's stash < 0
 	* Make possible the update of the gang's stash

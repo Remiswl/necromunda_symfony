@@ -215,15 +215,20 @@ class GangsController extends AbstractController
         $newWeapon = $this->weaponsRepository->find($weapon_id);
         $myGanger = $this->myGangersRepository->find($ganger_id);
 
-
         if(!$myGanger || !$newWeapon) {
             throw $this->createNotFoundException();
         }
 
         $myGanger->addWeapon($newWeapon);
 
+        $gangId = $myGanger->getGang()->getId();
+        $myGangData = $this->gangsRepository->find($gangId);
+        $newCredits = $myGangData->getCredits() - $newWeapon->getCost();
+        $myGangData->setCredits($newCredits);
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($myGanger);
+        $em->persist($myGangData);
         $em->flush();
 
         $this->addFlash('success', 'Weapon added!');
@@ -247,7 +252,13 @@ class GangsController extends AbstractController
 
         $myGanger->removeWeapon($weapon);
 
+        $gangId = $myGanger->getGang()->getId();
+        $myGangData = $this->gangsRepository->find($gangId);
+        $newCredits = $myGangData->getCredits() + $weapon->getCost();
+        $myGangData->setCredits($newCredits);
+
         $em = $this->getDoctrine()->getManager();
+        $em->persist($myGangData);
         $em->flush();
 
         $this->addFlash('success', 'Weapon removed!');
@@ -544,7 +555,7 @@ class GangsController extends AbstractController
      */
     public function deleteGanger($ganger_id): Response
     {
-        $myGangers = $this->getDoctrine()->getRepository(MyGangers::class)->find($gangerid);
+        $myGangers = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
 
         if(!$myGangers) {
             throw $this->createNotFoundException();

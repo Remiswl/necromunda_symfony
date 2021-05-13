@@ -26,7 +26,6 @@ class MyGangersType extends AbstractType
             ->add('cost')
             ->add('adv')
             ->add('xp')
-            ->add('image')
         ;
     }
 

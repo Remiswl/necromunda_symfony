@@ -113,8 +113,8 @@
 							<td>{{ weapon.category }}</td>
 							<td>{{ weapon.cost }}</td>
 							<td>
-								<a href="{{ path('edit_weapon', {weapon_id : weapon.id}) }}" class="btn btn-secondary mb-3">Edit</a>
-								<form method="post" action='{{ path('delete_weapon', {weapon_id : weapon.id}) }}' onsubmit="return confirm('Do you really want to delete this weapon?')">
+								<a href="{{ path('edit_weapon', {weapon_id : weapon.id}) }}" class="btn btn-secondary mr-2">Edit</a>
+								<form class="d-inline-block" method="post" action='{{ path('delete_weapon', {weapon_id : weapon.id}) }}' onsubmit="return confirm('Do you really want to delete this weapon?')">
 									<input type="hidden" name="_method" value="DELETE">
 									<button class="btn btn-danger">Delete</button>
 								</form>

@@ -40,6 +40,51 @@ class Weapons
      */
     private $ganger;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $availability;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $shortRange;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $longRange;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $shortAccuracy;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $longAccuracy;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $strength;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $armourPiercing;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $damage;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $ammo;
+
     public function __construct()
     {
         $this->ganger = new ArrayCollection();
@@ -106,6 +151,114 @@ class Weapons
     public function removeGanger(MyGangers $ganger): self
     {
         $this->ganger->removeElement($ganger);
+
+        return $this;
+    }
+
+    public function getAvailability(): ?int
+    {
+        return $this->availability;
+    }
+
+    public function setAvailability(int $availability): self
+    {
+        $this->availability = $availability;
+
+        return $this;
+    }
+
+    public function getShortRange(): ?int
+    {
+        return $this->shortRange;
+    }
+
+    public function setShortRange(?int $shortRange): self
+    {
+        $this->shortRange = $shortRange;
+
+        return $this;
+    }
+
+    public function getLongRange(): ?int
+    {
+        return $this->longRange;
+    }
+
+    public function setLongRange(?int $longRange): self
+    {
+        $this->longRange = $longRange;
+
+        return $this;
+    }
+
+    public function getShortAccuracy(): ?int
+    {
+        return $this->shortAccuracy;
+    }
+
+    public function setShortAccuracy(?int $shortAccuracy): self
+    {
+        $this->shortAccuracy = $shortAccuracy;
+
+        return $this;
+    }
+
+    public function getLongAccuracy(): ?int
+    {
+        return $this->longAccuracy;
+    }
+
+    public function setLongAccuracy(?int $longAccuracy): self
+    {
+        $this->longAccuracy = $longAccuracy;
+
+        return $this;
+    }
+
+    public function getStrength(): ?int
+    {
+        return $this->strength;
+    }
+
+    public function setStrength(?int $strength): self
+    {
+        $this->strength = $strength;
+
+        return $this;
+    }
+
+    public function getArmourPiercing(): ?int
+    {
+        return $this->armourPiercing;
+    }
+
+    public function setArmourPiercing(?int $armourPiercing): self
+    {
+        $this->armourPiercing = $armourPiercing;
+
+        return $this;
+    }
+
+    public function getDamage(): ?int
+    {
+        return $this->damage;
+    }
+
+    public function setDamage(?int $damage): self
+    {
+        $this->damage = $damage;
+
+        return $this;
+    }
+
+    public function getAmmo(): ?int
+    {
+        return $this->ammo;
+    }
+
+    public function setAmmo(?int $ammo): self
+    {
+        $this->ammo = $ammo;
 
         return $this;
     }

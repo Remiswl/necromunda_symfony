@@ -43,6 +43,20 @@ class MyGangersRepository extends ServiceEntityRepository
         ;
     }
 
+    public function isSoleLeader($gangerTypeId): ?MyGangers
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('g.gangerType = :ganger')
+            ->setParameter('ganger', $gangerTypeId)
+            ->setParameter('gang', $gangId)
+            ->leftJoin('t.gang', 'g')
+            ->addSelect('g')
+            ->orderBy('t.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return MyGangers[] Returns an array of MyGangers objects
     //  */

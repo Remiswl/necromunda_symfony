@@ -27,18 +27,20 @@ class RecruitmentController extends AbstractController
                 ->setGangRating(0)
                 ->setCreatedAt(new \DateTime('NOW'));
 
-            if (1 === $newGang->getHouse()->getId()) {
+            $houseId = $newGang->getHouse()->getId();
+
+            if (1 === $houseId) {
                 $newGang->setImage('img/cawdor.jpg');
-            } elseif (2 === $newGang->getHouse()->getId()) {
-                $newGang->setImage('img/Delaque/delaque_arms.png');
-            } elseif (3 === $newGang->getHouse()->getId()) {
-                $newGang->setImage('img/Escher/escher_arms.png');
-            } elseif (4 === $newGang->getHouse()->getId()) {
-                $newGang->setImage('img/Goliath/goliath_arms.png');
-            } elseif (5 === $newGang->getHouse()->getId()) {
+            } elseif (2 === $houseId) {
+                $newGang->setImage('img/arms/delaque_arms.png');
+            } elseif (3 === $houseId) {
+                $newGang->setImage('img/arms/escher_arms.png');
+            } elseif (4 === $houseId) {
+                $newGang->setImage('img/arms/goliath_arms.png');
+            } elseif (5 === $houseId) {
                 $newGang->setImage('img/cawdor.jpg');
-            } elseif (6 === $newGang->getHouse()->getId()) {
-                $newGang->setImage('img/Van_Saar/van_saar_arms.png');
+            } elseif (6 === $houseId) {
+                $newGang->setImage('img/arms/van_saar_arms.png');
             }
 
             $em = $this->getDoctrine()->getManager();

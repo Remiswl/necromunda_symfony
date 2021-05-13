@@ -8,7 +8,7 @@
 		<div class="col-10 m-auto text-white">
 
 			<div class="text-right">
-				<a href="{{ path('show_gang', {'gang_id' : gang_id}) }}" class="btn btn-secondary my-2">Back</a>
+				<a href="{{ path('show_gang', {gang_id : gang_id}) }}" class="btn btn-secondary my-2">Back</a>
 			</div>
 
 			{% for message in app.flashes('success') %}
@@ -43,9 +43,13 @@
 					<div class="col-3">{{ form_row(form.cost) }}</div>
 					<div class="col-3">{{ form_row(form.adv) }}</div>
 					<div class="col-3">{{ form_row(form.xp) }}</div>
-					<div class="col-3">{{ form_row(form.image) }}</div>
 				</div>
 
+				<div class="m-3">
+					<a href="{{ path('edit_image', {ganger_id : ganger_id}) }}">
+						<img src="{{ asset(gangerImg) }}" alt="ganger image"/>
+					</a>
+				</div>
 
 				<button class="btn btn-primary">Save changes</button>
 
@@ -56,8 +60,7 @@
 		<table class="table table-bordered bg-white">
 			<thead class="bg-secondary text-white">
 				<tr>
-					<td class="col-1">D66 roll</td>
-					<td class="col-10">Description</td>
+					<td class="col-11">Description</td>
 					<td class="col-1">Actions</td>
 				</tr>
 			</thead>
@@ -65,7 +68,6 @@
 			<tbody>
 				{% for injury in injuries %}
 					<tr>
-						<td>{{ injury.mind66 ~ ' - ' ~ injury.maxd66 }}</td>
 						<td class="text-left">{{ injury.description }}</td>
 						<td>
 							<form method="post" action='{{ path('remove_ganger_injury', {injury_id : injury.id, ganger_id : ganger_id}) }}' onsubmit="return confirm('Do you really want to remove this injury?')">

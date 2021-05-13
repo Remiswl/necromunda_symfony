@@ -73,10 +73,6 @@ class GangsController extends AbstractController
         $gangTerritories = $this->territoriesRepository->displayGangTerritories($gang_id);
         $gangersData = $this->myGangersRepository->displayGangersData($gang_id);
 
-        if(!$gangersData) {
-            throw $this->createNotFoundException();
-        }
-
         $totalCost = 0;
         $totalExp = 0;
         for ($i = 0; $i < sizeof($gangersData); ++$i) {
@@ -339,7 +335,7 @@ class GangsController extends AbstractController
      * @Route("/gangers/{ganger_id}/new_skill", name="new_ganger_skill")
      *
      */
-     public function addSkill($gang_id): Response
+     public function addSkill($ganger_id): Response
     {
         $skills = $this->skillsRepository->findAll();
 
@@ -428,6 +424,24 @@ class GangsController extends AbstractController
             $gangId = $gangData->getId();
             $gangId = $this->gangsRepository->find($gangId);
 
+            // Check if the gang alreay has a leader (only one allowed)
+            $isSoleLeader = $this->myGangersRepository->findBy(array(
+                'gangerType' => $gangerTypeId->getId(),
+                'gang' => $gangId
+            ));
+
+            if(($gangerTypeId->getId() == 1) && (sizeof($isSoleLeader) != 0)) {
+                // throw $this->createNotFoundException('Error: there can be only one leader in your gang!');
+                $this->addFlash('error', 'Error: there can be only one leader in your gang!');
+
+                return $this->render('gangs/newGanger.html.twig', [
+                    'form' => $form->createView(),
+                    'houseId' => $houseId,
+                    'images' => $gangerImg,
+                    'gangId' => $gang_id,
+                ]);
+            }
+
             $newGanger
                 ->setGang($gangId)
                 ->setGangerType($gangerTypeId)
@@ -487,8 +501,17 @@ class GangsController extends AbstractController
                     ->setImage('img/cawdor_figurine.png');
             }
 
+            $newGangCredits = $gangData->getCredits() - $newGanger->getCost();
+
+            if($newGangCredits < 0) {
+                throw $this->createNotFoundException('Error: you have not enough credits');
+            }
+
+            $gangData->setCredits($newGangCredits);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($newGanger);
+            $em->persist($gangData);
             $em->flush();
 
             $this->addFlash('success', 'New ganger hired!');
@@ -515,15 +538,13 @@ class GangsController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        $gangerId = $gangerData->getId();
-
         $gangerType = $gangersTypesRepository->find($ganger_id);
         $gangerType = $gangerData->getGangerType()->__toString();
 
         $gangId = $gangerData->getGang()->getId();
 
         $gangerWeapons = $this->weaponsRepository->displayGangerWeapons($ganger_id);
-        $gangerInfuries = $this->injuriesRepository->displayGangerInjuries($ganger_id);
+        $gangerInjuries = $this->injuriesRepository->displayGangerInjuries($ganger_id);
         $gangerSkills = $this->skillsRepository->displayGangerSkills($ganger_id);
 
         $form = $this->createForm(MyGangersType::class, $gangerData);
@@ -541,8 +562,9 @@ class GangsController extends AbstractController
 
         return $this->render('gangs/edit.html.twig', [
             'gangerData' => $gangerData,
-            'ganger_id' => $gangerId,
-            'injuries' => $gangerInfuries,
+            'gangerImg' => $gangerData->getImage(),
+            'ganger_id' => $ganger_id,
+            'injuries' => $gangerInjuries,
             'weapons' => $gangerWeapons,
             'skills' => $gangerSkills,
             'form' => $form->createView(),
@@ -551,20 +573,56 @@ class GangsController extends AbstractController
     }
 
     /**
+     * @Route("/gangers/{ganger_id}/edit_image", name="edit_image")
+     */
+    public function editGangerImage(GangersImgRepository $gangersImgRepository, $ganger_id, Request $request): Response
+    {
+        $gangerData = $this->myGangersRepository->find($ganger_id);
+dd($gangerData);
+        if(!$gangerData) {
+            throw $this->createNotFoundException();
+        }
+
+        // $gangId = $gangerData->getGang()->getId();
+        // $houseId =
+        $gangersImg = $gangersImgRepository->find($houseId);
+dd($gangersImg);
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     $em = $this->getDoctrine()->getManager();
+        //     $em->persist($newImage);
+        //     $em->flush();
+
+        //     $this->addFlash('success', 'Image saved!');
+
+        //     return $this->redirectToRoute('edit_ganger', ['ganger_id' => $gang_id]);
+        // }
+
+        return $this->render('gangs/editImage.html.twig', [
+            'ganger_id' => $ganger_id,
+            'gangrs_img' => $gangersImg,
+            'gang_id' => $gangId,
+
+        ]);
+    }
+    /**
      * @Route("/gangers/{ganger_id}/delete", name="delete_ganger", methods="DELETE")
      */
     public function deleteGanger($ganger_id): Response
     {
-        $myGangers = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
+        $myGanger = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
 
-        if(!$myGangers) {
+        if(!$myGanger) {
             throw $this->createNotFoundException();
         }
 
-        $gangId = $myGangers->getGang()->getId();
+        $gangId = $myGanger->getGang()->getId();
+        // $gangData = $this->gangsRepository->find(intval($gangId));
+        // $newGangCredits = $gangData->getCredits() + $myGanger->getCost();
+        // $gangData->setCredits($newGangCredits);
 
         $em = $this->getDoctrine()->getManager();
-        $em->remove($myGangers);
+        $em->remove($myGanger);
+        // $em->persist($gangData);
         $em->flush();
 
         return $this->redirectToRoute('show_gang', ['gang_id' => $gangId]);

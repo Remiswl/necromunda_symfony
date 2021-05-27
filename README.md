@@ -36,18 +36,16 @@ All texts and images are the property of Games Workshop.
 			* ~~add a button to save the image~~
 		* create Route
 			* ~~send House Id + ganger Id + image Id to the view~~
-			* received the name of the selected image
-			* persist the new image
+			* ~~received the name of the selected image~~
+			* ~~persist the new image~~
 			* automatically select the ganger's image
+			==> Redirection! (ou pas si affiche l'image active)
 
 * every gang start with 5 random territories
 * Prevent gangers from having more than 1 heavy weapon (per ganger)
 * Juves: onlyhand-to-hand weapons, pistols and grenades
 
 * Controllers: test all routes and add createNotfoundExceptions
-
--> Recrutement ganger : vérifier animation + récupérer dans le Controller l'id de l'image sur laquelle on a cliqué
--> test JS sur actualisation img ganger + vérifier l'output dans Controlle (faut réussir à passer l'id de l'image sur laquelle on a cliqué)
 
 
 ### Next steps:

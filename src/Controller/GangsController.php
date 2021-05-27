@@ -675,18 +675,17 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{ganger_id}/insert_new_image", name="insert_new_image_in_db")
      */
-    public function insertImage($ganger_id, Request $request): Response
+    public function insertImage($ganger_id, GangersImgRepository $gangersImgRepository, Request $request): Response
     {
-// Tester ce que donne l'output:
-// $output = $request->request->get('output');
-dd('ok');
-/*JSON.parse(data);*/
-        $myGanger = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
-        // $myGanger->setImage();
+        $newGangerImgId = $request->request->get('id');
+        $newGangerImg = $gangersImgRepository->find($newGangerImgId)->getPath();
 
-        // $em = $this->getDoctrine()->getManager();
-        // $em->persist($gangerData);
-        // $em->flush();
+        $myGanger = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
+        $myGanger->setImage($newGangerImg);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($myGanger);
+        $em->flush();
 
         $this->addFlash('success', 'Image saved!');
 

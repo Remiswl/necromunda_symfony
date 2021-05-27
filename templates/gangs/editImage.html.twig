@@ -19,10 +19,11 @@
 					{% endfor %}
 
         			<div class="text-center">
-						{# <button class="btn btn-secondary mb-3" id="editImage">Save image</button> #}
-	 					{# <a href="{{ path('insert_new_image_in_db', {'ganger_id' : ganger_id, 'house_id': house_id }) }}" class="btn btn-secondary mb-3" id="editImage">Save image</a> #}
-	 					<a href="#" class="btn btn-secondary mb-3" id="editImage" data-url="{{ path('insert_new_image_in_db', {'ganger_id' : ganger_id }) }}">Save image</a>
-						{# <a href="{{ path('insert_new_image_in_db', {'ganger_id' : ganger_id, 'house_id': house_id, 'image_id' : gangers_img.id }) }}" class="btn btn-secondary mb-3" id="editImage">Save image</a> #}
+	 					<a	href="#"
+	 						class="btn btn-secondary mb-3"
+	 						id="editImage"
+	 						data-url="{{ path('insert_new_image_in_db', {'ganger_id' : ganger_id }) }}"
+	 					>Save image</a>
     	            </div>
     	        </fieldset>
     		</form>

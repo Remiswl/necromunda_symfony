@@ -28,7 +28,7 @@ gangersImg.click(function() {
 // Edit ganger img
 $('#editImage').click(() => {
     $.ajax({
-        url: $('#editImage').attr('url'),
+        url: $('#editImage').attr('data-url'),
         type: 'POST',
         data: { id : $('.selectedImg').attr('id') }
     });

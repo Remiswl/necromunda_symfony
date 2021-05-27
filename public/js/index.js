@@ -1,24 +1,35 @@
-let mybutton = document.getElementById('myBtn');
+/*
+ * Animation on ganger's img
+ */
+let gangersImg = $('.gangers-profils');
 
-function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        mybutton.style.display = 'block';
-    } else {
-        mybutton.style.display = 'none';
-    }
-}
-
-function topFunction() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-}
-
-// When the user clicks on the button, scroll to the top of the document
-mybutton.addEventListener('click', () => {
-    topFunction();
+// On mouseover, zoom x1.5
+gangersImg.mouseover(function() {
+    $(this).addClass('zoomImg');
 });
 
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {
-    scrollFunction();
-};
+gangersImg.mouseout(function() {
+    $(this).removeClass('zoomImg');
+});
+
+let gangerId;
+
+// On click, add red borders
+gangersImg.click(function() {
+    $(this).removeClass('zoomImg');
+
+    $(gangersImg).removeClass('selectedImg');
+    // $(this).addClass('selectedImg');
+    $(this).toggleClass('selectedImg');
+
+    let gangerId;
+});
+
+// Edit ganger img
+$('#editImage').click(() => {
+    $.ajax({
+        url: $('#editImage').attr('url'),
+        type: 'POST',
+        data: { id : $('.selectedImg').attr('id') }
+    });
+});

@@ -27,6 +27,22 @@ class RecruitmentController extends AbstractController
                 ->setGangRating(0)
                 ->setCreatedAt(new \DateTime('NOW'));
 
+            /* Add 5 random territories
+            // Access the list of all territories
+            $territories = $this->territoriesRepository->findAll();
+
+            mind66 = $territories->getMind66();
+            maxd66 = $territories->getMaxd66();
+
+            for($i = 0; $i<5; $i++) {
+                $territoryScore = rand(11,66);
+                if($territoryScore > mind66 && $territoryScore < maxd66) {
+                    $newGang->addTerritory($territoryScore);
+                }
+            }
+
+             */
+
             $houseId = $newGang->getHouse()->getId();
 
             if (1 === $houseId) {

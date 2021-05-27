@@ -18,6 +18,7 @@ use App\Repository\WeaponsRepository;
 use App\Repository\SkillsRepository;
 use App\Repository\MyGangersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -70,11 +71,29 @@ class GangsController extends AbstractController
             throw $this->createNotFoundException('Error: this gang does not exist');
         }
 
+        // Check if the gang has a leader
+        $numberOfLeaders = $this->myGangersRepository->findBy(array(
+            'gangerType' => 1,
+            'gang' => $gang_id
+        ));
+
+        if(sizeof($numberOfLeaders) === 0){
+            $this->addFlash('error', 'Your gang has no leader!');
+        }
+
+        // Check if the gang has more than three gangers
+        $numberOfGangers = $this->myGangersRepository->findBy(array('gang' => $gang_id));
+
+        if(sizeof($numberOfGangers) < 3) {
+            $this->addFlash('error', 'Your gang has less than three gangers!');
+        }
+
         $gangTerritories = $this->territoriesRepository->displayGangTerritories($gang_id);
         $gangersData = $this->myGangersRepository->displayGangersData($gang_id);
 
         $totalCost = 0;
         $totalExp = 0;
+
         for ($i = 0; $i < sizeof($gangersData); ++$i) {
             $totalCost += $gangersData[$i]->getCost();
             $totalExp += $gangersData[$i]->getXp();
@@ -404,13 +423,14 @@ class GangsController extends AbstractController
         $newGanger = new MyGangers();
 
         $houseId = $this->gangsRepository->find($gang_id);
-        $gangerImg = $gangersImgRepository->findImg($houseId);
+        $houseId = $houseId->getHouse()->getId();
+
+        // Display all the House's images
+        $gangersImg = $gangersImgRepository->findBy(array('houseId' => $houseId));
 
         if(!$houseId) {
             throw $this->createNotFoundException();
         }
-
-        $houseId = $houseId->getHouse()->getId();
 
         $form = $this->createForm(NewGangerType::class, $newGanger);
         $form->handleRequest($request);
@@ -424,7 +444,7 @@ class GangsController extends AbstractController
             $gangId = $gangData->getId();
             $gangId = $this->gangsRepository->find($gangId);
 
-            // Check if the gang alreay has a leader (only one allowed)
+            // Check if the gang already has a leader (only one allowed)
             $isSoleLeader = $this->myGangersRepository->findBy(array(
                 'gangerType' => $gangerTypeId->getId(),
                 'gang' => $gangId
@@ -437,7 +457,45 @@ class GangsController extends AbstractController
                 return $this->render('gangs/newGanger.html.twig', [
                     'form' => $form->createView(),
                     'houseId' => $houseId,
-                    'images' => $gangerImg,
+                    'images' => $gangersImg,
+                    'gangId' => $gang_id,
+                ]);
+            }
+
+
+            // Check if the gang already has less than 2 heavies
+            $maxTwoHeavies = $this->myGangersRepository->findBy(array(
+                'gangerType' => $gangerTypeId->getId(),
+                'gang' => $gangId
+            ));
+
+            if(($gangerTypeId->getId() == 2) && (sizeof($maxTwoHeavies) >= 2)) {
+                $this->addFlash('error', 'Error: there can be a maximum of two Heavies in your gang!');
+
+                return $this->render('gangs/newGanger.html.twig', [
+                    'form' => $form->createView(),
+                    'houseId' => $houseId,
+                    'images' => $gangersImg,
+                    'gangId' => $gang_id,
+                ]);
+            }
+
+            // Check if the gang already has less than the half of his gang composed of juves
+            $numberOfJuves = $this->myGangersRepository->findBy(array(
+                'gangerType' => $gangerTypeId->getId(),
+                'gang' => $gangId
+            ));
+            $numberOfJuves = sizeof($numberOfJuves);
+
+            $gangSize =sizeof($gangData->getMyGangers());
+
+            if(($gangerTypeId->getId() == 4) && ($numberOfJuves >= ($gangSize/2))) {
+                $this->addFlash('error', 'Error: you have too many Juves in your gang!');
+
+                return $this->render('gangs/newGanger.html.twig', [
+                    'form' => $form->createView(),
+                    'houseId' => $houseId,
+                    'images' => $gangersImg,
                     'gangId' => $gang_id,
                 ]);
             }
@@ -447,11 +505,11 @@ class GangsController extends AbstractController
                 ->setGangerType($gangerTypeId)
                 ->setMove(4)
                 ->setAdv(0)
-                ->setXp(0)
                 ->setCredits(0)
                 ->setCreatedAt(new \DateTime('NOW'));
 
             if (1 === $gangerTypeId->getId()) {
+                $startXp = 60 + rand(1,6);
                 $newGanger
                     ->setWeaponSkill(4)
                     ->setBallisticSkill(4)
@@ -462,8 +520,10 @@ class GangsController extends AbstractController
                     ->setAttacks(1)
                     ->setLeadership(8)
                     ->setCost(120)
+                    ->setXp($startXp)
                     ->setImage('img/cawdor_figurine.png');
             } elseif (2 === $gangerTypeId->getId()) {
+                $startXp = 60 + rand(1,6);
                 $newGanger
                     ->setWeaponSkill(3)
                     ->setBallisticSkill(3)
@@ -474,8 +534,10 @@ class GangsController extends AbstractController
                     ->setAttacks(1)
                     ->setLeadership(7)
                     ->setCost(60)
+                    ->setXp($startXp)
                     ->setImage('img/cawdor_figurine.png');
             } elseif (3 === $gangerTypeId->getId()) {
+                $startXp = 20 + rand(1,6);
                 $newGanger
                     ->setWeaponSkill(3)
                     ->setBallisticSkill(3)
@@ -486,6 +548,7 @@ class GangsController extends AbstractController
                     ->setAttacks(1)
                     ->setLeadership(7)
                     ->setCost(50)
+                    ->setXp($startXp)
                     ->setImage('img/cawdor_figurine.png');
             } elseif (4 === $gangerTypeId->getId()) {
                 $newGanger
@@ -498,13 +561,18 @@ class GangsController extends AbstractController
                     ->setAttacks(1)
                     ->setLeadership(6)
                     ->setCost(25)
+                    ->setXp(0)
                     ->setImage('img/cawdor_figurine.png');
             }
 
+            $weapon = $this->weaponsRepository->find(array('id' => 2));
+            $newGanger->addWeapon($weapon);
+
             $newGangCredits = $gangData->getCredits() - $newGanger->getCost();
 
-            if($newGangCredits < 0) {
-                throw $this->createNotFoundException('Error: you have not enough credits');
+            if($newGangCredits <= 0) {
+                // throw $this->createNotFoundException('Error: you have not enough credits');
+                $this->addFlash('error', 'Error: you have not enough credits!');
             }
 
             $gangData->setCredits($newGangCredits);
@@ -522,7 +590,7 @@ class GangsController extends AbstractController
         return $this->render('gangs/newGanger.html.twig', [
             'form' => $form->createView(),
             'houseId' => $houseId,
-            'images' => $gangerImg,
+            'images' => $gangersImg,
             'gangId' => $gang_id,
         ]);
     }
@@ -551,6 +619,14 @@ class GangsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if($gangerType === 'Juve' && $gangerData->getXp() >= 21) {
+                $newGangerType = $gangersTypesRepository->find(array('id' => 3));
+                $gangerData->setGangerType($newGangerType);
+
+                $this->addFlash('success', 'One of your kids, ' . $gangerData->getName() . ', gained enough experience and became a fully-fledged ganger. You now can change his profil picture and buy new weapons.');
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($gangerData);
             $em->flush();
@@ -578,32 +654,45 @@ class GangsController extends AbstractController
     public function editGangerImage(GangersImgRepository $gangersImgRepository, $ganger_id, Request $request): Response
     {
         $gangerData = $this->myGangersRepository->find($ganger_id);
-dd($gangerData);
-        if(!$gangerData) {
+        $gangId = $gangerData->getGang();
+        $houseId = $gangId->getHouse()->getId();
+
+        if(!$gangerData || !$gangId || !$houseId) {
             throw $this->createNotFoundException();
         }
 
-        // $gangId = $gangerData->getGang()->getId();
-        // $houseId =
-        $gangersImg = $gangersImgRepository->find($houseId);
-dd($gangersImg);
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     $em = $this->getDoctrine()->getManager();
-        //     $em->persist($newImage);
-        //     $em->flush();
-
-        //     $this->addFlash('success', 'Image saved!');
-
-        //     return $this->redirectToRoute('edit_ganger', ['ganger_id' => $gang_id]);
-        // }
+        // Get all gangers' images
+        $gangersImg = $gangersImgRepository->findBy(array('houseId' => $houseId));
 
         return $this->render('gangs/editImage.html.twig', [
             'ganger_id' => $ganger_id,
-            'gangrs_img' => $gangersImg,
+            'gangers_imgs' => $gangersImg,
             'gang_id' => $gangId,
-
+            'house_id' => $houseId,
         ]);
     }
+
+    /**
+     * @Route("/gangs/{ganger_id}/insert_new_image", name="insert_new_image_in_db")
+     */
+    public function insertImage($ganger_id, Request $request): Response
+    {
+// Tester ce que donne l'output:
+// $output = $request->request->get('output');
+dd('ok');
+/*JSON.parse(data);*/
+        $myGanger = $this->getDoctrine()->getRepository(MyGangers::class)->find($ganger_id);
+        // $myGanger->setImage();
+
+        // $em = $this->getDoctrine()->getManager();
+        // $em->persist($gangerData);
+        // $em->flush();
+
+        $this->addFlash('success', 'Image saved!');
+
+        return $this->redirectToRoute('edit_ganger', ['ganger_id' => $ganger_id]);
+    }
+
     /**
      * @Route("/gangers/{ganger_id}/delete", name="delete_ganger", methods="DELETE")
      */

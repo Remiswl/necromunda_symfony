@@ -45,10 +45,10 @@ class SettingsController extends AbstractController
      */
     public function index(): Response
     {
-        $territories = $this->territoriesRepository->findAll();
-        $injuries = $this->injuriesRepository->findAll();
-        $weapons = $this->weaponsRepository->findAll();
-        $skills = $this->skillsRepository->findAll();
+        $territories = $this->territoriesRepository->findAll(array(), array('mind66' => 'ASC'));
+        $injuries = $this->injuriesRepository->findAll(array(), array('mind66' => 'ASC'));
+        $weapons = $this->weaponsRepository->findAll(array(), array('category' => 'ASC'));
+        $skills = $this->skillsRepository->findAll(array(), array('category' => 'ASC'));
 
         return $this->render('settings/index.html.twig', [
             'controller_name' => 'SettingsController',
@@ -59,7 +59,7 @@ class SettingsController extends AbstractController
         ]);
     }
 
-    // Territories
+// Territories
 
     /**
      * @Route("/settings/territories/new_territory", name="new_territory")
@@ -134,7 +134,7 @@ class SettingsController extends AbstractController
         return $this->redirectToRoute('settings');
     }
 
-    // Injuries
+// Injuries
 
     /**
      * @Route("/settings/injuries/new_injury", name="new_injury")
@@ -209,7 +209,7 @@ class SettingsController extends AbstractController
         return $this->redirectToRoute('settings');
     }
 
-    // Weapons
+// Weapons
 
     /**
      * @Route("/settings/weapons/new_weapon", name="new_weapon")
@@ -284,7 +284,7 @@ class SettingsController extends AbstractController
         return $this->redirectToRoute('settings');
     }
 
-    // Skills
+// Skills
 
     /**
      * @Route("/settings/skills/new_skill", name="new_skill")

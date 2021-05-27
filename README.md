@@ -20,24 +20,35 @@ All texts and images are the property of Games Workshop.
 
 * Manage your gang
 	* Make possible to have several times the same territory
-	* Make possible the update of the gang's stash ->pop up "Enter the new gang's credits"
-	* Make possible to delete gang's territories
+	* Make possible the update of the gang's stash ->pop up "Enter the new gang's credits" (collecting income at the end of a battle)
+	* ~~Make possible to delete gang's territories~~
 * Manager gangers
 	* when recruit, add a list of images the player can choose
-		* JS -> animation on the selected image
-		* display all gangers' images
+		* ~~JS -> animation on the selected image~~
+		* ~~display all gangers' images~~
 		* Route:
 			* received the name of the selected image
 			* persist the image
 	* change ganger's image :
 		* create html.twig
-			* display all gangers' images
-			* JS -> animation on the selected image
+			* ~~display all gangers' images~~
+			* ~~JS -> animation on the selected image~~
+			* ~~add a button to save the image~~
 		* create Route
-			* send House Id + ganger Id to the view
+			* ~~send House Id + ganger Id + image Id to the view~~
 			* received the name of the selected image
 			* persist the new image
+			* automatically select the ganger's image
+
+* every gang start with 5 random territories
+* Prevent gangers from having more than 1 heavy weapon (per ganger)
+* Juves: onlyhand-to-hand weapons, pistols and grenades
+
 * Controllers: test all routes and add createNotfoundExceptions
+
+-> Recrutement ganger : vérifier animation + récupérer dans le Controller l'id de l'image sur laquelle on a cliqué
+-> test JS sur actualisation img ganger + vérifier l'output dans Controlle (faut réussir à passer l'id de l'image sur laquelle on a cliqué)
+
 
 ### Next steps:
 
@@ -56,4 +67,6 @@ All texts and images are the property of Games Workshop.
 * Settings
 	* weapons -> add images?
 * Objects to roll dices (xD6, xD3, D66 (1st D6 dice as tens, a 2nd D6 dice as units))
+* experience advance table (cf. p.111)
+* advance rolls (new skills/characteristics at the end of a battle (cf. p.112)
 * Add automated tests

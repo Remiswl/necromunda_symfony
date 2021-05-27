@@ -23,18 +23,24 @@
 					{{ form_row(form.name) }}
 					{{ form_row(form.gangerType) }}
 				</div>
-				<div class="row d-flex flex-wrap justify-content-around">
-					{% for image in images %}
-						<div class="ganger_img d-flex align-items-center justify-content-center my-2">
-							<img src="/{{ image.path }}" alt="ganger profile" class="img-fluid">
-						</div>
-					{% endfor %}
+
+				<div class="text-center">
+
+					<h3>Select the profil of your ganger</h3>
+
+					<div class="row d-flex flex-wrap justify-content-around">
+						{% for image in images %}
+							<div class="ganger_img d-flex align-items-center justify-content-center my-2">
+								<img src="/{{ image.path }}" alt="ganger profile" class="img-fluid gangers-profils" id="{{ image.id }}" data-id="{{ image.id }}">
+							</div>
+						{% endfor %}
+					</div>
+
+					<button class="btn btn-primary">Hire ganger</button>
+
 				</div>
 
-				<button class="btn btn-primary offset-4">Hire ganger</button>
 			{{ form_end(form) }}
-
-
 		</div>
 	</section>
 

@@ -47,7 +47,11 @@
 					{% for territory in territories %}
 						<tr>
 							<td>{{ territory.name }}</td>
-							<td>{{ territory.d6tens ~ territory.d6units }}</td>
+							{% if territory.mind66 == territory.maxd66 %}
+								<td>{{ territory.mind66 }}</td>
+							{% else %}
+								<td>{{ territory.mind66 ~ ' - ' ~ territory.maxd66 }}</td>
+							{% endif %}
 							<td>{{ territory.income }}</td>
 							<td class="text-left">{{ territory.description }}</td>
 							<td>
@@ -164,5 +168,6 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script type="module" src="{{ asset('js/index.js') }}"></script>
+	{{ parent() }}
+	<script type="module" src="{{ asset('js/scroll.js') }}"></script>
 {% endblock %}

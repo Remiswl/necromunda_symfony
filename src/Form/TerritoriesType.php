@@ -16,8 +16,8 @@ class TerritoriesType extends AbstractType
             ->add('name')
             ->add('description', TextareaType::class)
             ->add('income')
-            ->add('D6tens')
-            ->add('D6units')
+            ->add('mind66')
+            ->add('maxd66')
         ;
     }
 

@@ -11,13 +11,22 @@
 				<a href="{{ path('edit_ganger', {'ganger_id' : ganger_id }) }}" class="btn btn-secondary my-2">Back</a>
 			</div>
 
-			<div>
+			<form method="POST">
+	           <fieldset class="form">
 
-			</div>
+                    {% for gangers_img in gangers_imgs %}
+						<img src="{{ asset(gangers_img.path) }}" id="{{ gangers_img.id }}" class="gangers-profils" alt="ganger image"/>
+					{% endfor %}
 
-			<div class="text-center">
-				<button class="btn btn-primary">Save image</button>
-			</div>
+        			<div class="text-center">
+						{# <button class="btn btn-secondary mb-3" id="editImage">Save image</button> #}
+	 					{# <a href="{{ path('insert_new_image_in_db', {'ganger_id' : ganger_id, 'house_id': house_id }) }}" class="btn btn-secondary mb-3" id="editImage">Save image</a> #}
+	 					<a href="#" class="btn btn-secondary mb-3" id="editImage" data-url="{{ path('insert_new_image_in_db', {'ganger_id' : ganger_id }) }}">Save image</a>
+						{# <a href="{{ path('insert_new_image_in_db', {'ganger_id' : ganger_id, 'house_id': house_id, 'image_id' : gangers_img.id }) }}" class="btn btn-secondary mb-3" id="editImage">Save image</a> #}
+    	            </div>
+    	        </fieldset>
+    		</form>
+
 		</div>
 	</section>
 

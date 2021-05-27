@@ -26,7 +26,7 @@ class Territories
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $description;
 
@@ -51,6 +51,19 @@ class Territories
      * @Assert\Range(max=6)
      */
     private $D6units;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\Range(min=11)
+     **/
+    private $mind66;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\Range(max=66)
+     * @Assert\GreaterThanOrEqual(propertyPath="minD66")
+     */
+    private $maxd66;
 
     public function __construct()
     {
@@ -142,6 +155,30 @@ class Territories
     public function setD6units(int $D6units): self
     {
         $this->D6units = $D6units;
+
+        return $this;
+    }
+
+    public function getMind66(): ?int
+    {
+        return $this->mind66;
+    }
+
+    public function setMind66(int $mind66): self
+    {
+        $this->mind66 = $mind66;
+
+        return $this;
+    }
+
+    public function getMaxd66(): ?int
+    {
+        return $this->maxd66;
+    }
+
+    public function setMaxd66(int $maxd66): self
+    {
+        $this->maxd66 = $maxd66;
 
         return $this;
     }

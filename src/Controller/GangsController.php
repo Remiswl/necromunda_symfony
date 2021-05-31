@@ -661,11 +661,15 @@ class GangsController extends AbstractController
             throw $this->createNotFoundException();
         }
 
+        $gangerImg = $gangerData->getImage();
+        $gangerImg = '/' . $gangerImg;
+
         // Get all gangers' images
         $gangersImg = $gangersImgRepository->findBy(array('houseId' => $houseId));
 
         return $this->render('gangs/editImage.html.twig', [
             'ganger_id' => $ganger_id,
+            'ganger_img' => $gangerImg,
             'gangers_imgs' => $gangersImg,
             'gang_id' => $gangId,
             'house_id' => $houseId,

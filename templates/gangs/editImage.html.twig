@@ -13,9 +13,12 @@
 
 			<form method="POST">
 	           <fieldset class="form">
-
                     {% for gangers_img in gangers_imgs %}
-						<img src="{{ asset(gangers_img.path) }}" id="{{ gangers_img.id }}" class="gangers-profils" alt="ganger image"/>
+						<img
+							src="{{ asset(gangers_img.path) }}"
+							id="{{ gangers_img.id }}"
+							class="gangers-profils {{ asset(gangers_img.path) == ganger_img ? 'selectedImg' : '' }}"
+							alt="ganger image"/>
 					{% endfor %}
 
         			<div class="text-center">

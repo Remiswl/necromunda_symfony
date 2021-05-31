@@ -12,17 +12,12 @@ gangersImg.mouseout(function() {
     $(this).removeClass('zoomImg');
 });
 
-let gangerId;
-
 // On click, add red borders
 gangersImg.click(function() {
     $(this).removeClass('zoomImg');
 
     $(gangersImg).removeClass('selectedImg');
-    // $(this).addClass('selectedImg');
     $(this).toggleClass('selectedImg');
-
-    let gangerId;
 });
 
 // Edit ganger img

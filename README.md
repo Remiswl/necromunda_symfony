@@ -9,7 +9,7 @@ All texts and images are the property of Games Workshop.
 
 ## Technologies
 
-* Front-end: JavaScript ES6, Bootstrap, Twig
+* Front-end: JavaScript ES6, Bootstrap 4, Twig
 * Back-end: PHP7.4.3, SQL
 * Framework: Symfony 5
 
@@ -21,25 +21,6 @@ All texts and images are the property of Games Workshop.
 * Manage your gang
 	* Make possible to have several times the same territory
 	* Make possible the update of the gang's stash ->pop up "Enter the new gang's credits" (collecting income at the end of a battle)
-	* ~~Make possible to delete gang's territories~~
-* Manager gangers
-	* when recruit, add a list of images the player can choose
-		* ~~JS -> animation on the selected image~~
-		* ~~display all gangers' images~~
-		* Route:
-			* received the name of the selected image
-			* persist the image
-	* change ganger's image :
-		* create html.twig
-			* ~~display all gangers' images~~
-			* ~~JS -> animation on the selected image~~
-			* ~~add a button to save the image~~
-		* create Route
-			* ~~send House Id + ganger Id + image Id to the view~~
-			* ~~received the name of the selected image~~
-			* ~~persist the new image~~
-			* automatically select the ganger's image
-			==> Redirection! (ou pas si affiche l'image active)
 
 * every gang start with 5 random territories
 * Prevent gangers from having more than 1 heavy weapon (per ganger)

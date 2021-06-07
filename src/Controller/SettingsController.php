@@ -45,13 +45,12 @@ class SettingsController extends AbstractController
      */
     public function index(): Response
     {
-        $territories = $this->territoriesRepository->findAll(array(), array('mind66' => 'ASC'));
-        $injuries = $this->injuriesRepository->findAll(array(), array('mind66' => 'ASC'));
-        $weapons = $this->weaponsRepository->findAll(array(), array('category' => 'ASC'));
-        $skills = $this->skillsRepository->findAll(array(), array('category' => 'ASC'));
+        $territories = $this->territoriesRepository->findBy(array(), array('mind66' => 'ASC'));
+        $injuries = $this->injuriesRepository->findBy(array(), array('minD66' => 'ASC'));
+        $weapons = $this->weaponsRepository->findBy(array(), array('category' => 'ASC'));
+        $skills = $this->skillsRepository->findBy(array(), array('category' => 'ASC'));
 
         return $this->render('settings/index.html.twig', [
-            'controller_name' => 'SettingsController',
             'territories' => $territories,
             'injuries' => $injuries,
             'weapons' => $weapons,

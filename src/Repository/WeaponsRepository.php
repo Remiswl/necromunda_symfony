@@ -35,6 +35,43 @@ class WeaponsRepository extends ServiceEntityRepository
         ;
     }
 
+    public function juvesWeapons()
+    {
+        return $this->createQueryBuilder('w')
+            ->andWhere('w.category = 1')
+            ->andWhere('w.category = 2')
+            ->andWhere('w.category = 6')
+            ->orderBy('w.category', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function weaponsWithoutHeavy()
+    {
+        return $this->createQueryBuilder('w')
+            ->andWhere('w.category = 1')
+            ->andWhere('w.category = 2')
+            ->andWhere('w.category = 3')
+            ->andWhere('w.category = 4')
+            ->andWhere('w.category = 6')
+            ->andWhere('w.category = 7')
+            ->orderBy('w.category', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function checkIfHasHeavyWeapon()
+    {
+        return $this->createQueryBuilder('w')
+            ->andWhere('w.category = 5')
+            ->orderBy('w.category', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Weapons[] Returns an array of Weapons objects
     //  */

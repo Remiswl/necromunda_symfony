@@ -19,12 +19,10 @@ All texts and images are the property of Games Workshop.
 ### To do list
 
 * Manage your gang
-	* Make possible to have several times the same territory
 	* Make possible the update of the gang's stash ->pop up "Enter the new gang's credits" (collecting income at the end of a battle)
-
-* every gang start with 5 random territories
-* Prevent gangers from having more than 1 heavy weapon (per ganger)
-* Juves: onlyhand-to-hand weapons, pistols and grenades
+	* Prevent gangers from having more than 1 heavy weapon (per ganger)
+		-> récupérer les armes du ganger
+		-> s'il a déjà une arme lourde, alors...
 
 * Controllers: test all routes and add createNotfoundExceptions
 

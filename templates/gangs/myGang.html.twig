@@ -1,3 +1,5 @@
+{% set count = 0 %}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Edit my gang{% endblock %}
@@ -118,161 +120,27 @@
 							<td>Territory</td>
 							<td>Credits</td>
 							<td>Edit</td>
-							<td>Territory</td>
-							<td>Credits</td>
-							<td>Edit</td>
 						</tr>
 					</thead>
 
 					<tbody>
-						<tr>
-							<td class="text-left">
-								1. {% if gang_territories.0.name is defined %}{{gang_territories.0.name}}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.0.income is defined %}{{gang_territories.0.income}}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.0 is defined %}
-									<form method="post" action='{{ path('remove_gang_territory', {gang_id : gang_data.0.id, territory_id : gang_territories.0.id}) }}' onsubmit="return confirm('Do you really want to remove this territory?')">
-										<input type="hidden" name="_method" value="DELETE">
-										<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+						{% for territory in territories %}
+							{% set count = count + 1 %}
+							<tr>
+								<td class="text-left">
+									{{ count ~ '. ' ~ territory.name }}
+								</td>
+								<td>
+									{{ territory.income }}
+								</td>
+								<td>
+									<form method="post" action='{{ path('remove_gang_territory', {gang_id : gang_data.0.id, territory_id : territory.id}) }}' onsubmit="return confirm('Do you really want to remove this territory?')">
+											<input type="hidden" name="_method" value="DELETE">
+											<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
 									</form>
-								{% endif %}
-							</td>
-							<td class="text-left">
-								6. {% if gang_territories.5.name is defined %}{{gang_territories.5.name}}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.5.income is defined %}{{gang_territories.5.income}}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.5 is defined %}
-									<form method="post" action='{{ path('remove_gang_territory', {gang_id : gang_data.0.id, territory_id : gang_territories.5.id}) }}' onsubmit="return confirm('Do you really want to remove this territory?')">
-										<input type="hidden" name="_method" value="DELETE">
-										<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-									</form>
-								{% endif %}
-							</td>
-						</tr>
-						<tr>
-							<td class="text-left">
-								2. {% if gang_territories.1.name is defined %}{{gang_territories.1.name}}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.1.income is defined %}{{gang_territories.1.income}}{% endif %}</td>
-							<td>
-								{% if gang_territories.1 is defined %}
-									<form method="post" action='{{ path('remove_gang_territory', {gang_id : gang_data.0.id, territory_id : gang_territories.1.id}) }}' onsubmit="return confirm('Do you really want to remove this territory?')">
-										<input type="hidden" name="_method" value="DELETE">
-										<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-									</form>
-								{% endif %}
-							</td>
-							<td class="text-left">
-								7. {% if gang_territories.6.name is defined %}{{gang_territories.6.name}}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.6.income is defined %}{{gang_territories.6.income}}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.6 is defined %}
-									<form method="post" action='{{ path('remove_gang_territory', {gang_id : gang_data.0.id, territory_id : gang_territories.6.id}) }}' onsubmit="return confirm('Do you really want to remove this territory?')">
-										<input type="hidden" name="_method" value="DELETE">
-										<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-									</form>
-								{% endif %}
-							</td>
-						</tr>
-						<tr>
-							<td class="text-left">
-								3. {% if gang_territories.2.name is defined %}{{gang_territories.2.name}}{% endif %}
-							<td>
-								{% if gang_territories.2.income is defined %}{{gang_territories.2.income}}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.2 is defined %}
-									<form method="post" action='{{ path('remove_gang_territory', {gang_id : gang_data.0.id, territory_id : gang_territories.2.id}) }}' onsubmit="return confirm('Do you really want to remove this territory?')">
-										<input type="hidden" name="_method" value="DELETE">
-										<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-									</form>
-								{% endif %}
-							</td>
-							<td class="text-left">
-								8. {% if gang_territories.7.name is defined %}{{gang_territories.7.name}}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.7.income is defined %}{{gang_territories.7.income }}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.7 is defined %}
-									<form method="post" action='{{ path('remove_gang_territory', {gang_id : gang_data.0.id, territory_id : gang_territories.7.id}) }}' onsubmit="return confirm('Do you really want to remove this territory?')">
-										<input type="hidden" name="_method" value="DELETE">
-										<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-									</form>
-								{% endif %}
-							</td>
-						</tr>
-						<tr>
-							<td class="text-left">
-								4. {% if gang_territories.3.name is defined %}{{gang_territories.3.name}}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.3.income is defined %}{{gang_territories.3.income}}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.3 is defined %}
-									<form method="post" action='{{ path('remove_gang_territory', {gang_id : gang_data.0.id, territory_id : gang_territories.3.id}) }}' onsubmit="return confirm('Do you really want to remove this territory?')">
-										<input type="hidden" name="_method" value="DELETE">
-										<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-									</form>
-								{% endif %}
-							</td>
-							<td class="text-left">
-								9. {% if gang_territories.8.name is defined %}{{gang_territories.8.name}}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.8.income is defined %}{{gang_territories.8.income }}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.8 is defined %}
-									<form method="post" action='{{ path('remove_gang_territory', {gang_id : gang_data.0.id, territory_id : gang_territories.8.id}) }}' onsubmit="return confirm('Do you really want to remove this territory?')">
-										<input type="hidden" name="_method" value="DELETE">
-										<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-									</form>
-								{% endif %}
-							</td>
-						</tr>
-						<tr>
-							<td class="text-left">
-								5. {% if gang_territories.4.income is defined %}{{gang_territories.4.income }}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.4.income is defined %}{{gang_territories.4.income }}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.4 is defined %}
-								<form method="post" action='{{ path('remove_gang_territory', {gang_id : gang_data.0.id, territory_id : gang_territories.4.id}) }}' onsubmit="return confirm('Do you really want to remove this territory?')">
-										<input type="hidden" name="_method" value="DELETE">
-										<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-									</form>
-								{% endif %}
-							</td>
-							<td class="text-left">
-								10. {% if gang_territories.9.income is defined %}{{gang_territories.9.income }}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.9.income is defined %}{{gang_territories.9.income }}{% endif %}
-							</td>
-							<td>
-								{% if gang_territories.9.income is defined %}
-									<form method="post" action='{{ path('remove_gang_territory', {gang_id : gang_data.0.id, territory_id : gang_territories.9.id}) }}' onsubmit="return confirm('Do you really want to remove this territory?')">
-										<input type="hidden" name="_method" value="DELETE">
-										<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-									</form>
-								{% endif %}
-							</td>
-						</tr>
+								</td>
+							</tr>
+						{% endfor %}
 					</tbody>
 				</table>
 
@@ -280,7 +148,9 @@
 					<tr>
 						<td class="align-middle">
 							<a href="{{ path('new_ganger', {gang_id : gang_data.0.id}) }}" class="btn btn-secondary my-2">New ganger</a>
-							{% if gang_territories|length <= 10 %}<a href="{{ path('new_gang_territory', {gang_id : gang_data.0.id}) }}" class="btn btn-secondary my-2">New territory</a>{% endif %}
+							{% if total_territories <= 10 %}
+								<a href="{{ path('new_gang_territory', {gang_id : gang_data.0.id}) }}" class="btn btn-secondary my-2">New territory</a>
+							{% endif %}
 							<form class="my-2" method="post" action='{{ path('delete_gang', {gang_id : gang_data.0.id}) }}' onsubmit="return confirm('Do you really want to delete your gang?')">
 									<input type="hidden" name="_method" value="DELETE">
 									<button class="btn btn-danger">Delete gang</button>
@@ -288,7 +158,6 @@
 						</td>
 					</tr>
 				</table>
-
 			</div>
 		</div>
 	</section>

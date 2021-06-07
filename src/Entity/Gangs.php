@@ -66,10 +66,16 @@ class Gangs
      */
     private $image;
 
+    /**
+     * @ORM\OneToMany(targetEntity=GangTerritory::class, mappedBy="gang", orphanRemoval=true)
+     */
+    private $gang;
+
     public function __construct()
     {
         $this->myGangers = new ArrayCollection();
         $this->territories = new ArrayCollection();
+        $this->gang = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -219,6 +225,36 @@ class Gangs
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GangTerritory[]
+     */
+    public function getGang(): Collection
+    {
+        return $this->gang;
+    }
+
+    public function addGang(GangTerritory $gang): self
+    {
+        if (!$this->gang->contains($gang)) {
+            $this->gang[] = $gang;
+            $gang->setGang($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGang(GangTerritory $gang): self
+    {
+        if ($this->gang->removeElement($gang)) {
+            // set the owning side to null (unless already changed)
+            if ($gang->getGang() === $this) {
+                $gang->setGang(null);
+            }
+        }
 
         return $this;
     }

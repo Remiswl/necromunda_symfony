@@ -42,18 +42,6 @@ class Territories
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\Range(max=6)
-     */
-    private $D6tens;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\Range(max=6)
-     */
-    private $D6units;
-
-    /**
-     * @ORM\Column(type="integer")
      * @Assert\Range(min=11)
      **/
     private $mind66;
@@ -65,9 +53,20 @@ class Territories
      */
     private $maxd66;
 
+    /**
+     * @ORM\OneToMany(targetEntity=GangTerritory::class, mappedBy="territory")
+     */
+    private $territory;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $count;
+
     public function __construct()
     {
         $this->gang = new ArrayCollection();
+        $this->territory = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -135,30 +134,6 @@ class Territories
         return $this;
     }
 
-    public function getD6tens(): ?int
-    {
-        return $this->D6tens;
-    }
-
-    public function setD6tens(int $D6tens): self
-    {
-        $this->D6tens = $D6tens;
-
-        return $this;
-    }
-
-    public function getD6units(): ?int
-    {
-        return $this->D6units;
-    }
-
-    public function setD6units(int $D6units): self
-    {
-        $this->D6units = $D6units;
-
-        return $this;
-    }
-
     public function getMind66(): ?int
     {
         return $this->mind66;
@@ -179,6 +154,48 @@ class Territories
     public function setMaxd66(int $maxd66): self
     {
         $this->maxd66 = $maxd66;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GangTerritory[]
+     */
+    public function getTerritory(): Collection
+    {
+        return $this->territory;
+    }
+
+    public function addTerritory(GangTerritory $territory): self
+    {
+        if (!$this->territory->contains($territory)) {
+            $this->territory[] = $territory;
+            $territory->setTerritory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTerritory(GangTerritory $territory): self
+    {
+        if ($this->territory->removeElement($territory)) {
+            // set the owning side to null (unless already changed)
+            if ($territory->getTerritory() === $this) {
+                $territory->setTerritory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCount(): ?int
+    {
+        return $this->count;
+    }
+
+    public function setCount(?int $count): self
+    {
+        $this->count = $count;
 
         return $this;
     }

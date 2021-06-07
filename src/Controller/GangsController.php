@@ -6,6 +6,7 @@ use App\Entity\Gangers;
 use App\Entity\Gangs;
 use App\Entity\Territories;
 use App\Entity\MyGangers;
+use App\Entity\GangTerritory;
 use App\Form\MyGangersType;
 use App\Form\NewGangerType;
 use App\Form\TerritoriesType;
@@ -17,6 +18,7 @@ use App\Repository\InjuriesRepository;
 use App\Repository\WeaponsRepository;
 use App\Repository\SkillsRepository;
 use App\Repository\MyGangersRepository;
+use App\Repository\GangTerritoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,7 +65,7 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{gang_id}/show_gang", name="show_gang")
      */
-    public function showGang($gang_id): Response
+    public function showGang($gang_id, GangTerritoryRepository $gangTerritoryRepository): Response
     {
         $gangData = $this->gangsRepository->displayGangData($gang_id);
 
@@ -88,12 +90,34 @@ class GangsController extends AbstractController
             $this->addFlash('error', 'Your gang has less than three gangers!');
         }
 
-        $gangTerritories = $this->territoriesRepository->displayGangTerritories($gang_id);
+        // Get gangers' data
         $gangersData = $this->myGangersRepository->displayGangersData($gang_id);
 
+        // Get gang's territories
+        $gangTerritories = $this->territoriesRepository->displayGangTerritories($gang_id);
+        $territoryCount = $gangTerritoryRepository->findBy(array('gang' => $gangData));
+
+        $territories = [];
+        for($i = 0; $i < sizeof($gangTerritories); $i++) {
+            for($j = 0; $j < sizeof($territoryCount); $j++) {
+                if($gangTerritories[$i] === $territoryCount[$j]->getTerritory()) {
+                    $counter = $territoryCount[$j]->getCount();
+                    $gangTerritories[$i]->setCount($counter);
+                }
+            }
+
+            if($gangTerritories[$i]->getCount() === 0) {
+                continue;
+            }
+
+            for ($k = 0; $k < $gangTerritories[$i]->getCount(); $k++) {
+                array_push($territories, $gangTerritories[$i]);
+            }
+        }
+
+        // Determine gang's Cost, Exp and Rating
         $totalCost = 0;
         $totalExp = 0;
-
         for ($i = 0; $i < sizeof($gangersData); ++$i) {
             $totalCost += $gangersData[$i]->getCost();
             $totalExp += $gangersData[$i]->getXp();
@@ -108,6 +132,8 @@ class GangsController extends AbstractController
             'total_cost' => $totalCost,
             'total_exp' => $totalExp,
             'gang_rating' => $gangRating,
+            'territories' => $territories,
+            'total_territories' => sizeof($territories),
         ]);
     }
 
@@ -160,7 +186,7 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{gang_id}/insert_new_territory/{territory_id}", name="insert_new_territory_in_db")
      */
-    public function insertTerritory($gang_id, $territory_id): Response
+    public function insertTerritory($gang_id, $territory_id, GangTerritoryRepository $gangTerritoryRepository): Response
     {
         $newTerritory = $this->territoriesRepository->find($territory_id);
         $myGang = $this->gangsRepository->find($gang_id);
@@ -171,8 +197,27 @@ class GangsController extends AbstractController
 
         $myGang->addTerritory($newTerritory);
 
+
+        // Increase (+1) the counter of gang's territories
+        $count = $gangTerritoryRepository->findOneBy(array(
+            'gang' => $myGang->getId(),
+            'territory' => $newTerritory->getId(),
+        ));
+
+        if($count === NULL) {
+            $count = new GangTerritory();
+            $count
+                ->setGang($myGang)
+                ->setTerritory($newTerritory)
+                ->setCount(1);
+        } else {
+            $count->setCount($count->getCount() + 1);
+        }
+
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($myGang);
+        $em->persist($count);
         $em->flush();
 
         $this->addFlash('success', 'Territory added!');
@@ -185,16 +230,21 @@ class GangsController extends AbstractController
     /**
      * @Route("/gangs/{gang_id}/remove_gang_territory/{territory_id}", name="remove_gang_territory")
      */
-    public function deleteTerritory($gang_id, $territory_id): Response
+    public function deleteTerritory($gang_id, $territory_id, GangTerritoryRepository $gangTerritoryRepository): Response
     {
         $territory = $this->territoriesRepository->find($territory_id);
         $myGang = $this->gangsRepository->find($gang_id);
+
 
         if(!$myGang || !$territory) {
             throw $this->createNotFoundException();
         }
 
-        $myGang->removeTerritory($territory);
+        $count = $gangTerritoryRepository->findOneBy(array(
+            'gang' => $myGang->getId(),
+            'territory' => $territory->getId(),
+        ));
+        $count->setCount($count->getCount() - 1);
 
         $em = $this->getDoctrine()->getManager();
         $em->flush();
@@ -214,7 +264,16 @@ class GangsController extends AbstractController
      */
      public function addWeapon($ganger_id): Response
     {
+        $myGanger = $this->myGangersRepository->find($ganger_id);
         $weapons = $this->weaponsRepository->findAll();
+
+        if($myGanger->getGangerType()->getId() === 4) {
+            $weapons = $this->weaponsRepository->juvesWeapons();
+        }
+
+        if ($myGanger->getGangerType()->getId() !== 4 && $this->weaponsRepository->checkIfHasHeavyWeapon() == null) {
+            $weapons = $this->weaponsRepository->weaponsWithoutHeavy();
+        }
 
         return $this->render('gangs/newWeapon.html.twig', [
             'weapons' => $weapons,
@@ -227,8 +286,8 @@ class GangsController extends AbstractController
      */
     public function insertWeapon($ganger_id, $weapon_id): Response
     {
-        $newWeapon = $this->weaponsRepository->find($weapon_id);
         $myGanger = $this->myGangersRepository->find($ganger_id);
+        $newWeapon = $this->weaponsRepository->find($weapon_id);
 
         if(!$myGanger || !$newWeapon) {
             throw $this->createNotFoundException();

@@ -138,6 +138,34 @@ class GangsController extends AbstractController
     }
 
     /**
+     * @Route("/gangs/{gang_id}/update_stash", name="update_stash")
+     */
+    public function updateStash($gang_id, Request $request): Response
+    {
+dd($request->request->get('newstash'));
+
+        $newStash = $request->request->get('newstash');
+
+        // Check if the value entered by the player is a number
+        if(gettype($newStash) !== 'integer') {
+            $this->addFlash('error', 'Error: invalid value - stash not updated');
+        }
+
+        $myGang = $this->gangsRepository->find($gang_id);
+        $myGang->setCredits($newStash);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($myGang);
+        $em->flush();
+
+        $this->addFlash('success', 'Stash updated!');
+
+        return $this->redirectToRoute('show_gang', [
+            'gang_id' => $gang_id,
+        ]);
+   }
+
+    /**
      * @Route("/gangs/{gang_id}/delete_gang", name="delete_gang", methods="DELETE")
      */
     public function deleteGang($gang_id): Response
@@ -267,12 +295,14 @@ class GangsController extends AbstractController
         $myGanger = $this->myGangersRepository->find($ganger_id);
         $weapons = $this->weaponsRepository->findAll();
 
+        // If the ganger is a Juve, only display the weapons he is allowed to carry on
         if($myGanger->getGangerType()->getId() === 4) {
-            $weapons = $this->weaponsRepository->juvesWeapons();
+            $weapons = $this->weaponsRepository->findBy(array('category'=>array(1,2,6)));
         }
 
-        if ($myGanger->getGangerType()->getId() !== 4 && $this->weaponsRepository->checkIfHasHeavyWeapon() == null) {
-            $weapons = $this->weaponsRepository->weaponsWithoutHeavy();
+        // Do not display Heavy weapons if the ganger already has one
+        if ($myGanger->getGangerType()->getId() !== 4 && $this->weaponsRepository->checkIfHasHeavyWeapon($ganger_id) !== []) {
+            $weapons = $this->weaponsRepository->findBy(array('category'=>array(1,2,3,4,6,7)));
         }
 
         return $this->render('gangs/newWeapon.html.twig', [
@@ -565,7 +595,8 @@ class GangsController extends AbstractController
                 ->setMove(4)
                 ->setAdv(0)
                 ->setCredits(0)
-                ->setCreatedAt(new \DateTime('NOW'));
+                ->setCreatedAt(new \DateTime('NOW'))
+                ->setImage('img/cawdor.jpg');
 
             if (1 === $gangerTypeId->getId()) {
                 $startXp = 60 + rand(1,6);
@@ -579,8 +610,7 @@ class GangsController extends AbstractController
                     ->setAttacks(1)
                     ->setLeadership(8)
                     ->setCost(120)
-                    ->setXp($startXp)
-                    ->setImage('img/cawdor_figurine.png');
+                    ->setXp($startXp);
             } elseif (2 === $gangerTypeId->getId()) {
                 $startXp = 60 + rand(1,6);
                 $newGanger
@@ -593,8 +623,7 @@ class GangsController extends AbstractController
                     ->setAttacks(1)
                     ->setLeadership(7)
                     ->setCost(60)
-                    ->setXp($startXp)
-                    ->setImage('img/cawdor_figurine.png');
+                    ->setXp($startXp);
             } elseif (3 === $gangerTypeId->getId()) {
                 $startXp = 20 + rand(1,6);
                 $newGanger
@@ -607,8 +636,7 @@ class GangsController extends AbstractController
                     ->setAttacks(1)
                     ->setLeadership(7)
                     ->setCost(50)
-                    ->setXp($startXp)
-                    ->setImage('img/cawdor_figurine.png');
+                    ->setXp($startXp);
             } elseif (4 === $gangerTypeId->getId()) {
                 $newGanger
                     ->setWeaponSkill(2)
@@ -620,8 +648,7 @@ class GangsController extends AbstractController
                     ->setAttacks(1)
                     ->setLeadership(6)
                     ->setCost(25)
-                    ->setXp(0)
-                    ->setImage('img/cawdor_figurine.png');
+                    ->setXp(0);
             }
 
             $weapon = $this->weaponsRepository->find(array('id' => 2));
@@ -678,7 +705,73 @@ class GangsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $gangerType = $gangerData->getGangerType();
+            $gangData = $this->gangsRepository->find(intval($gangId));
 
+            // Check if the gang already has a leader (only one allowed)
+            $isSoleLeader = $this->myGangersRepository->findBy(array(
+                'gangerType' => $gangerType->getId(),
+                'gang' => $gangId
+            ));
+
+            if(($gangerType->getId() == 1) && (sizeof($isSoleLeader) != 0)) {
+                $this->addFlash('error', 'Error: there can be only one leader in your gang!');
+
+                return $this->render('gangs/edit.html.twig', [
+                    'form' => $form->createView(),
+                    'gang_id' => $gangId,
+                    'ganger_id' => $gangerData->getId(),
+                    'gangerImg' => $gangerData->getImage(),
+                    'injuries' => $gangerInjuries,
+                    'weapons' => $gangerWeapons,
+                    'skills' => $gangerSkills,
+                ]);
+            }
+
+            // Check if the gang already has less than 2 heavies
+            $maxTwoHeavies = $this->myGangersRepository->findBy(array(
+                'gangerType' => $gangerType->getId(),
+                'gang' => $gangId
+            ));
+
+            if(($gangerType->getId() == 2) && (sizeof($maxTwoHeavies) >= 2)) {
+                $this->addFlash('error', 'Error: there can be a maximum of two Heavies in your gang!');
+
+                return $this->render('gangs/edit.html.twig', [
+                    'form' => $form->createView(),
+                    'gang_id' => $gangId,
+                    'ganger_id' => $gangerData->getId(),
+                    'gangerImg' => $gangerData->getImage(),
+                    'injuries' => $gangerInjuries,
+                    'weapons' => $gangerWeapons,
+                    'skills' => $gangerSkills,
+                ]);
+            }
+
+            // Check if the gang already has less than the half of his gang composed of juves
+            $numberOfJuves = $this->myGangersRepository->findBy(array(
+                'gangerType' => $gangerType->getId(),
+                'gang' => $gangId
+            ));
+            $numberOfJuves = sizeof($numberOfJuves);
+
+            $gangSize =sizeof($gangData->getMyGangers());
+
+            if(($gangerType->getId() == 4) && ($numberOfJuves >= ($gangSize/2))) {
+                $this->addFlash('error', 'Error: you have too many Juves in your gang!');
+
+                return $this->render('gangs/edit.html.twig', [
+                    'form' => $form->createView(),
+                    'gang_id' => $gangId,
+                    'ganger_id' => $gangerData->getId(),
+                    'gangerImg' => $gangerData->getImage(),
+                    'injuries' => $gangerInjuries,
+                    'weapons' => $gangerWeapons,
+                    'skills' => $gangerSkills,
+                ]);
+            }
+
+            // Juve gain enough exp to become a ganger
             if($gangerType === 'Juve' && $gangerData->getXp() >= 21) {
                 $newGangerType = $gangersTypesRepository->find(array('id' => 3));
                 $gangerData->setGangerType($newGangerType);

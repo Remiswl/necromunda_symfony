@@ -18,44 +18,4 @@ class GangersImgRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, GangersImg::class);
     }
-
-    // public function findImg($value)
-    // {
-    //     return $this->createQueryBuilder('g')
-    //         ->andWhere('g.houseId = :val')
-    //         ->setParameter('val', $value)
-    //         ->orderBy('g.id', 'ASC')
-    //         ->getQuery()
-    //         ->getResult()
-    //     ;
-    // }
-
-    // /**
-    //  * @return GangersImg[] Returns an array of GangersImg objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?GangersImg
-    {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

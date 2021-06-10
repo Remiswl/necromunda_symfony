@@ -221,6 +221,17 @@ class SettingsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $newWeapon->setAvailability(0)
+                ->setShortRange(0)
+                ->setLongRange(0)
+                ->setShortAccuracy(0)
+                ->setLongAccuracy(0)
+                ->setStrength(0)
+                ->setArmourPiercing(0)
+                ->setDamage(0)
+                ->setAmmo(0);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($newWeapon);
             $em->flush();

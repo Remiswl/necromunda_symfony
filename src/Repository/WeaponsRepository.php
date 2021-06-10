@@ -35,69 +35,16 @@ class WeaponsRepository extends ServiceEntityRepository
         ;
     }
 
-    public function juvesWeapons()
-    {
-        return $this->createQueryBuilder('w')
-            ->andWhere('w.category = 1')
-            ->andWhere('w.category = 2')
-            ->andWhere('w.category = 6')
-            ->orderBy('w.category', 'ASC')
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
-    public function weaponsWithoutHeavy()
-    {
-        return $this->createQueryBuilder('w')
-            ->andWhere('w.category = 1')
-            ->andWhere('w.category = 2')
-            ->andWhere('w.category = 3')
-            ->andWhere('w.category = 4')
-            ->andWhere('w.category = 6')
-            ->andWhere('w.category = 7')
-            ->orderBy('w.category', 'ASC')
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
-    public function checkIfHasHeavyWeapon()
+    public function checkIfHasHeavyWeapon($ganger_id)
     {
         return $this->createQueryBuilder('w')
             ->andWhere('w.category = 5')
+            ->leftJoin('w.ganger', 'g')
+            ->andWhere('g.id = :val')
+            ->setParameter('val', $ganger_id)
             ->orderBy('w.category', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-
-    // /**
-    //  * @return Weapons[] Returns an array of Weapons objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('w.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Weapons
-    {
-        return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

@@ -82,7 +82,11 @@
 				<tbody>
 					{% for injury in injuries %}
 						<tr>
-							<td>{{ injury.mind66 ~ ' - ' ~ injury.maxd66 }}</td>
+							{% if injury.mind66 == injury.maxd66 %}
+								<td>{{ injury.mind66 }}</td>
+							{% else %}
+								<td>{{ injury.mind66 ~ ' - ' ~ injury.maxd66 }}</td>
+							{% endif %}
 							<td class="text-left">{{ injury.description }}</td>
 							<td>
 								<a href="{{ path('edit_injury', {injury_id : injury.id}) }}" class="btn btn-secondary mb-3">Edit</a>

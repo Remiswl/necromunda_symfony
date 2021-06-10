@@ -28,3 +28,19 @@ $('#editImage').click(() => {
         data: { id : $('.selectedImg').attr('id') }
     });
 });
+
+/*
+ * Popup to edit gang's stash
+ */
+let popup = $('#popup');
+
+popup.click((e) => {
+    e.preventDefault;
+    let newstash = window.prompt('Enter a new amount');
+
+    $.ajax({
+        url: $('#popup').attr('data-url'),
+        type: 'POST',
+        data: { newstash : newstash }
+    });
+});

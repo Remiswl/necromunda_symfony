@@ -34,7 +34,7 @@ class Injuries
     /**
      * @ORM\Column(type="integer")
      * @Assert\Range(max=66)
-     * @Assert\GreaterThan(propertyPath="minD66")
+     * @Assert\GreaterThanOrEqual(propertyPath="minD66")
      */
     private $maxD66;
 

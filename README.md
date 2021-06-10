@@ -6,6 +6,8 @@ Necromunda is a skirmish tabletop war game produced by Games Workshop. This webs
 
 All texts and images are the property of Games Workshop.
 
+V0 published on June, 2021
+Working on V1
 
 ## Technologies
 
@@ -17,25 +19,20 @@ All texts and images are the property of Games Workshop.
 ## Production
 
 ### To do list
-
-* Manage your gang
-	* Make possible the update of the gang's stash ->pop up "Enter the new gang's credits" (collecting income at the end of a battle)
-	* Prevent gangers from having more than 1 heavy weapon (per ganger)
-		-> récupérer les armes du ganger
-		-> s'il a déjà une arme lourde, alors...
-
-* Controllers: test all routes and add createNotfoundExceptions
-
+* send the site online
 
 ### Next steps:
 
-* add equipment to gangers?
+* Work on CSS
+* Add a back office
+* Add Roles
+* Add equipment to gangers?
 * Recruit a gang
 	* Allow the player to choose an image for his gang (gang's arms, gangers' faces, etc.)
 * Start a battle (/battle):
 	* add buttons to roll dices to choose the ground, roll dices for attacks, etc.
 	* a single page with information about the ground, the gangs, etc.?
-	* last page (/result) to upgrade each ganger after the end of the battlefatal
+	* last page (/result) to upgrade each ganger after the end of the battle
 	* manage the sell of equipment and weapons
 * Manage your gang
 	* territories: add a button to automatically calculate income

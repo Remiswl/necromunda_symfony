@@ -142,8 +142,6 @@ class GangsController extends AbstractController
      */
     public function updateStash($gang_id, Request $request): Response
     {
-dd($request->request->get('newstash'));
-
         $newStash = $request->request->get('newstash');
 
         // Check if the value entered by the player is a number
@@ -157,8 +155,6 @@ dd($request->request->get('newstash'));
         $em = $this->getDoctrine()->getManager();
         $em->persist($myGang);
         $em->flush();
-
-        $this->addFlash('success', 'Stash updated!');
 
         return $this->redirectToRoute('show_gang', [
             'gang_id' => $gang_id,

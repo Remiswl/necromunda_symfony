@@ -18,9 +18,6 @@ Working on V1
 
 ## Production
 
-### To do list
-* send the site online
-
 ### Next steps:
 
 * Work on CSS

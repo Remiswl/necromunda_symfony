@@ -29,9 +29,7 @@ $('#editImage').click(() => {
     });
 });
 
-/*
- * Popup to edit gang's stash
- */
+// Popup to edit gang's stash
 let popup = $('#popup');
 
 popup.click((e) => {
@@ -41,6 +39,9 @@ popup.click((e) => {
     $.ajax({
         url: $('#popup').attr('data-url'),
         type: 'POST',
-        data: { newstash : newstash }
+        data: { newstash : newstash },
+        success: function(data) {
+            location.reload();
+        },
     });
 });

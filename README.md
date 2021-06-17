@@ -9,6 +9,8 @@ All texts and images are the property of Games Workshop.
 V0 published on June, 2021
 Working on V1
 
+http://necromunda.remischwall.fr/
+
 ## Technologies
 
 * Front-end: JavaScript ES6, Bootstrap 4, Twig
@@ -22,6 +24,7 @@ Working on V1
 
 * Work on CSS
 * Add a back office
+* Create Error pages
 * Add Roles
 * Add equipment to gangers?
 * Recruit a gang
@@ -37,7 +40,7 @@ Working on V1
 	* @Route: add a slug with the ganger's name (Grafikart - Découverte de Doctrine 33')
 * Settings
 	* weapons -> add images?
-* Objects to roll dices (xD6, xD3, D66 (1st D6 dice as tens, a 2nd D6 dice as units))
+* Objects to roll dices (xD6, xD3, D66 (1st D6 dice as tens, a 2nd D6 dice as units)) for Serious Injuries, etc.
 * experience advance table (cf. p.111)
-* advance rolls (new skills/characteristics at the end of a battle (cf. p.112)
+* advance rolls (new skills/characteristics at the end of a battle (cf. p.112))
 * Add automated tests

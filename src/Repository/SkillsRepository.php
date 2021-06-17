@@ -26,7 +26,7 @@ class SkillsRepository extends ServiceEntityRepository
     public function displayGangerSkills($ganger_id)
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.id = :val')
+            ->andWhere('g.id = :val')
             ->setParameter('val', $ganger_id)
             ->leftJoin('s.ganger', 'g')
             ->addSelect('g')
@@ -35,6 +35,7 @@ class SkillsRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
 
     // /**
     //  * @return Skills[] Returns an array of Skills objects

@@ -62,7 +62,7 @@
 
 			{{ form_end(form) }}
 
-		{% if injuries | length > 0 %}
+		{# {% if injuries | length > 0 %}
 
 			<h2 id="injuries" class="my-3">Ganger's injuries</h2>
 
@@ -89,10 +89,10 @@
 				</tbody>
 			</table>
 
-		{% endif %}
+		{% endif %} #}
 
-		<a href="{{ path('new_ganger_injury', {ganger_id : ganger_id}) }}" class="btn btn-secondary my-2">New injury</a>
-
+{# 		<a href="{{ path('new_ganger_injury', {ganger_id : ganger_id}) }}" class="btn btn-secondary my-2">New injury</a>
+ #}
 
 		{% if weapons | length > 0 %}
 

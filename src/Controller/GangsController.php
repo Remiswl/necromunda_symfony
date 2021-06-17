@@ -688,7 +688,7 @@ class GangsController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        $gangerType = $gangersTypesRepository->find($ganger_id);
+        //$gangerType = $gangersTypesRepository->find($ganger_id);
         $gangerType = $gangerData->getGangerType()->__toString();
 
         $gangId = $gangerData->getGang()->getId();

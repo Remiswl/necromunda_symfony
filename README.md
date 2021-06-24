@@ -15,7 +15,7 @@ http://necromunda.remischwall.fr/
 
 * Front-end: JavaScript ES6, Bootstrap 4, Twig
 * Back-end: PHP7.4.3, SQL
-* Framework: Symfony 5
+* Framework: Symfony 5.2
 
 
 ## Production

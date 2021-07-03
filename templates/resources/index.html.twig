@@ -5,47 +5,46 @@
 {% block body %}
 
 	<section id="resources" class="mb-5">
-			<div class="text-right col-10">
-				<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
-			</div>
 
-			<div class="d-flex">
-				<div class="container">
-					<div class="row pb-4 border-bottom border-dark">
-						<div class="m-3">
-							<div class="row d-flex flex-wrap">
-								<div class="col-12 col-md-6 col-lg-4 my-2">
-									<div class="card bg-transparent h-100">
-										<img class="card-img-top p-3 h-80" src="{{ asset('img/comprehensive_rulebook.png')}}" alt="comprehensive_rulebook"/>
-										<div class="card-body text-center h-20">
-											<h3><a href="{{ asset('resources/necromunda_comprehensive_rulebook.pdf')}}" target="_blank" class="btn stretched-link text-white">Comprehensive Rulebook (En)</a></h3>
-										</div>
+		{% set previousPage = path('home') %}
+		{% include 'back.html.twig' %}
+
+		<div class="d-flex">
+			<div class="container">
+				<div class="row pb-4 border-bottom border-dark">
+					<div class="m-3">
+						<div class="row d-flex flex-wrap">
+							<div class="col-12 col-md-6 col-lg-4 my-2">
+								<div class="card bg-transparent h-100">
+									<img class="card-img-top p-3 h-80" src="{{ asset('img/comprehensive_rulebook.png')}}" alt="comprehensive_rulebook"/>
+									<div class="card-body text-center h-20">
+										<h3><a href="{{ asset('resources/necromunda_comprehensive_rulebook.pdf')}}" target="_blank" class="btn stretched-link text-white">Comprehensive Rulebook (En)</a></h3>
 									</div>
 								</div>
+							</div>
 
-								<div class="col-12 col-md-6 col-lg-4 my-2">
-									<div class="card bg-transparent h-100">
-										<img class="card-img-top p-3 h-80" src="{{ asset('img/community_edition.jpg')}}" alt="community_edition"/>
-										<div class="card-body text-center h-20">
-											<h3><a href="{{ asset('resources/necromunda_community_edition.pdf')}}" target="_blank" class="btn stretched-link text-white">Community Edition (En)</a></h3>
-										</div>
+							<div class="col-12 col-md-6 col-lg-4 my-2">
+								<div class="card bg-transparent h-100">
+									<img class="card-img-top p-3 h-80" src="{{ asset('img/community_edition.jpg')}}" alt="community_edition"/>
+									<div class="card-body text-center h-20">
+										<h3><a href="{{ asset('resources/necromunda_community_edition.pdf')}}" target="_blank" class="btn stretched-link text-white">Community Edition (En)</a></h3>
 									</div>
 								</div>
+							</div>
 
-								<div class="col-12 col-md-6 col-lg-4 my-2">
-									<div class="card bg-transparent h-100">
-										<img class="card-img-top p-3 h-80" src="{{ asset('img/underhive.jpg')}}" alt="underhive"/>
-										<div class="card-body text-center h-20">
-											<h3><a href="{{ asset('resources/necromunda_underhive.pdf')}}" target="_blank" class="btn stretched-link text-white">Underhive (Fr)</a></h3>
-										</div>
+							<div class="col-12 col-md-6 col-lg-4 my-2">
+								<div class="card bg-transparent h-100">
+									<img class="card-img-top p-3 h-80" src="{{ asset('img/underhive.jpg')}}" alt="underhive"/>
+									<div class="card-body text-center h-20">
+										<h3><a href="{{ asset('resources/necromunda_underhive.pdf')}}" target="_blank" class="btn stretched-link text-white">Underhive (Fr)</a></h3>
 									</div>
 								</div>
-								<div class="col-12 col-md-6 col-lg-4 my-2">
-									<div class="card bg-transparent h-100">
-										<img class="card-img-top p-3 h-80" src="{{ asset('img/compilation.png')}}" alt="compilation"/>
-										<div class="card-body text-center h-20">
-											<h3><a href="{{ asset('resources/necromunda_compilation.pdf')}}" target="_blank" class="btn stretched-link text-white">Compilation (En)</a></h3>
-										</div>
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 my-2">
+								<div class="card bg-transparent h-100">
+									<img class="card-img-top p-3 h-80" src="{{ asset('img/compilation.png')}}" alt="compilation"/>
+									<div class="card-body text-center h-20">
+										<h3><a href="{{ asset('resources/necromunda_compilation.pdf')}}" target="_blank" class="btn stretched-link text-white">Compilation (En)</a></h3>
 									</div>
 								</div>
 							</div>
@@ -53,7 +52,7 @@
 					</div>
 				</div>
 			</div>
-
-		</section>
+		</div>
+	</section>
 
 {% endblock %}

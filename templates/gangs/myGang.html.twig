@@ -7,11 +7,11 @@
 {% block body %}
 
 	<section id="gangs" class="mb-5">
-		<div class="text-center mx-5">
-			<div class="text-right">
-				<a href="{{ path('gangs') }}" class="btn btn-secondary my-2">Back</a>
-			</div>
 
+		{% set previousPage = path('gangs') %}
+		{% include 'back.html.twig' %}
+
+		<div class="text-center mx-5">
 			<div class="col-10 mx-auto">
 
 				{% for message in app.flashes('success') %}

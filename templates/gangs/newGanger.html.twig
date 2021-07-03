@@ -5,11 +5,11 @@
 {% block body %}
 
 	<section id="newGanger" class="mb-5">
-		<div class="col-10 m-auto text-white">
 
-			<div class="text-right">
-				<a href="{{ path('show_gang', {'gang_id' : gangId}) }}" class="btn btn-secondary my-2">Back</a>
-			</div>
+		{% set previousPage = path('show_gang', {'gang_id' : gangId}) %}
+		{% include 'back.html.twig' %}
+
+		<div class="col-10 m-auto text-white">
 
 			{% for message in app.flashes('error') %}
 				<div class="alert alert-danger col-4 offset-4">
@@ -19,7 +19,7 @@
 
 			{{ form_start(form) }}
 
-				<div class="col-4 offset-4">
+				<div class="col-sm-8 offset-lg-4 col-lg-4">
 					{{ form_row(form.name) }}
 					{{ form_row(form.gangerType) }}
 				</div>

@@ -5,15 +5,15 @@
 {% block body %}
 
 	<section id="recruitment" class="mb-5">
-		<div class="text-center">
 
-			<div class="text-right">
-				<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
-			</div>
+		{% set previousPage = path('home') %}
+		{% include 'back.html.twig' %}
+
+		<div class="text-center">
 
 			<p class="text-white">Hello {{ gangData.pseudo }}! Select your gangers:</p>
 
-			<div class="col-4 mx-auto">
+			<div class="col-sm-8 offset-lg-4 col-lg-4 mx-auto">
 				<table class="table table-bordered bg-white">
 					<tr>
 						<td>House: {{ gangData.house }}</td>

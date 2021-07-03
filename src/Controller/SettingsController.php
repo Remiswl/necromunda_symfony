@@ -78,7 +78,8 @@ class SettingsController extends AbstractController
             return $this->redirectToRoute('settings');
         }
 
-        return $this->render('settings/newTerritory.html.twig', [
+        return $this->render('settings/new.html.twig', [
+            'topic' => 'Territory',
             'form' => $form->createView(),
         ]);
     }
@@ -107,7 +108,8 @@ class SettingsController extends AbstractController
             return $this->redirectToRoute('settings');
         }
 
-        return $this->render('settings/editTerritory.html.twig', [
+        return $this->render('settings/edit.html.twig', [
+            'topic' => 'Territory',
             'territories' => $territoryData,
             'form' => $form->createView(),
         ]);
@@ -153,7 +155,8 @@ class SettingsController extends AbstractController
             return $this->redirectToRoute('settings');
         }
 
-        return $this->render('settings/newInjury.html.twig', [
+        return $this->render('settings/new.html.twig', [
+            'topic' => 'Injury',
             'form' => $form->createView(),
         ]);
     }
@@ -182,7 +185,8 @@ class SettingsController extends AbstractController
             return $this->redirectToRoute('settings');
         }
 
-        return $this->render('settings/editInjury.html.twig', [
+        return $this->render('settings/edit.html.twig', [
+            'topic' => 'Injury',
             'injuries' => $injuryData,
             'form' => $form->createView(),
         ]);
@@ -239,7 +243,8 @@ class SettingsController extends AbstractController
             return $this->redirectToRoute('settings');
         }
 
-        return $this->render('settings/newWeapon.html.twig', [
+        return $this->render('settings/new.html.twig', [
+            'topic' => 'Weapon',
             'form' => $form->createView(),
         ]);
     }
@@ -268,7 +273,8 @@ class SettingsController extends AbstractController
             return $this->redirectToRoute('settings');
         }
 
-        return $this->render('settings/editWeapon.html.twig', [
+        return $this->render('settings/edit.html.twig', [
+            'topic' => 'Weapon',
             'weapons' => $weaponData,
             'form' => $form->createView(),
         ]);
@@ -314,7 +320,8 @@ class SettingsController extends AbstractController
             return $this->redirectToRoute('settings');
         }
 
-        return $this->render('settings/newSkill.html.twig', [
+        return $this->render('settings/new.html.twig', [
+            'topic' => 'Skill',
             'form' => $form->createView(),
         ]);
     }
@@ -343,7 +350,8 @@ class SettingsController extends AbstractController
             return $this->redirectToRoute('settings');
         }
 
-        return $this->render('settings/editSkill.html.twig', [
+        return $this->render('settings/edit.html.twig', [
+            'topic' => 'Skill',
             'skills' => $skillData,
             'form' => $form->createView(),
         ]);

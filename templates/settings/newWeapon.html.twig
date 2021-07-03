@@ -1,27 +1,9 @@
-{% extends 'base.html.twig' %}
+{{ form_start(form) }}
 
-{% block title %}New weapon{% endblock %}
+	<div>{{ form_row(form.name) }}</div>
+	<div>{{ form_row(form.cost) }}</div>
+	<div>{{ form_row(form.category) }}</div>
 
-{% block body %}
+	<button class="btn btn-primary btn-save">Add weapon</button>
 
-	<section id="new_territory" class="mb-5">
-		<div class="col-3 m-auto text-white">
-
-			<div class="text-right">
-				<a href="{{ path('settings') }}" class="btn btn-secondary my-2">Back</a>
-			</div>
-
-			{{ form_start(form) }}
-
-				<div>{{ form_row(form.name) }}</div>
-				<div>{{ form_row(form.cost) }}</div>
-				<div>{{ form_row(form.category) }}</div>
-
-				<button class="btn btn-primary offset-4">Add weapon</button>
-
-			{{ form_end(form) }}
-
-		</div>
-	</section>
-
-{% endblock %}
+{{ form_end(form) }}

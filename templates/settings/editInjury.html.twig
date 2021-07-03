@@ -1,29 +1,12 @@
-{% extends 'base.html.twig' %}
+{{ form_start(form) }}
 
-{% block title %}Edit injury{% endblock %}
+	<div class="d-flex justify-content-between">
+		{{ form_row(form.mind66) }}
+		{{ form_row(form.maxd66) }}
+	</div>
 
-{% block body %}
+	{{ form_row(form.description) }}
 
-	<section id="edit_injury" class="mb-5">
-		<div class="col-10 m-auto text-white">
+	<button class="btn btn-primary btn-save">Save changes</button>
 
-			<div class="text-right">
-				<a href="{{ path('settings') }}" class="btn btn-secondary my-2">Back</a>
-			</div>
-
-			{{ form_start(form) }}
-				<div class="row">
-					<div class="col-2">{{ form_row(form.mind66) }}</div>
-					<div class="col-2">{{ form_row(form.maxd66) }}</div>
-					<div class="col-8">{{ form_row(form.description) }}</div>
-				</div>
-
-				<div class="text-center">
-					<button class="btn btn-primary">Save changes</button>
-				</div>
-			{{ form_end(form) }}
-
-		</div>
-	</section>
-
-{% endblock %}
+{{ form_end(form) }}

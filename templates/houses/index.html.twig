@@ -5,19 +5,19 @@
 {% block body %}
 
 	<section id="houses" class="mb-5">
-		<div class="text-center text-white">
 
-			<div class=" col-10 text-right">
-				<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
-			</div>
+		{% set previousPage = path('home') %}
+		{% include 'back.html.twig' %}
+
+		<div class="text-center text-white">
 
 			{% for house in houses %}
 
-				<div class="col-6 mx-auto my-4 d-flex flex-row">
-					<div class="bg-white col-2 rounded d-flex align-items-center">
-						<img src="{{ house.image }}" alt="{{ house.name }}" class="">
+				<div class="col-10 col-xl-8 mx-auto my-4 d-flex flex-row">
+					<div class="d-none d-md-flex col-md-3 col-xl-2 rounded align-items-center bg-white">
+						<img src="{{ house.image }}" alt="{{ house.name }}" class="mx-auto">
 					</div>
-					<div class="ml-4 w-100 col-10">
+					<div class="ml-md-4 w-100 col-12 col-md-9 col-xl-10">
 						<h5>{{ house.name }}</h5>
 						<p class="text-left">{{ house.description }}</p>
 					</div>

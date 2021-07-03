@@ -5,10 +5,12 @@
 {% block body %}
 
 	<section id="new_skill" class="mb-5">
+
+		{% set previousPage = path('edit_ganger', {'ganger_id' : ganger_id }) %}
+		{% include 'back.html.twig' %}
+
 		<div class="text-center text-white col-10 mx-auto">
 			<div class="text-right">
-				<a href="{{ path('edit_ganger', {'ganger_id' : ganger_id }) }}" class="btn btn-secondary my-2">Back</a>
-			</div>
 
 			{% for message in app.flashes('success') %}
 				<div class="alert alert-success">

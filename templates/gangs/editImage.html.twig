@@ -5,11 +5,11 @@
 {% block body %}
 
 	<section id="editGangerImage" class="mb-5">
-		<div class="col-10 m-auto text-white">
 
-			<div class="text-right">
-				<a href="{{ path('edit_ganger', {'ganger_id' : ganger_id }) }}" class="btn btn-secondary my-2">Back</a>
-			</div>
+		{% set previousPage = path('edit_ganger', {'ganger_id' : ganger_id }) %}
+		{% include 'back.html.twig' %}
+
+		<div class="col-10 m-auto text-white">
 
 			<form method="POST">
 	           <fieldset class="form">

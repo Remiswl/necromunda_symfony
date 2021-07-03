@@ -5,11 +5,11 @@
 {% block body %}
 
 	<section id="edit_gang" class="mb-5">
-		<div class="col-10 m-auto text-white">
 
-			<div class="text-right">
-				<a href="{{ path('show_gang', {gang_id : gang_id}) }}" class="btn btn-secondary my-2">Back</a>
-			</div>
+		{% set previousPage = path('show_gang', {gang_id : gang_id}) %}
+		{% include 'back.html.twig' %}
+
+		<div class="col-10 m-auto text-white">
 
 			{% for message in app.flashes('success') %}
 				<div class="alert alert-success">

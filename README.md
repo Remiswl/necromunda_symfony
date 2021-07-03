@@ -6,9 +6,6 @@ Necromunda is a skirmish tabletop war game produced by Games Workshop. This webs
 
 All texts and images are the property of Games Workshop.
 
-V0 published on June, 2021
-Working on V1
-
 http://necromunda.remischwall.fr/
 
 ## Technologies
@@ -20,27 +17,44 @@ http://necromunda.remischwall.fr/
 
 ## Production
 
+### Work in progress
+* Responsive design
+	* Recruitment
+	* Manage my gang
+		* new page "new.html.twig"
+	* ~~Settings~~
+	* ~~Ressources~~
+	* ~~Houses~~
+	* ~~Home~~
+
+
+### TODO list
+* Install EasyAdmin
+* Create Error 404 pages
+* My gang -> add a button to generate Territories' revenus
+* Start a battle (/battle):
+	* a first page to choose the gangs that will fight (/battle1)
+	* a second page with information about the gangers (/battle2)
+	* a third page at the end of the fight (/result) -> roll dices to :
+		* upgrade gangers ?
+		* ?
+	* create buttons to roll dices to choose the ground, roll dices for attacks, etc.
+* Manage gangers
+	* @Route: add a slug with the ganger's name (Grafikart - Découverte de Doctrine 33')
+	* Manage Experience Advances (p.111)
+	* ManageAdvance rolls (p.112)
+	* when change profile picture, redirect to ganger's page
+* Change admin password
+
 ### Next steps:
 
-* Work on CSS
-* Add a back office
-* Create Error pages
 * Add Roles
 * Add equipment to gangers?
 * Recruit a gang
 	* Allow the player to choose an image for his gang (gang's arms, gangers' faces, etc.)
 * Start a battle (/battle):
-	* add buttons to roll dices to choose the ground, roll dices for attacks, etc.
-	* a single page with information about the ground, the gangs, etc.?
-	* last page (/result) to upgrade each ganger after the end of the battle
 	* manage the sell of equipment and weapons
-* Manage your gang
-	* territories: add a button to automatically calculate income
-* Manage gangers
-	* @Route: add a slug with the ganger's name (Grafikart - Découverte de Doctrine 33')
 * Settings
 	* weapons -> add images?
 * Objects to roll dices (xD6, xD3, D66 (1st D6 dice as tens, a 2nd D6 dice as units)) for Serious Injuries, etc.
-* experience advance table (cf. p.111)
-* advance rolls (new skills/characteristics at the end of a battle (cf. p.112))
 * Add automated tests

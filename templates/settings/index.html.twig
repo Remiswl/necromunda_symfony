@@ -5,24 +5,20 @@
 {% block body %}
 
 	<section id="settings" class="mb-5">
+
+		{% set previousPage = path('home') %}
+		{% include 'back.html.twig' %}
+
 		<div class="text-center text-white col-10 mx-auto">
 
-			<div class="text-right">
-				<a href="{{ path('home') }}" class="btn btn-secondary my-2">Back</a>
-			</div>
-
-			<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav mr-auto">
-						<li class="nav-item"><a class="nav-link text-white" href="#territories">Territories</a></li>
-						<li class="nav-item"><a class="nav-link text-white" href="#injuries">Injuries</a></li>
-						<li class="nav-item"><a class="nav-link text-white" href="#weapons">Weapons</a></li>
-						<li class="nav-item"><a class="nav-link text-white" href="#skills">Skills</a></li>
-					</ul>
-				</div>
+			<nav class="nav navbar-light bg-secondary d-flex flex-column flex-sm-row justify-content-center mx-auto">
+			  	<a class="nav-link text-white" href="#territories">Territories</a>
+				<a class="nav-link text-white" href="#injuries">Injuries</a>
+				<a class="nav-link text-white" href="#weapons">Weapons</a>
+				<a class="nav-link text-white" href="#skills">Skills</a>
 			</nav>
 
-			 <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+			<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 
 			{% for message in app.flashes('success') %}
 				<div class="alert alert-success">
@@ -32,7 +28,7 @@
 
 			<h2 id="territories" class="my-3">List of territories</h2>
 
-			<table class="table table-bordered bg-white">
+			<table class="table table-responsive">
 				<thead class="bg-secondary text-white">
 					<tr>
 						<td class="col-1">Name</td>
@@ -46,15 +42,15 @@
 				<tbody>
 					{% for territory in territories %}
 						<tr>
-							<td>{{ territory.name }}</td>
+							<td data-label="Name">{{ territory.name }}</td>
 							{% if territory.mind66 == territory.maxd66 %}
-								<td>{{ territory.mind66 }}</td>
+								<td data-label="D66 roll">{{ territory.mind66 }}</td>
 							{% else %}
-								<td>{{ territory.mind66 ~ ' - ' ~ territory.maxd66 }}</td>
+								<td data-label="D66 roll">{{ territory.mind66 ~ ' - ' ~ territory.maxd66 }}</td>
 							{% endif %}
-							<td>{{ territory.income }}</td>
-							<td class="text-left">{{ territory.description }}</td>
-							<td>
+							<td data-label="Income">{{ territory.income }}</td>
+							<td data-label="Description" class="text-left"><br class="d-md-none">{{ territory.description }}</td>
+							<td data-label="Actions">
 								<a href="{{ path('edit_territory', {territory_id : territory.id}) }}" class="btn btn-secondary mb-3">Edit</a>
 								<form method="post" action='{{ path('delete_territory', {territory_id : territory.id}) }}' onsubmit="return confirm('Do you really want to delete this territory?')">
 									<input type="hidden" name="_method" value="DELETE">
@@ -70,7 +66,7 @@
 
 			<h2 id="injuries" class="my-3">Serious injuries Chart</h2>
 
-			<table class="table table-bordered bg-white">
+			<table class="table table-responsive">
 				<thead class="bg-secondary text-white">
 					<tr>
 						<td class="col-1">D66 roll</td>
@@ -83,12 +79,12 @@
 					{% for injury in injuries %}
 						<tr>
 							{% if injury.mind66 == injury.maxd66 %}
-								<td>{{ injury.mind66 }}</td>
+								<td data-label="D66 roll">{{ injury.mind66 }}</td>
 							{% else %}
-								<td>{{ injury.mind66 ~ ' - ' ~ injury.maxd66 }}</td>
+								<td data-label="D66 roll">{{ injury.mind66 ~ ' - ' ~ injury.maxd66 }}</td>
 							{% endif %}
-							<td class="text-left">{{ injury.description }}</td>
-							<td>
+							<td data-label="Description" class="text-left"><br class="d-md-none">{{ injury.description }}</td>
+							<td data-label="Actions">
 								<a href="{{ path('edit_injury', {injury_id : injury.id}) }}" class="btn btn-secondary mb-3">Edit</a>
 								<form method="post" action='{{ path('delete_injury', {injury_id : injury.id}) }}' onsubmit="return confirm('Do you really want to delete this injury?')">
 									<input type="hidden" name="_method" value="DELETE">
@@ -104,7 +100,7 @@
 
 			<h2 id="weapons" class="my-3">List of weapons</h2>
 
-			<table class="table table-bordered bg-white">
+			<table class="table table-responsive">
 				<thead class="bg-secondary text-white">
 					<tr>
 						<td class="col-1">Name</td>
@@ -117,12 +113,12 @@
 				<tbody>
 					{% for weapon in weapons %}
 						<tr>
-							<td>{{ weapon.name }}</td>
-							<td>{{ weapon.category }}</td>
-							<td>{{ weapon.cost }}</td>
-							<td>
-								<a href="{{ path('edit_weapon', {weapon_id : weapon.id}) }}" class="btn btn-secondary mr-2">Edit</a>
-								<form class="d-inline-block" method="post" action='{{ path('delete_weapon', {weapon_id : weapon.id}) }}' onsubmit="return confirm('Do you really want to delete this weapon?')">
+							<td data-label="Name">{{ weapon.name }}</td>
+							<td data-label="Category">{{ weapon.category }}</td>
+							<td data-label="Cost">{{ weapon.cost }}</td>
+							<td data-label="Actions">
+								<a href="{{ path('edit_weapon', {weapon_id : weapon.id}) }}" class="btn btn-secondary mb-3 mb-md-0 mr-0 mr-md-2">Edit</a>
+								<form class="d-md-inline-block" method="post" action='{{ path('delete_weapon', {weapon_id : weapon.id}) }}' onsubmit="return confirm('Do you really want to delete this weapon?')">
 									<input type="hidden" name="_method" value="DELETE">
 									<button class="btn btn-danger">Delete</button>
 								</form>
@@ -136,7 +132,7 @@
 
 			<h2 id="skills" class="my-3">List of skills</h2>
 
-			<table class="table table-bordered bg-white">
+			<table class="table table-responsive">
 				<thead class="bg-secondary text-white">
 					<tr>
 						<td class="col-1">Name</td>
@@ -149,10 +145,10 @@
 				<tbody>
 					{% for skill in skills %}
 						<tr>
-							<td>{{ skill.name }}</td>
-							<td>{{ skill.category }}</td>
-							<td class="text-left">{{ skill.description }}</td>
-							<td>
+							<td data-label="Name">{{ skill.name }}</td>
+							<td data-label="Category">{{ skill.category }}</td>
+							<td data-label="Description" class="text-left"><br class="d-md-none">{{ skill.description }}</td>
+							<td data-label="Actions">
 								<a href="{{ path('edit_skill', {skill_id : skill.id}) }}" class="btn btn-secondary mb-3">Edit</a>
 								<form method="post" action='{{ path('delete_skill', {skill_id : skill.id}) }}' onsubmit="return confirm('Do you really want to delete this skill?')">
 									<input type="hidden" name="_method" value="DELETE">

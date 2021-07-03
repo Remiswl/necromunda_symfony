@@ -1,32 +1,15 @@
-{% extends 'base.html.twig' %}
+{{ form_start(form) }}
 
-{% block title %}New territory{% endblock %}
+	{{ form_row(form.name) }}
+	{{ form_row(form.income) }}
 
-{% block body %}
+	<div class="d-flex justify-content-between">
+		{{ form_row(form.mind66) }}
+		{{ form_row(form.maxd66) }}
+	</div>
 
-	<section id="new_territory" class="mb-5">
+	{{ form_row(form.description) }}
 
-		<div class="col-3 m-auto text-white">
+	<button class="btn btn-primary offset-4">Add territory</button>
 
-			<div class="text-right">
-				<a href="{{ path('settings') }}" class="btn btn-secondary my-2">Back</a>
-			</div>
-
-			{{ form_start(form) }}
-
-				<div>{{ form_row(form.name) }}</div>
-				<div>{{ form_row(form.description) }}</div>
-				<div>{{ form_row(form.income) }}</div>
-				<div class="row">
-					<div class="col-6">{{ form_row(form.mind66) }}</div>
-					<div class="col-6">{{ form_row(form.maxd66) }}</div>
-				</div>
-
-				<button class="btn btn-primary offset-4">Add territory</button>
-
-			{{ form_end(form) }}
-
-		</div>
-	</section>
-
-{% endblock %}
+{{ form_end(form) }}

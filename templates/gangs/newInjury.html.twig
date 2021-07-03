@@ -1,42 +1,19 @@
-{% extends 'base.html.twig' %}
+<table class="table table-bordered bg-white">
+	<thead class="bg-secondary text-white">
+		<tr>
+			<td class="col-1">D66</td>
+			<td class="col-9">Description</td>
+			<td class="col-1">Action</td>
+		</tr>
+	</thead>
 
-{% block title %}Add an injury{% endblock %}
-
-{% block body %}
-
-	<section id="new_injury" class="mb-5">
-
-		{% set previousPage = path('edit_ganger', {'ganger_id' : ganger_id }) %}
-		{% include 'back.html.twig' %}
-
-		<div class="text-center text-white col-10 mx-auto">
-
-			{% for message in app.flashes('success') %}
-				<div class="alert alert-success">
-					{{ message }}
-				</div>
-			{% endfor %}
-
-			<table class="table table-bordered bg-white">
-				<thead class="bg-secondary text-white">
-					<tr>
-						<td class="col-1">D66</td>
-						<td class="col-9">Description</td>
-						<td class="col-1">Action</td>
-					</tr>
-				</thead>
-
-				<tbody>
-					{% for injury in injuries %}
-						<tr>
-							<td>{{ injury.mind66 ~ ' - ' ~ injury.maxd66 }}</td>
-							<td class="text-left">{{ injury.description }}</td>
-							<td><a href="{{ path('insert_new_injury_in_db', {'ganger_id' : ganger_id, 'injury_id' : injury.id }) }}" class="btn btn-secondary mb-3">Add</a></td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-	</section>
-
-{% endblock %}
+	<tbody>
+		{% for injury in injuries %}
+			<tr>
+				<td>{{ injury.mind66 ~ ' - ' ~ injury.maxd66 }}</td>
+				<td class="text-left">{{ injury.description }}</td>
+				<td><a href="{{ path('insert_new_injury_in_db', {'ganger_id' : ganger_id, 'injury_id' : injury.id }) }}" class="btn btn-secondary mb-3">Add</a></td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>

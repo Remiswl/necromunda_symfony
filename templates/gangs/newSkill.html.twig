@@ -1,45 +1,21 @@
-{% extends 'base.html.twig' %}
+<table class="table table-bordered bg-white">
+	<thead class="bg-secondary text-white">
+		<tr>
+			<td class="col-1">Name</td>
+			<td class="col-1">Category</td>
+			<td class="col-9">Description</td>
+			<td class="col-1">Actions</td>
+		</tr>
+	</thead>
 
-{% block title %}Add a skill{% endblock %}
-
-{% block body %}
-
-	<section id="new_skill" class="mb-5">
-
-		{% set previousPage = path('edit_ganger', {'ganger_id' : ganger_id }) %}
-		{% include 'back.html.twig' %}
-
-		<div class="text-center text-white col-10 mx-auto">
-			<div class="text-right">
-
-			{% for message in app.flashes('success') %}
-				<div class="alert alert-success">
-					{{ message }}
-				</div>
-			{% endfor %}
-
-			<table class="table table-bordered bg-white">
-				<thead class="bg-secondary text-white">
-					<tr>
-						<td class="col-1">Name</td>
-						<td class="col-1">Category</td>
-						<td class="col-9">Description</td>
-						<td class="col-1">Actions</td>
-					</tr>
-				</thead>
-
-				<tbody>
-					{% for skill in skills %}
-						<tr>
-							<td>{{ skill.name }}</td>
-							<td>{{ skill.category }}</td>
-							<td class="text-left">{{ skill.description }}</td>
-							<td><a href="{{ path('insert_new_skill_in_db', {'ganger_id' : ganger_id, 'skill_id' : skill.id }) }}" class="btn btn-secondary mb-3">Add</a></td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-	</section>
-
-{% endblock %}
+	<tbody>
+		{% for skill in skills %}
+			<tr>
+				<td>{{ skill.name }}</td>
+				<td>{{ skill.category }}</td>
+				<td class="text-left">{{ skill.description }}</td>
+				<td><a href="{{ path('insert_new_skill_in_db', {'ganger_id' : ganger_id, 'skill_id' : skill.id }) }}" class="btn btn-secondary mb-3">Add</a></td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>

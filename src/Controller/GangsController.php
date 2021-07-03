@@ -301,7 +301,8 @@ class GangsController extends AbstractController
             $weapons = $this->weaponsRepository->findBy(array('category'=>array(1,2,3,4,6,7)));
         }
 
-        return $this->render('gangs/newWeapon.html.twig', [
+        return $this->render('gangs/new.html.twig', [
+            'topic' => 'Weapon',
             'weapons' => $weapons,
             'ganger_id' => $ganger_id,
         ]);
@@ -378,7 +379,8 @@ class GangsController extends AbstractController
     {
         $injuries = $this->injuriesRepository->findAll();
 
-        return $this->render('gangs/newInjury.html.twig', [
+        return $this->render('gangs/new.html.twig', [
+            'topic' => 'Injury',
             'injuries' => $injuries,
             'ganger_id' => $ganger_id,
         ]);
@@ -443,7 +445,8 @@ class GangsController extends AbstractController
     {
         $skills = $this->skillsRepository->findAll();
 
-        return $this->render('gangs/newSkill.html.twig', [
+        return $this->render('gangs/new.html.twig', [
+            'topic' => 'Skill',
             'skills' => $skills,
             'ganger_id' => $ganger_id,
         ]);

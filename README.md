@@ -19,9 +19,17 @@ http://necromunda.remischwall.fr/
 
 ### Work in progress
 * Responsive design
-	* Recruitment
 	* Manage my gang
-		* new page "new.html.twig"
+		* gangs
+		* my gang
+		* edit ganger
+		* edit image
+		* new ganger
+		* ~~new injury~~
+		* ~~new skill~~
+		* new territory
+		* ~~new weapon~~
+	* ~~Recruitment~~
 	* ~~Settings~~
 	* ~~Ressources~~
 	* ~~Houses~~

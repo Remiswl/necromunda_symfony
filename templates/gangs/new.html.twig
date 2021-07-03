@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add {{ topic }}{% endblock %}
+
+{% block body %}
+
+	<section id="new_injury" class="mb-5">
+
+		{% set previousPage = path('edit_ganger', {'ganger_id' : ganger_id }) %}
+		{% include 'back.html.twig' %}
+
+		<div class="text-center text-white col-10 mx-auto">
+
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{ message }}
+				</div>
+			{% endfor %}
+
+			{% include 'gangs/new' ~ topic ~ '.html.twig' %}
+		</div>
+	</section>
+
+{% endblock %}

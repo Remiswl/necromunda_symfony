@@ -1,0 +1,113 @@
+{# Head on small screens #}
+<div class="d-md-none">
+	<p>House: {{ gang_data.0.house | upper }}</p>
+	<p>Gang name: {{ gang_data.0.gangName | upper }}</p>
+	<p>
+		<span id="popup" data-url="{{ path('update_stash', {'gang_id' : gang_data.0.id }) }}">
+		Gang stash: {{ gang_data.0.credits }} credits
+		</span>
+	</p>
+	<p>Gang rating: {{ gang_rating }}</p>
+	<p>Cost: {{ total_cost }}</p>
+	<p>Exp.: {{ total_exp }}</p>
+</div>
+
+<table class="table table-responsive table-left d-table" id="gangers">
+	<thead class="bg-secondary text-white">
+		<tr>
+			<td colspan=2 class="align-middle">House: {{ gang_data.0.house | upper }}</td>
+			<td class="align-middle">Gang name: {{ gang_data.0.gangName | upper }}</td>
+			<td colspan=4>
+				<span id="popup" data-url="{{ path('update_stash', {'gang_id' : gang_data.0.id }) }}">
+					Gang stash: {{ gang_data.0.credits }} credits
+				</span>
+				<i class="fas fa-info-circle" title="click on the stash to edit its amount"></i>
+				<br>
+				Gang rating: {{ gang_rating }}
+				<br>
+				Cost: {{ total_cost }}
+				<br>
+				Exp.: {{ total_exp }}
+				<br>
+			</td>
+		</tr>
+		<tr>
+			<td>Image</td>
+			<td>Name</td>
+			<td>
+				Characteristics
+				<i class="fas fa-info-circle" title=" M => Move &#013 WS => Weapon skill &#013 BS => Ballistic skill &#013 S => Strength &#013 T => Toughness &#013 W => Wounds &#013 I => Initiative &#013 A => Attacks &#013 Ld => Leadership"></i>
+			</td>
+			<td>Weapons, skills & injuries</td>
+			<td>Cost</td>
+			<td>Exp.</td>
+			<td>Edit</td>
+		</tr>
+	</thead>
+
+	<tbody>
+		{% for ganger_data in gangers_data %}
+			<tr>
+				<td><img src="/{{ ganger_data.image }}" alt="{{ ganger_data.name }}"></td>
+				<td class="align-middle">{{ ganger_data.name | upper }}<br>{{ ganger_data.gangerType.name }}</td>
+				<td>
+
+					<table class="d-none d-md-block mx-auto" id="characteristics">
+						<tr>
+							<td>M</td>
+							<td>WS</td>
+							<td>BS</td>
+							<td>S</td>
+							<td>T</td>
+							<td>W</td>
+							<td>I</td>
+							<td>A</td>
+							<td>Ld</td>
+						</tr>
+						<tr>
+							<td>{{ ganger_data.move }}</td>
+							<td>{{ ganger_data.weaponSkill }}</td>
+							<td>{{ ganger_data.ballisticSkill }}</td>
+							<td>{{ ganger_data.strength }}</td>
+							<td>{{ ganger_data.toughness }}</td>
+							<td>{{ ganger_data.wounds }}</td>
+							<td>{{ ganger_data.initiative }}</td>
+							<td>{{ ganger_data.attacks }}</td>
+							<td>{{ ganger_data.leadership }}</td>
+						</tr>
+					</table>
+
+					<div class="d-block d-md-none">
+						M:{{ ganger_data.move }}
+						WS:{{ ganger_data.weaponSkill }}
+						BS:{{ ganger_data.ballisticSkill }}
+						S:{{ ganger_data.strength }}
+						T:{{ ganger_data.toughness }}
+						W:{{ ganger_data.wounds }}
+						I:{{ ganger_data.initiative }}
+						A:{{ ganger_data.attacks }}
+						Ld:{{ ganger_data.leadership }}
+					</div>
+
+				</td>
+				<td class="text-left">
+					{% for weapon in ganger_data.weapons %}
+						<p>{{ weapon.name }}</p>
+					{% endfor %}
+					{% for skill in ganger_data.skills %}
+						<p>{{ skill.name }} <i class="fas fa-info-circle" title="{{ skill.description }}"></i></p>
+					{% endfor %}
+				</td>
+				<td class="align-middle" data-label="Cost:">{{ ganger_data.cost }}</td>
+				<td class="align-middle" data-label="Exp:">{{ ganger_data.xp }}</td>
+				<td class="align-middle">
+					<a href="{{ path('edit_ganger', {ganger_id : ganger_data.id}) }}" class="btn btn-secondary mb-3">Edit</a>
+					<form method="post" action='{{ path('delete_ganger', {ganger_id : ganger_data.id}) }}' onsubmit="return confirm('Do you really want to fire your ganger?')">
+						<input type="hidden" name="_method" value="DELETE">
+						<button class="btn btn-danger">Delete</button>
+					</form>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>

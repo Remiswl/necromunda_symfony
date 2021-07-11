@@ -13,8 +13,8 @@
 
 			{% for gang in gangs %}
 
-					<div class="col-2 my-2 text-center">
-						<div class="card">
+					<div class="col-12 col-sm-6 col-md-4 col-xl-3 my-2 text-center">
+						<div class="card mx-auto">
 							<img class="card-img-top" src="{{ gang.image }}" alt="{{ gang.house }}">
 							<div class="card-body p-2">
 								<h5 class="card-title">{{ gang.pseudo | upper ~ '-' ~ gang.house }}</h5>

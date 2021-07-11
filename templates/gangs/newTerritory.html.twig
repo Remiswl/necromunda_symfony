@@ -17,7 +17,7 @@
 				</div>
 			{% endfor %}
 
-			<table class="table table-bordered bg-white">
+			<table class="table table-responsive">
 				<thead class="bg-secondary text-white">
 					<tr>
 						<td class="col-1">Name</td>
@@ -31,15 +31,15 @@
 				<tbody>
 					{% for territory in territories %}
 						<tr>
-							<td>{{ territory.name }}</td>
+							<td data-label="Name">{{ territory.name }}</td>
 							{% if territory.mind66 == territory.maxd66 %}
-								<td>{{ territory.mind66 }}</td>
+								<td data-label="D66 roll">{{ territory.mind66 }}</td>
 							{% else %}
-								<td>{{ territory.mind66 ~ ' - ' ~ territory.maxd66 }}</td>
+								<td data-label="D66 roll">{{ territory.mind66 ~ ' - ' ~ territory.maxd66 }}</td>
 							{% endif %}
-							<td>{{ territory.income }}</td>
-							<td class="text-left">{{ territory.description }}</td>
-							<td><a href="{{ path('insert_new_territory_in_db', {'gang_id' : gang_id, 'territory_id' : territory.id }) }}" class="btn btn-secondary mb-3">Add</a></td>
+							<td data-label="Income">{{ territory.income }}</td>
+							<td data-label="Description" class="text-left"><br class="d-md-none">{{ territory.description }}</td>
+							<td data-label="Actions"><a href="{{ path('insert_new_territory_in_db', {'gang_id' : gang_id, 'territory_id' : territory.id }) }}" class="btn btn-secondary mb-3">Add</a></td>
 						</tr>
 					{% endfor %}
 				</tbody>

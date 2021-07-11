@@ -4,7 +4,7 @@
 
 {% block body %}
 
-	<section id="new_injury" class="mb-5">
+	<section id="new_{{ topic | lower }}" class="mb-5">
 
 		{% set previousPage = path('edit_ganger', {'ganger_id' : ganger_id }) %}
 		{% include 'back.html.twig' %}
@@ -17,7 +17,9 @@
 				</div>
 			{% endfor %}
 
-			{% include 'gangs/new' ~ topic ~ '.html.twig' %}
+			<table class="table table-responsive">
+				{% include 'gangs/new' ~ topic ~ '.html.twig' %}
+			</table>
 		</div>
 	</section>
 

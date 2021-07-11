@@ -18,35 +18,18 @@ http://necromunda.remischwall.fr/
 ## Production
 
 ### Work in progress
-* Responsive design
-	* Manage my gang
-		* gangs
-		* my gang
-		* edit ganger
-		* edit image
-		* new ganger
-		* ~~new injury~~
-		* ~~new skill~~
-		* new territory
-		* ~~new weapon~~
-	* ~~Recruitment~~
-	* ~~Settings~~
-	* ~~Ressources~~
-	* ~~Houses~~
-	* ~~Home~~
-
-
-### TODO list
-* Install EasyAdmin
-* Create Error 404 pages
-* My gang -> add a button to generate Territories' revenus
 * Start a battle (/battle):
-	* a first page to choose the gangs that will fight (/battle1)
+	* ~~a first page to choose the gangs that will fight (/battle1)~~
 	* a second page with information about the gangers (/battle2)
 	* a third page at the end of the fight (/result) -> roll dices to :
 		* upgrade gangers ?
 		* ?
-	* create buttons to roll dices to choose the ground, roll dices for attacks, etc.
+	* ~~create buttons to roll dices to choose the ground, roll dices for attacks, etc.~~
+
+
+### TODO list
+* Install EasyAdmin
+* My gang -> add a button to generate Territories' revenus
 * Manage gangers
 	* @Route: add a slug with the ganger's name (Grafikart - Découverte de Doctrine 33')
 	* Manage Experience Advances (p.111)
@@ -62,7 +45,5 @@ http://necromunda.remischwall.fr/
 	* Allow the player to choose an image for his gang (gang's arms, gangers' faces, etc.)
 * Start a battle (/battle):
 	* manage the sell of equipment and weapons
-* Settings
-	* weapons -> add images?
 * Objects to roll dices (xD6, xD3, D66 (1st D6 dice as tens, a 2nd D6 dice as units)) for Serious Injuries, etc.
 * Add automated tests

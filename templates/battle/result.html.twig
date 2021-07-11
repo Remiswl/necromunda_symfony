@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Battle{% endblock %}
+
+{% block body %}
+
+	<section id="result" class="mb-5">
+
+		{% set previousPage = path('battle2') %}
+		{% include 'back.html.twig' %}
+
+		<div class="row d-flex flex-wrap justify-content-center mx-5">
+
+
+
+			<a href="{{ path('home') }}" class="btn btn-secondary my-2">Go back to the menu</a>
+
+
+		</div>
+
+	</section>
+
+{% endblock %}

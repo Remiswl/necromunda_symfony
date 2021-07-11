@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Battle{% endblock %}
+
+{% block body %}
+
+	<section id="battle2" class="mb-5">
+
+		{% set previousPage = path('battle1') %}
+		{% include 'back.html.twig' %}
+
+		<div class="row col-10 mx-auto d-flex flex-column-reverse flex-lg-row">
+			<div class="text-center text-white col-12 col-lg-10 mx-0">
+				<p>test</p>
+			</div>
+
+			<div class="text-center text-white col-12 col-lg-2 mx-0 p-4 border border-white">
+				<p>I want to roll <select name="num" class="js-dice-number"></select>D6</p>
+				<button class="btn btn-secondary js-dice-roll">Roll dices</button>
+				<div class="js-dice-result"></div>
+			</div>
+		</div>
+
+		<div class="text-center text-white col-10 mx-auto">
+			<a href="{{ path('result') }}" class="btn btn-secondary my-2">End the battle</a>
+		</div>
+
+	</section>
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script type="module" src="{{ asset('js/dice.js') }}"></script>
+{% endblock %}

@@ -513,7 +513,7 @@ class GangsController extends AbstractController
         $houseId = $this->gangsRepository->find($gang_id);
         $houseId = $houseId->getHouse()->getId();
 
-        // Display all the House's images
+        // Display the House's images
         $gangersImg = $gangersImgRepository->findBy(array('houseId' => $houseId));
 
         if(!$houseId) {
@@ -691,11 +691,9 @@ class GangsController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        //$gangerType = $gangersTypesRepository->find($ganger_id);
-        $gangerType = $gangerData->getGangerType()->__toString();
-
         $gangId = $gangerData->getGang()->getId();
-
+        $gangerType = $gangerData->getGangerType()->__toString();
+        $oldGangerType = $gangerType;
         $gangerWeapons = $this->weaponsRepository->displayGangerWeapons($ganger_id);
         $gangerInjuries = $this->injuriesRepository->displayGangerInjuries($ganger_id);
         $gangerSkills = $this->skillsRepository->displayGangerSkills($ganger_id);
@@ -705,6 +703,7 @@ class GangsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $gangerType = $gangerData->getGangerType();
+            $newGangerType = $gangerType->getName();
             $gangData = $this->gangsRepository->find(intval($gangId));
 
             // Check if the gang already has a leader (only one allowed)
@@ -713,7 +712,7 @@ class GangsController extends AbstractController
                 'gang' => $gangId
             ));
 
-            if(($gangerType->getId() == 1) && (sizeof($isSoleLeader) != 0)) {
+            if(($oldGangerType !== $newGangerType) && ($gangerType->getId() == 1) && (sizeof($isSoleLeader) != 0)) {
                 $this->addFlash('error', 'Error: there can be only one leader in your gang!');
 
                 return $this->render('gangs/edit.html.twig', [

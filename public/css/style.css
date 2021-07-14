@@ -13,7 +13,10 @@ footer {
 
 #banner {
 	width: 90vw;
+}
 
+.fa-user-cog {
+	right: 5vw;
 }
 
 /* Ressources */

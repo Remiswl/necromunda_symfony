@@ -9,6 +9,8 @@
 		{% set previousPage = path('home') %}
 		{% include 'back.html.twig' %}
 
+		{# {% set selectedGangs = [] %} #}
+
 		<div class="row d-flex flex-wrap justify-content-center mx-5">
 			{% for gang in gangs %}
 				<div class="col-12 col-sm-6 col-md-4 col-xl-3 my-2 text-center">
@@ -18,7 +20,9 @@
 							<h5 class="card-title">{{ gang.pseudo | upper ~ '-' ~ gang.house }}</h5>
 							<p class="card-text mb-1">{{ gang.gangName }}</p>
 							<button class="btn btn-primary js-choose-gang" data-gangId = "{{ gang.id }}">Choose this gang</button>
-							<p class="mt-2 mb-0">Created {{ gang.createdAt | ago }} </p>
+							{# {% if %} #}
+								{# {% set selectedGangs = selectedGangs | merge([gang]) %} #}
+							{# {% endif %} #}
 						</div>
 					</div>
 				</div>
@@ -26,7 +30,8 @@
 		</div>
 
 		<div class="text-center text-white col-10 mx-auto">
-			<a href="{{ path('battle2')}}" class="btn btn-secondary my-2 js-start">Start the battle</a>
+			{# <a href="#" data-url="{{ path('battle2', {'selectedGangs' : selectedGangs }) }}" class="btn btn-secondary my-2 d-none js-start">Start the battle</a> #}
+			<a href="#" data-url="{{ path('battle2') }}" class="btn btn-secondary my-2 d-none js-start">Start the battle</a>
 		</div>
 	</section>
 

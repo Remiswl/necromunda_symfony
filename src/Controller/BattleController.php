@@ -36,13 +36,11 @@ class BattleController extends AbstractController
      */
     public function battle2(Request $request): Response
     {
-        dd($request->request->get('gangs'));
+        dump($request->request->get('gangs'));
+        dump($request->request);
+        dd($request);
 
-        $gangsNames = $this->gangsRepository->findAll();
-
-        return $this->render('battle/battle2.html.twig', [
-            'gangs' => $gangsNames,
-        ]);
+        return $this->render('battle/battle2.html.twig');
     }
 
     /**
@@ -50,10 +48,6 @@ class BattleController extends AbstractController
      */
     public function result(): Response
     {
-        $gangsNames = $this->gangsRepository->findAll();
-
-        return $this->render('battle/result.html.twig', [
-            'gangs' => $gangsNames,
-        ]);
+        return $this->render('battle/result.html.twig');
     }
 }

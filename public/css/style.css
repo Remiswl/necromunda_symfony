@@ -22,12 +22,12 @@ footer {
 }
 
 /* Gangs */
-#users .card {
+#users .card, #battle1 .card {
 	height:385px;
 	max-width: 280px;
 }
 
-#users img {
+#users img, #battle1 img {
 	height:50%;
 }
 
@@ -74,6 +74,11 @@ footer {
 
 .selectedImg {
   border: solid 5px red;
+}
+
+/* Battle */
+#battle1 img {
+	height:65%;
 }
 
 /* Houses */

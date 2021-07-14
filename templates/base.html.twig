@@ -18,6 +18,9 @@
         <header>
             <div class="text-center my-3">
                 <a href="{{ path('home') }}"><img src="{{ asset('img/banner.png')}}" alt="banner" id="banner" class="img-fluid"></a>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <a href="#"><i class="fas fa-user-cog text-white position-absolute"></i></a>
+                {% endif %}
             </div>
         </header>
 
@@ -27,7 +30,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <p class="mb-0">V1 - All resources belong to Games Workshop</p>
+                        <p class="mb-0">V1</p>
                     </div>
                 </div>
             </div>

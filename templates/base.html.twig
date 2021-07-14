@@ -19,7 +19,7 @@
             <div class="text-center my-3">
                 <a href="{{ path('home') }}"><img src="{{ asset('img/banner.png')}}" alt="banner" id="banner" class="img-fluid"></a>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <a href="#"><i class="fas fa-user-cog text-white position-absolute"></i></a>
+                    <a href="{{ path('admin') }}"><i class="fas fa-user-cog text-white position-absolute"></i></a>
                 {% endif %}
             </div>
         </header>

@@ -26,16 +26,16 @@ http://necromunda.remischwall.fr/
 		* ?
 	* ~~create buttons to roll dices to choose the ground, roll dices for attacks, etc.~~
 
+* cannot edit gang's stash
+* Install EasyAdmin
 
 ### TODO list
-* Install EasyAdmin
 * My gang -> add a button to generate Territories' revenus
 * Manage gangers
 	* @Route: add a slug with the ganger's name (Grafikart - Découverte de Doctrine 33')
 	* Manage Experience Advances (p.111)
 	* ManageAdvance rolls (p.112)
 	* when change profile picture, redirect to ganger's page
-* Change admin password
 
 ### Next steps:
 

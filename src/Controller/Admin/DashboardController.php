@@ -5,10 +5,13 @@ namespace App\Controller\Admin;
 use App\Entity\Weapons;
 use App\Entity\Skills;
 use App\Entity\Injuries;
+use App\Entity\Gangs;
+use App\Entity\Gangers;
 use App\Entity\Houses;
 use App\Entity\Territories;
 use App\Entity\WeaponsCategories;
 use App\Entity\SkillsCategories;
+use App\Controller\GangsController;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -25,10 +28,10 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        return parent::index();
+        // return parent::index();
 
-        // $routeBuilder = $this->get(AdminUrlGenerator::class);
-        //return $this->redirect($routeBuilder->setController(WeaponsCrudController::class)->generateUrl());
+        $routeBuilder = $this->get(AdminUrlGenerator::class);
+        return $this->redirect($routeBuilder->setController(GangsCrudController::class)->generateUrl());
     }
 
     public function configureDashboard(): Dashboard
@@ -48,6 +51,10 @@ class DashboardController extends AbstractDashboardController
             MenuItem::section('Houses'),
             MenuItem::linkToCrud('Houses', 'fa fa-tags', Houses::class),
 
+            MenuItem::section('Gangs'),
+            MenuItem::linkToCrud('Gangs', 'fa fa-tags', Gangs::class),
+            MenuItem::linkToCrud('Gangers', 'fa fa-tags', Gangers::class),
+
             MenuItem::section('Weapons'),
             MenuItem::linkToCrud('Weapons', 'fa fa-tags', Weapons::class),
             MenuItem::linkToCrud('Categories', 'fa fa-tags', WeaponsCategories::class),
@@ -57,10 +64,13 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Categories', 'fa fa-tags', SkillsCategories::class),
 
             MenuItem::section('Injuries'),
-            MenuItem::linkToCrud('Injuries', 'fa fa-tags', Injuries::class),
+            MenuItem::linkToCrud('Injuries', 'fas fa-crutch', Injuries::class),
 
             MenuItem::section('Territories'),
             MenuItem::linkToCrud('Territories', 'fa fa-tags', Territories::class),
+
+            MenuItem::section('Impersonation'),
+            MenuItem::linkToExitImpersonation('Stop impersonation', 'fa fa-exit'),
         ];
     }
 }

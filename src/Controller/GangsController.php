@@ -195,7 +195,6 @@ class GangsController extends AbstractController
 
     /**
      * @Route("/gangs/{gang_id}/new_territory", name="new_gang_territory")
-     *
      */
      public function addTerritory($gang_id): Response
     {
@@ -237,7 +236,6 @@ class GangsController extends AbstractController
         } else {
             $count->setCount($count->getCount() + 1);
         }
-
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($myGang);
@@ -284,7 +282,6 @@ class GangsController extends AbstractController
 
     /**
      * @Route("/gangers/{ganger_id}/new_weapon", name="new_ganger_weapon")
-     *
      */
      public function addWeapon($ganger_id): Response
     {
@@ -532,13 +529,13 @@ class GangsController extends AbstractController
             $gangId = $gangData->getId();
             $gangId = $this->gangsRepository->find($gangId);
 
-            // Check if the gang already has a leader (only one allowed)
-            $isSoleLeader = $this->myGangersRepository->findBy(array(
+            $gangersTypes = $this->myGangersRepository->findBy(array(
                 'gangerType' => $gangerTypeId->getId(),
                 'gang' => $gangId
             ));
 
-            if(($gangerTypeId->getId() == 1) && (sizeof($isSoleLeader) != 0)) {
+            // Check if the gang already has a leader (only one allowed)
+            if(($gangerTypeId->getId() == 1) && (sizeof($gangersTypes) != 0)) {
                 // throw $this->createNotFoundException('Error: there can be only one leader in your gang!');
                 $this->addFlash('error', 'Error: there can be only one leader in your gang!');
 
@@ -552,12 +549,7 @@ class GangsController extends AbstractController
 
 
             // Check if the gang already has less than 2 heavies
-            $maxTwoHeavies = $this->myGangersRepository->findBy(array(
-                'gangerType' => $gangerTypeId->getId(),
-                'gang' => $gangId
-            ));
-
-            if(($gangerTypeId->getId() == 2) && (sizeof($maxTwoHeavies) >= 2)) {
+            if(($gangerTypeId->getId() == 2) && (sizeof($gangersTypes) >= 2)) {
                 $this->addFlash('error', 'Error: there can be a maximum of two Heavies in your gang!');
 
                 return $this->render('gangs/newGanger.html.twig', [
@@ -569,15 +561,10 @@ class GangsController extends AbstractController
             }
 
             // Check if the gang already has less than the half of his gang composed of juves
-            $numberOfJuves = $this->myGangersRepository->findBy(array(
-                'gangerType' => $gangerTypeId->getId(),
-                'gang' => $gangId
-            ));
-            $numberOfJuves = sizeof($numberOfJuves);
-
+            $gangersTypes = sizeof($gangersTypes);
             $gangSize =sizeof($gangData->getMyGangers());
 
-            if(($gangerTypeId->getId() == 4) && ($numberOfJuves >= ($gangSize/2))) {
+            if(($gangerTypeId->getId() == 4) && ($gangersTypes >= ($gangSize/2))) {
                 $this->addFlash('error', 'Error: you have too many Juves in your gang!');
 
                 return $this->render('gangs/newGanger.html.twig', [
@@ -706,13 +693,13 @@ class GangsController extends AbstractController
             $newGangerType = $gangerType->getName();
             $gangData = $this->gangsRepository->find(intval($gangId));
 
-            // Check if the gang already has a leader (only one allowed)
-            $isSoleLeader = $this->myGangersRepository->findBy(array(
+            $gangersTypes = $this->myGangersRepository->findBy(array(
                 'gangerType' => $gangerType->getId(),
                 'gang' => $gangId
             ));
 
-            if(($oldGangerType !== $newGangerType) && ($gangerType->getId() == 1) && (sizeof($isSoleLeader) != 0)) {
+            // Check if the gang already has a leader (only one allowed)
+            if(($oldGangerType !== $newGangerType) && ($gangerType->getId() == 1) && (sizeof($gangersTypes) != 0)) {
                 $this->addFlash('error', 'Error: there can be only one leader in your gang!');
 
                 return $this->render('gangs/edit.html.twig', [
@@ -727,12 +714,7 @@ class GangsController extends AbstractController
             }
 
             // Check if the gang already has less than 2 heavies
-            $maxTwoHeavies = $this->myGangersRepository->findBy(array(
-                'gangerType' => $gangerType->getId(),
-                'gang' => $gangId
-            ));
-
-            if(($gangerType->getId() == 2) && (sizeof($maxTwoHeavies) >= 2)) {
+            if(($gangerType->getId() == 2) && (sizeof($gangersTypes) >= 2)) {
                 $this->addFlash('error', 'Error: there can be a maximum of two Heavies in your gang!');
 
                 return $this->render('gangs/edit.html.twig', [
@@ -747,15 +729,10 @@ class GangsController extends AbstractController
             }
 
             // Check if the gang already has less than the half of his gang composed of juves
-            $numberOfJuves = $this->myGangersRepository->findBy(array(
-                'gangerType' => $gangerType->getId(),
-                'gang' => $gangId
-            ));
-            $numberOfJuves = sizeof($numberOfJuves);
-
+            $gangersTypes = sizeof($gangersTypes);
             $gangSize =sizeof($gangData->getMyGangers());
 
-            if(($gangerType->getId() == 4) && ($numberOfJuves >= ($gangSize/2))) {
+            if(($gangerType->getId() == 4) && ($gangersTypes >= ($gangSize/2))) {
                 $this->addFlash('error', 'Error: you have too many Juves in your gang!');
 
                 return $this->render('gangs/edit.html.twig', [

@@ -27,7 +27,11 @@ http://necromunda.remischwall.fr/
 	* ~~create buttons to roll dices to choose the ground, roll dices for attacks, etc.~~
 
 * cannot edit gang's stash
-* Install EasyAdmin
+* EasyAdmin
+	* link to go back to the website
+	* inpersonation
+	* date format
+* droits -> Duclos = admin; autres: player
 
 ### TODO list
 * My gang -> add a button to generate Territories' revenus

@@ -3,7 +3,7 @@
 	<p>House: {{ gang_data.0.house | upper }}</p>
 	<p>Gang name: {{ gang_data.0.gangName | upper }}</p>
 	<p>
-		<span id="popup" data-url="{{ path('update_stash', {'gang_id' : gang_data.0.id }) }}">
+		<span class="popup" data-url="{{ path('update_stash', {'gang_id' : gang_data.0.id }) }}">
 		Gang stash: {{ gang_data.0.credits }} credits
 		</span>
 	</p>
@@ -18,7 +18,7 @@
 			<td colspan=2 class="align-middle">House: {{ gang_data.0.house | upper }}</td>
 			<td class="align-middle">Gang name: {{ gang_data.0.gangName | upper }}</td>
 			<td colspan=4>
-				<span id="popup" data-url="{{ path('update_stash', {'gang_id' : gang_data.0.id }) }}">
+				<span class="popup" data-url="{{ path('update_stash', {'gang_id' : gang_data.0.id }) }}">
 					Gang stash: {{ gang_data.0.credits }} credits
 				</span>
 				<i class="fas fa-info-circle" title="click on the stash to edit its amount"></i>

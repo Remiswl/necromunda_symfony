@@ -18,10 +18,12 @@ $('.js-choose-gang').click(function() {
 // Start the battle
 $('.js-start').click((e) => {
     e.preventDefault;
-
     $.ajax({
         url: $('.js-start').attr('data-url'),
         type: 'POST',
         data: { gangs : $('.btn-success') },
+        success: function(url) {
+            window.location.href = url;
+        }
     });
 });

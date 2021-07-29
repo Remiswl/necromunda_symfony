@@ -36,6 +36,7 @@ class BattleController extends AbstractController
      */
     public function battle2(Request $request): Response
     {
+        dd('youpi');
         dump($request->request->get('gangs'));
         dump($request->request);
         dd($request);
